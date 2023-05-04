@@ -15,7 +15,6 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void create () {
 		shape = new ShapeRenderer();
-		hero = new Hero(150,200, 5,5,100);
 
 
 	}

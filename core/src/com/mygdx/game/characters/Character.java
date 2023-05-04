@@ -6,12 +6,14 @@ public class Character {
     int x;
     int y;
     int life;
-    int level;
+    int degat;
 
-    public Character(int x, int y, int xspeed, int yspeed, int life){
+    public Character(int x, int y, int xspeed, int yspeed, int life, int degat){
         this.x = x;
         this.y = y;
         this.xspeed = xspeed;
         this.yspeed = yspeed;
         this.life = life;
+        this.degat = degat;
+    }
 }

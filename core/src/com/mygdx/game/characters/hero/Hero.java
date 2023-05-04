@@ -1,6 +1,8 @@
 package com.mygdx.game.characters.hero;
 
-public class Hero {
+import com.mygdx.game.characters.Character;
+
+public class Hero extends Character {
     int xspeed;
     int yspeed;
     int x;
@@ -8,12 +10,8 @@ public class Hero {
     int life;
     int level;
 
-    public Hero(int x, int y, int xspeed, int yspeed, int life){
-        this.x = x;
-        this.y = y;
-        this.xspeed = xspeed;
-        this.yspeed = yspeed;
-        this.life = life;
+    public Hero(int x, int y, int xspeed, int yspeed, int life, int degat){
+       super(x,y,xspeed,yspeed, life, degat);
         this.level = 0;
     }
 
