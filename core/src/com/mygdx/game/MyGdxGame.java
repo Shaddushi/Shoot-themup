@@ -2,30 +2,43 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mygdx.game.characters.hero.Hero;
 
 public class MyGdxGame extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
+
+	ShapeRenderer shape;
+	Hero hero;
 	
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		shape = new ShapeRenderer();
+		hero = new Hero(150,200, 5,5,100);
+
+
 	}
+
+	public static Texture backgroundTexture;
+	public static Sprite backgroundSprite;
+	private SpriteBatch spriteBatch;
+
+	private void loadTextures() {
+		backgroundTexture = new Texture("images/starBackground.png");
+		backgroundSprite =new Sprite(backgroundTexture);
+	}
+
+	public void renderBackground() {
+		backgroundSprite.draw(spriteBatch);}
 
 	@Override
 	public void render () {
-		ScreenUtils.clear(1, 0, 0, 1);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+		spriteBatch.begin();
+		renderBackground();
+		spriteBatch.end();
+
 	}
 	
-	@Override
-	public void dispose () {
-		batch.dispose();
-		img.dispose();
-	}
+
 }
