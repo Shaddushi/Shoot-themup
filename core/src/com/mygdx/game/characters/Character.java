@@ -72,12 +72,8 @@ public abstract class Character {
 
     public void droite(){
 
-        if(this.x + this.speed > Gdx.graphics.getWidth() - 99){
+        if(this.x + this.speed > Gdx.graphics.getWidth() - 99) {
             this.x = Gdx.graphics.getWidth() - 99;
-
-        if(this.x + this.speed > Gdx.graphics.getWidth()){
-            Gdx.graphics.getWidth();
-
         }
         else {
             this.x = this.x + this.speed;
@@ -107,10 +103,6 @@ public abstract class Character {
         }
 
     }
-
-
-
-}
 
 
 
