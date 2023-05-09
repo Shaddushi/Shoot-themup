@@ -9,7 +9,7 @@ public class Monster extends Character {
     int life;
 
     public Monster(int x, int y, int speed, int life, int degat){
-        super(x, y, speed, life, degat);
+        super(x, y, speed, life);
     }
 
     public void deplacement(){

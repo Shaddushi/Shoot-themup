@@ -12,16 +12,20 @@ public class MyGdxGame extends ApplicationAdapter {
 	Hero hero;
 	@Override
 	public void create () {
+		hero = new Hero(50,50,20,10);
 		shape = new ShapeRenderer();
-		hero = new Hero(50,50,20,10,10);
+
 	}
 
 	@Override
 	public void render() {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		hero.x += 5;
+		if (hero.x < Gdx.graphics.getWidth()){
+			System.out.println(hero.speed);
+			hero.x =hero.x + hero.speed;
+		}
 		shape.begin(ShapeRenderer.ShapeType.Filled);
-		shape.circle(hero.x, hero.y, 50);
+		shape.circle(hero.x, hero.y, 30);
 		shape.end();
 	}
 

@@ -1,14 +1,14 @@
 package com.mygdx.game.characters;
 
 public abstract class Character {
-    int speed;
-    int x;
-    int y;
-    int life;
+    public int speed;
+    public int x;
+    public int y;
+    public int life;
 
-    int level;
+    public int level;
 
-    public Character(int x, int y, int speed, int life, int degat){
+    public Character(int x, int y, int speed, int life){
         this.x = x;
         this.y = y;
         this.speed = speed;
