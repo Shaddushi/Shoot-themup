@@ -5,11 +5,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.GL20;
 import com.mygdx.game.characters.hero.Hero;
 import com.mygdx.game.characters.monster.Monster;
 
@@ -23,6 +21,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	public SpriteBatch batch;
 
 	public Monster[] m = new Monster[4];
+
 	@Override
 	public void create () {
 		monsterimg = new Texture("player.png");
@@ -51,6 +50,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
 			hero.bas();
 		}
+
 		batch.begin();
 		hero.draw(batch);
 		for(int i = 0;i<4;i++){
@@ -59,5 +59,4 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch.end();
 
 	}
-
 }

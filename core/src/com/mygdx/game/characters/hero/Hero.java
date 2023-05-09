@@ -18,12 +18,4 @@ public class Hero extends Character {
     public Hero(int x, int y, int speed, int life, int degat, Texture texture){
         super(x,y,speed, life, degat, texture);
     }
-
-
-
-
-
-
-
-
 }
