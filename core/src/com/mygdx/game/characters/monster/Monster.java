@@ -8,11 +8,15 @@ import com.mygdx.game.weapon.Bullet;
 
 public class Monster extends Character {
 
-    public Monster(int x, int y, int speed, int life,Texture texture){
+    public int xp;
+    public Monster(int x, int y, int speed, int life,Texture texture, int xp){
         super(x, y, speed, life,texture);
+        this.xp = xp;
     }
 
+    public int getXp() {return xp;}
 
+    public void setXp(int xp) {this.xp = xp;}
 }
 
 
