@@ -8,7 +8,7 @@ import com.mygdx.game.weapon.Bullet;
 
 public class Monster extends Character {
 
-    public Monster(int x, int y, int speed, int life, int degat, Texture texture, Bullet bullet){
+    public Monster(int x, int y, int speed, int life, Texture texture, Bullet bullet){
         super(x, y, speed, life,texture, bullet);
     }
 
