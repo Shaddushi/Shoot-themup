@@ -8,6 +8,7 @@ import com.mygdx.game.weapon.Bullet;
 
 public class Hero extends Character {
 
+
     int level;
 
     public Hero(int x, int y, int speed, int life, Texture texture) {
@@ -21,7 +22,3 @@ public class Hero extends Character {
 
 
 }
-
-
-
-

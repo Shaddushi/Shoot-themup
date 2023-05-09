@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.characters.hero.Hero;
 import com.mygdx.game.characters.monster.Monster;
+import com.mygdx.game.weapon.Bullet;
 
 public class MyGdxGame extends ApplicationAdapter {
 
@@ -18,20 +19,24 @@ public class MyGdxGame extends ApplicationAdapter {
 	public Texture heroimg;
 
 	public Texture monsterimg;
+
+	protected Texture background;
 	public SpriteBatch batch;
 
 	public Monster[] m = new Monster[4];
 
 	@Override
 	public void create () {
-		monsterimg = new Texture("player.png");
+		Bullet bullet = new Bullet(4,4,4,4,4);
+		monsterimg = new Texture("dreadnaught.png");
 		for(int i =0;i<4;i++){
 
-			m[i] = new Monster(40*i,40,20,10,10,monsterimg);
+			m[i] = new Monster(40*i,40,20,10,monsterimg,bullet );
 		}
 		batch = new SpriteBatch();
 		heroimg = new Texture("player.png");
-		hero = new Hero(250, 250, 20, 100, 15, heroimg);
+		background = new Texture(Gdx.files.internal("starry-night-shy.jpg"));
+		hero = new Hero(250, 250, 20, 100, heroimg,bullet);
 	}
 
 
@@ -52,6 +57,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		}
 
 		batch.begin();
+		batch.draw(background,0,0);
 		hero.draw(batch);
 		for(int i = 0;i<4;i++){
 			m[i].draw(batch);
