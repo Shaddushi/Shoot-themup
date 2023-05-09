@@ -1,35 +1,28 @@
 package com.mygdx.game.characters;
 
-<<<<<<< HEAD
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-=======
-public abstract class Character {
-    int speed;
-    int x;
-    int y;
-    int life;
+import com.mygdx.game.weapon.Bullet;
 
-    int level;
->>>>>>> 16bffcf92a7752ef5687778771a0c808d311c567
 
 public abstract class Character {
     private int speed;
     private int x;
     private int y;
     private int life;
-    private int degat;
     private Texture texture;
+    private Bullet bullet;
 
-    public Character(int x, int y, int speed, int life, int degat, Texture texture){
+    public Character(int x, int y, int speed, int life,Texture texture, Bullet bullet){
         this.x = x;
         this.y = y;
         this.speed = speed;
         this.life = life;
-<<<<<<< HEAD
-        this.degat = degat;
         this.texture = texture;
+        this.bullet = bullet;
     }
 
     public int getSpeed() {return speed;}
@@ -56,40 +49,60 @@ public abstract class Character {
         this.texture = texture;
     }
 
-    public int getDegat() {return degat;}
+    public Bullet getBullet() {return bullet;}
 
-    public void setDegat(int degat) {this.degat = degat;}
-
-    abstract protected void deplacement(int newx, int newy);
+    public void setBullet(Bullet bullet) {this.bullet = bullet;}
 
     public void draw(SpriteBatch batch){
         batch.draw(getTexture(), getX(),getY());
     }
-=======
 
-    }
+
+
 
     public void gauche(){
-        this.x = this.x - this.speed;
+        if(this.x - this.speed < 0){
+            this.x = 0;}
+        else {
+            this.x = this.x - this.speed;
+        }
     }
 
 
     public void droite(){
-        this.x = this.x + this.speed;
+        if(this.x + this.speed > Gdx.graphics.getWidth() - 99){
+            this.x = Gdx.graphics.getWidth() - 99;
+        }
+        else {
+            this.x = this.x + this.speed;
+        }
+
     }
 
 
 
     public void haut(){
-        this.y = this.y + this.speed;
+        if (this.y + this.speed > Gdx.graphics.getHeight() - 75){
+            this.y = Gdx.graphics.getHeight() - 75;
+        }
+        else{
+            this.y = this.y + this.speed;
+        }
+
     }
 
 
     public void bas(){
-        this.y = this.y - this.speed;
+        if(this.y - this.speed < 0){
+            this.y = 0;
+        }
+        else{
+            this.y = this.y - this.speed;
+        }
+
     }
 
->>>>>>> 16bffcf92a7752ef5687778771a0c808d311c567
+
 
 }
 

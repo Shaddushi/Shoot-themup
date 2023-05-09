@@ -1,6 +1,6 @@
 package com.mygdx.game.weapon;
 
-public class bullet {
+public class Bullet {
 
 
     int x;
@@ -11,7 +11,7 @@ public class bullet {
     int yspeed;
     int xspeed;
 
-    public bullet(int degat,int xspeed,int yspeed,int y,int x){
+    public Bullet(int degat,int xspeed,int yspeed,int y,int x){
         this.degat = degat;
         this.xspeed = xspeed;
         this.yspeed = yspeed;
