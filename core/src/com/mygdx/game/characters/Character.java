@@ -8,13 +8,13 @@ public class Character {
     int life;
 
     int level;
-
     public Character(int x, int y, int xspeed, int yspeed, int life) {
         this.x = x;
         this.y = y;
         this.xspeed = xspeed;
         this.yspeed = yspeed;
         this.life = life;
+
     }
 
     public void gauche(){
@@ -41,3 +41,5 @@ public class Character {
 
 
 }
+
+
