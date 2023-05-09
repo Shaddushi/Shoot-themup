@@ -1,8 +1,18 @@
 package com.mygdx.game.characters;
 
+<<<<<<< HEAD
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+=======
+public abstract class Character {
+    int speed;
+    int x;
+    int y;
+    int life;
+
+    int level;
+>>>>>>> 16bffcf92a7752ef5687778771a0c808d311c567
 
 public abstract class Character {
     private int speed;
@@ -17,6 +27,7 @@ public abstract class Character {
         this.y = y;
         this.speed = speed;
         this.life = life;
+<<<<<<< HEAD
         this.degat = degat;
         this.texture = texture;
     }
@@ -54,5 +65,32 @@ public abstract class Character {
     public void draw(SpriteBatch batch){
         batch.draw(getTexture(), getX(),getY());
     }
+=======
+
+    }
+
+    public void gauche(){
+        this.x = this.x - this.speed;
+    }
+
+
+    public void droite(){
+        this.x = this.x + this.speed;
+    }
+
+
+
+    public void haut(){
+        this.y = this.y + this.speed;
+    }
+
+
+    public void bas(){
+        this.y = this.y - this.speed;
+    }
+
+>>>>>>> 16bffcf92a7752ef5687778771a0c808d311c567
 
 }
+
+
