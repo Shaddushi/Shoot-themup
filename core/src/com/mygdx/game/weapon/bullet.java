@@ -31,8 +31,4 @@ public class bullet {
         this.y = this.y - this.yspeed;
     }
 
-
-
-
-
 }

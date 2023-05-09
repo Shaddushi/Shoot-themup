@@ -90,7 +90,4 @@ public abstract class Character {
     public void bas(){
         this.y = this.y - this.speed;
     }
-
-
-
 }

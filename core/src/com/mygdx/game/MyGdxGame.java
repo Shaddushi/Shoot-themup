@@ -40,5 +40,4 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch.end();
 
 	}
-
 }
