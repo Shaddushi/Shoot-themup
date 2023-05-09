@@ -15,15 +15,14 @@ public abstract class Character {
     private int y;
     private int life;
     private Texture texture;
-    private Bullet bullet;
 
-    public Character(int x, int y, int speed, int life,Texture texture, Bullet bullet){
+
+    public Character(int x, int y, int speed, int life,Texture texture){
         this.x = x;
         this.y = y;
         this.speed = speed;
         this.life = life;
         this.texture = texture;
-        this.bullet = bullet;
     }
 
     public int getSpeed() {return speed;}
@@ -50,7 +49,7 @@ public abstract class Character {
         this.texture = texture;
     }
 
-    public Bullet getBullet() {return bullet;}
+    
 
 
 

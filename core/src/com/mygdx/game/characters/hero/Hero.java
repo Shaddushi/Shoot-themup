@@ -8,33 +8,20 @@ import com.mygdx.game.weapon.Bullet;
 
 public class Hero extends Character {
 
-    public int speed;
-    public int x;
-    public int y;
-    public int life;
     int level;
-<<<<<<< HEAD
 
+    public Hero(int x, int y, int speed, int life, Texture texture) {
+        super(x, y, speed, life, texture);
+    }
 
+    public void tirer(){
+        Bullet bullet = new Bullet(5,12,12, this.getY()+ 75, this.getY() + 47);
 
-    public Hero(int x, int y, int speed, int life,Texture texture, Bullet bullet){
-       super(x,y,speed, life, texture, bullet);
     }
 
 
-
-
-
-
-
-
 }
-=======
 
 
 
-    public Hero(int x, int y, int speed, int life, int degat, Texture texture){
-        super(x,y,speed, life, degat, texture);
-    }
-}
->>>>>>> e61774f1be7b6acbda42a181bcdbd0eb330e13db
+
