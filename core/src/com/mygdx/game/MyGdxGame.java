@@ -5,11 +5,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.GL20;
 import com.mygdx.game.characters.hero.Hero;
 
 public class MyGdxGame extends ApplicationAdapter {
@@ -18,7 +16,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	public Hero hero;
 	public Texture heroimg;
 	public SpriteBatch batch;
-	
+
 	@Override
 	public void create () {
 
@@ -42,5 +40,4 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch.end();
 
 	}
-
 }

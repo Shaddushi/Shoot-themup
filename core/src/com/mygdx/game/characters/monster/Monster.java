@@ -11,9 +11,13 @@ public class Monster extends Character {
     public Monster(int x, int y, int speed, int life, int degat, Texture texture, Bullet bullet){
         super(x, y, speed, life,texture, bullet);
     }
+<<<<<<< HEAD
 
 
 
 
 
 }
+=======
+}
+>>>>>>> e61774f1be7b6acbda42a181bcdbd0eb330e13db

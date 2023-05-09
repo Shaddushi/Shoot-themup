@@ -13,6 +13,7 @@ public class Hero extends Character {
     public int y;
     public int life;
     int level;
+<<<<<<< HEAD
 
 
 
@@ -28,3 +29,12 @@ public class Hero extends Character {
 
 
 }
+=======
+
+
+
+    public Hero(int x, int y, int speed, int life, int degat, Texture texture){
+        super(x,y,speed, life, degat, texture);
+    }
+}
+>>>>>>> e61774f1be7b6acbda42a181bcdbd0eb330e13db

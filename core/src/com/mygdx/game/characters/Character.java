@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
 import com.mygdx.game.weapon.Bullet;
 
 
@@ -51,7 +52,7 @@ public abstract class Character {
 
     public Bullet getBullet() {return bullet;}
 
-    public void setBullet(Bullet bullet) {this.bullet = bullet;}
+
 
     public void draw(SpriteBatch batch){
         batch.draw(getTexture(), getX(),getY());
@@ -70,8 +71,13 @@ public abstract class Character {
 
 
     public void droite(){
+
         if(this.x + this.speed > Gdx.graphics.getWidth() - 99){
             this.x = Gdx.graphics.getWidth() - 99;
+
+        if(this.x + this.speed > Gdx.graphics.getWidth()){
+            Gdx.graphics.getWidth();
+
         }
         else {
             this.x = this.x + this.speed;
@@ -106,4 +112,7 @@ public abstract class Character {
 
 }
 
+
+
+}
 
