@@ -11,7 +11,15 @@ public class Bullet {
     int yspeed;
     int xspeed;
 
-    public Bullet(int degat,int xspeed,int yspeed,int y,int x){
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public Bullet(int degat, int xspeed, int yspeed, int y, int x){
         this.degat = degat;
         this.xspeed = xspeed;
         this.yspeed = yspeed;
