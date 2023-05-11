@@ -26,7 +26,7 @@ public class Bullet {
         return y;
     }
 
-    public Bullet(int degat, int xspeed, int yspeed, int y, int x, Texture texture, int cooldownMax){
+    public Bullet(int degat, int xspeed, int yspeed, int y, int x, Texture texture){
         this.degat = degat;
         this.xspeed = xspeed;
         this.yspeed = yspeed;

@@ -12,6 +12,7 @@ import com.mygdx.game.characters.hero.Hero;
 import com.mygdx.game.characters.monster.Monster;
 import com.mygdx.game.characters.monster.SmallMonster;
 import com.mygdx.game.weapon.Bullet;
+import com.mygdx.game.weapon.BulletEnnemi;
 import com.mygdx.game.weapon.BulletHero;
 
 import java.util.Iterator;
@@ -32,7 +33,8 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	LinkedHashSet<BulletHero> bullet=new LinkedHashSet();
 
-	public SmallMonster[] m = new SmallMonster[8];
+	LinkedHashSet<BulletEnnemi> bulletEN=new LinkedHashSet();
+	public SmallMonster[] m = new SmallMonster[5];
 
 	@Override
 	public void create () {
@@ -54,6 +56,14 @@ public class MyGdxGame extends ApplicationAdapter {
 				if((ma.getX() >= m[r].getX()) && (ma.getX()-m[r].getTaillex()-2 <= m[r].getX())) {
 					ma.existe = false;
 				}
+			}
+		}
+	}
+
+	public void collisionAllie(Bullet me){
+		if((me.getY() <= hero.getY()) && (me.getY()+hero.getTailley() >= hero.getY())){
+			if((me.getX() <= hero.getX()) && (me.getX()+hero.getTaillex() >= hero.getX())) {
+				me.existe = false;
 			}
 		}
 	}
@@ -81,6 +91,16 @@ public class MyGdxGame extends ApplicationAdapter {
 		}
 	}
 
+	public void shoot(){
+		for(Monster mon : m){
+			if(mon.getcooldown()<=0){
+				bulletEN.add((BulletEnnemi) mon.tirer());
+				mon.setCooldownreset();
+			}
+			mon.cooldownDown();
+		}
+	}
+
 	@Override
 	public void render () {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -98,6 +118,20 @@ public class MyGdxGame extends ApplicationAdapter {
 			}
 
 		}
+		shoot();
+		for (BulletEnnemi me : bulletEN) {
+			if(me.getY() <= 0){
+				me.existe = false;
+			}
+			else{
+				collisionAllie(me);
+				
+
+			}
+
+		}
+
+
 		BulletHero[] bull = bullet.toArray(new BulletHero[0]);
 		for(BulletHero ma : bull){
 			if(!ma.existe){
@@ -107,6 +141,10 @@ public class MyGdxGame extends ApplicationAdapter {
 		for (BulletHero ma : bullet) {
 			ma.draw(batch);
 			ma.haut();
+		}
+		for(BulletEnnemi me : bulletEN){
+			me.draw(batch);
+			me.bas();
 		}
 
 
