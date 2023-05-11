@@ -19,7 +19,6 @@ public class Hero extends Character {
         super(x, y, xspeed, yspeed, life, texture,cooldown);
         this.taillex = 99;
         this.tailley = 75;
-        this.setBullet(new BulletHero(this.getX() +(this.getTaillex() /2),this.getY() + this.getTailley()));
     }
 
     public int getTaillex() {return taillex;}
@@ -37,11 +36,11 @@ public class Hero extends Character {
     public void setLevel(int level) {this.level = level;}
 
     public Bullet shoot() {
-        return this.getBullet();}
+        return new BulletHero(this.getX() +(this.getTaillex() /2),this.getY() + this.getTailley());}
 
 
 
-    public void updateH(){
+    /*public void updateH(){
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
             shoot();
         }
@@ -77,12 +76,13 @@ public class Hero extends Character {
                 this.y = this.y - this.yspeed;
             }
         }
+    }*/
+
+
+    public BulletHero tirer() {
+        BulletHero bullet = new BulletHero(this.y, this.x);
+        return bullet;
     }
-
-
-
-
-
 
 
 

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.characters.Character;
 import com.mygdx.game.weapon.Bullet;
 import com.mygdx.game.weapon.BulletEnnemi;
+import com.mygdx.game.weapon.BulletHero;
 
 public class Monster extends Character {
 
@@ -18,7 +19,6 @@ public class Monster extends Character {
         this.xp = xp;
         this.taillex = 52;
         this.tailley = 42;
-        this.setBullet(new BulletEnnemi(this.y, this.x));
 
     }
 
@@ -34,52 +34,8 @@ public class Monster extends Character {
 
     public void setXp(int xp) {this.xp = xp;}
 
-    public Bullet shoot() {
-        return this.getBullet();
-    }
-    public void gauche(){
-        if(this.x - this.xspeed < 0){
-            this.x = 0;}
-        else {
-            this.x = this.x - this.xspeed;
-        }
-    }
 
 
-    public void droite(){
-
-        if(this.x + this.xspeed > Gdx.graphics.getWidth() - this.getTaillex()) {
-            this.x = Gdx.graphics.getWidth() - this.getTaillex();
-        }
-        else {
-            this.x = this.x + this.xspeed;
-        }
-
-    }
-
-
-
-    public void haut(){
-        if (this.y + this.yspeed > Gdx.graphics.getHeight() - this.getTailley()){
-            this.y = Gdx.graphics.getHeight() - this.getTailley();
-        }
-        else{
-            this.y = this.y + this.yspeed;
-        }
-
-    }
-
-
-    public void bas(){
-        if(this.y - this.yspeed < 0){
-            this.y = 0;
-        }
-        else{
-            this.y = this.y - this.yspeed;
-        }
-
-
-    }
 
     public boolean mort(){
         if(this.getLife() <= 0){
@@ -90,15 +46,19 @@ public class Monster extends Character {
 
 
 
+
     public void updateM(){
         if(this.getcooldown()<=0){
-            this.shoot();
+            //this.shoot();
             this.setCooldownreset();
         }
         this.cooldownDown();
     }
 
+    public BulletEnnemi tirer() {
+        return new BulletEnnemi(this.y,this.x);
     }
+}
 
 
 

@@ -31,11 +31,11 @@ public class MyGdxGame extends ApplicationAdapter {
 	protected Texture background;
 	public SpriteBatch batch;
 
-	public int nbmonster;
+	public int nbmonster = 8;
 	LinkedHashSet<BulletHero> bullet = new LinkedHashSet();
 
 	LinkedHashSet<BulletEnnemi> bulletEN = new LinkedHashSet();
-	LinkedHashSet<Monster> m = new LinkedHashSet<>();
+	LinkedHashSet<Monster> m = new LinkedHashSet();
 
 	@Override
 	public void create() {
@@ -71,10 +71,31 @@ public class MyGdxGame extends ApplicationAdapter {
 		}
 	}
 
+	public void move(){
+		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+			hero.gauche();
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+			hero.droite();
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+			hero.haut();
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+			hero.bas();
+		}
+
+		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+			if(hero.getcooldown() <= 0) {
+				bullet.add((BulletHero) hero.tirer());
+				hero.setCooldownreset();
+			}
+			hero.cooldownDown();
+		}
+	}
 
 
-
-	/*public void shoot(){
+	public void shoot(){
 		for(Monster mon : m){
 			if(mon.getcooldown()<=0){
 				bulletEN.add((BulletEnnemi) mon.tirer());
@@ -82,7 +103,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			}
 			mon.cooldownDown();
 		}
-	}*/
+	}
 
 	public void delete() {
 		BulletHero[] bull = bullet.toArray(new BulletHero[0]);
@@ -111,9 +132,10 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void render() {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		move();
 		batch.begin();
 		batch.draw(background, 0, 0);
-		hero.updateH();
+
 		
 		for (Bullet ma : bullet) {
 			if (ma.getY() >= Gdx.graphics.getHeight()) {
@@ -121,7 +143,8 @@ public class MyGdxGame extends ApplicationAdapter {
 			} else {
 				collisionEnnemi(ma);
 			}
-
+		}
+			shoot();
 
 			for (BulletEnnemi me : bulletEN) {
 				if (me.getY() <= 0) {
@@ -140,10 +163,8 @@ public class MyGdxGame extends ApplicationAdapter {
 			hero.draw(batch);
 			for (Monster mon : m) {
 				mon.draw(batch);
-				mon.updateM();
 			}
 			batch.end();
 
 		}
 	}
-}
