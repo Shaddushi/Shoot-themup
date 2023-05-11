@@ -36,4 +36,47 @@ public class Hero extends Character {
         BulletHero bullet = new BulletHero(this.getX() +(this.getTaillex() /2),this.getY() + this.getTailley());
         return bullet;
     }
+
+    public void gauche(){
+        if(this.x - this.speed < 0){
+            this.x = 0;}
+        else {
+            this.x = this.x - this.speed;
+        }
+    }
+
+
+    public void droite(){
+
+        if(this.x + this.speed > Gdx.graphics.getWidth() - this.getTaillex()) {
+            this.x = Gdx.graphics.getWidth() - this.getTaillex();
+        }
+        else {
+            this.x = this.x + this.speed;
+        }
+
+    }
+
+
+
+    public void haut(){
+        if (this.y + this.speed > Gdx.graphics.getHeight() - this.getTailley()){
+            this.y = Gdx.graphics.getHeight() - this.getTailley();
+        }
+        else{
+            this.y = this.y + this.speed;
+        }
+
+    }
+
+
+    public void bas(){
+        if(this.y - this.speed < 0){
+            this.y = 0;
+        }
+        else{
+            this.y = this.y - this.speed;
+        }
+
+    }
 }
