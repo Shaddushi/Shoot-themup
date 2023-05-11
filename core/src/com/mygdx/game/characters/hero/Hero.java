@@ -38,6 +38,7 @@ public class Hero extends Character {
 
     public Bullet shoot() {
         return this.getBullet();
+    }
 
 
 
