@@ -15,6 +15,8 @@ public class Bullet {
     int xspeed;
     Texture texture;
 
+     public boolean existe;
+
     public int getX() {
         return x;
     }
@@ -28,6 +30,10 @@ public class Bullet {
         this.xspeed = xspeed;
         this.yspeed = yspeed;
         this.texture = texture;
+        this.y=y;
+        this.x=x;
+        this.existe = true;
+
     }
 
     public void draw(SpriteBatch batch){

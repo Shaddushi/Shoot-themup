@@ -38,12 +38,12 @@ public class MyGdxGame extends ApplicationAdapter {
 		bulletimg = new Texture("laserGreen.png");
 		for(int i =0;i<m.length;i++){
 			System.out.println(i);
-			m[i] = new Monster(Gdx.graphics.getWidth()-((i+1)*(Gdx.graphics.getWidth()/(m.length+1))),(int)(Gdx.graphics.getHeight()-Gdx.graphics.getHeight()*0.3), 20,10,monsterimg,0);
+			m[i] = new Monster(Gdx.graphics.getWidth()-((i+1)*(Gdx.graphics.getWidth()/(m.length+1))),(int)(Gdx.graphics.getHeight()-Gdx.graphics.getHeight()*0.3), 20,10,monsterimg,0,52,42);
 		}
 		batch = new SpriteBatch();
 		heroimg = new Texture("player.png");
 		background = new Texture(Gdx.files.internal("starry-night-sky.jpg"));
-		hero = new Hero(250, 250, 20, 100, heroimg);
+		hero = new Hero(250, 250, 20, 100, heroimg,75,99);
 	}
 
 
@@ -65,17 +65,41 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
 			bullet.add(hero.tirer());
+			System.out.println(bullet.size());
 		}
-		Iterator<Bullet> i=bullet.iterator();
 		batch.begin();
+		batch.draw(background,0,0);
 
-		while(i.hasNext()) {
-			Bullet m = i.next();
-			m.bas();
+		for (Bullet ma : bullet) {
+			if(ma.getY() >= Gdx.graphics.getHeight()){
+				ma.existe = false;
+			}
+			else{
+				for(int r = 0;r<m.length;r++){
+					if((ma.getY() >= m[r].getY()) && (ma.getY()-m[r].hauteur <= m[r].getY())){
+						if((ma.getX() >= m[r].getX()) && (ma.getX()-m[r].largeur <= m[r].getX())) {
+							ma.existe = false;
+						}
+					}
+				}
+
+			}
+
+		}
+		Bullet[] bull = bullet.toArray(new Bullet[0]);
+		for(Bullet ma : bull){
+			if(!ma.existe){
+				bullet.remove(ma);
+			}
+		}
+		for (Bullet ma : bullet) {
+			ma.draw(batch);
+			ma.haut();
 		}
 
 
-		batch.draw(background,0,0);
+
+
 		hero.draw(batch);
 		for(int j = 0;j<m.length;j++){
 			m[j].draw(batch);

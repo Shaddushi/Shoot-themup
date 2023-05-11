@@ -12,16 +12,15 @@ public class Hero extends Character {
 
     int level;
 
-    public Hero(int x, int y, int speed, int life, Texture texture) {
-        super(x, y, speed, life, texture);
+    public Hero(int x, int y, int speed, int life, Texture texture,int hauteur,int largeur) {
+        super(x, y, speed, life, texture,hauteur,largeur);
     }
 
 
-    public void tirer(){
+    public Bullet tirer(){
         Texture bulletimg = new Texture("laserGreen.png");
-        Bullet bullet = new Bullet(5,12,12, this.getY()+ 75, this.getY() + 47, bulletimg);
-        while(bullet.getX() != Gdx.graphics.getHeight()){
-            bullet.haut();
+        Bullet bullet = new Bullet(5,12,3, this.getY() + 75, this.getX() + 44, bulletimg);
+        return bullet;
         }
 
 
