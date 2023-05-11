@@ -27,16 +27,15 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	@Override
 	public void create () {
-		Bullet bullet = new Bullet(4,4,4,4,4);
 		monsterimg = new Texture("dreadnaught.png");
 		for(int i =0;i<4;i++){
 
-			m[i] = new Monster(40*i,40,20,10,monsterimg,bullet );
+			m[i] = new Monster((int)(Gdx.graphics.getWidth()-((i+1)*3)*100),(int)(Gdx.graphics.getHeight()-Gdx.graphics.getHeight()*0.3), 20,10,monsterimg);
 		}
 		batch = new SpriteBatch();
 		heroimg = new Texture("player.png");
-		background = new Texture(Gdx.files.internal("starry-night-shy.jpg"));
-		hero = new Hero(250, 250, 20, 100, heroimg,bullet);
+		background = new Texture(Gdx.files.internal("starry-night-sky.jpg"));
+		hero = new Hero(250, 250, 20, 100, heroimg);
 	}
 
 
