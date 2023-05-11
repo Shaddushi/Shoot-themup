@@ -48,9 +48,17 @@ public class MyGdxGame extends ApplicationAdapter {
 	}
 
 
-	@Override
-	public void render () {
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+	public void collisionEnnemi(Bullet ma){
+		for(int r = 0;r<m.length;r++){
+			if((ma.getY() >= m[r].getY()) && (ma.getY()-m[r].getTailley() <= m[r].getY())){
+				if((ma.getX() >= m[r].getX()) && (ma.getX()-m[r].getTaillex()-2 <= m[r].getX())) {
+					ma.existe = false;
+				}
+			}
+		}
+	}
+
+	public void bougetonboule(){
 		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 			hero.gauche();
 		}
@@ -68,6 +76,12 @@ public class MyGdxGame extends ApplicationAdapter {
 			bullet.add((BulletHero) hero.tirer());
 			System.out.println(bullet.size());
 		}
+	}
+
+	@Override
+	public void render () {
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		bougetonboule();
 		batch.begin();
 		batch.draw(background,0,0);
 
@@ -76,13 +90,7 @@ public class MyGdxGame extends ApplicationAdapter {
 				ma.existe = false;
 			}
 			else{
-				for(int r = 0;r<m.length;r++){
-					if((ma.getY() >= m[r].getY()) && (ma.getY()-m[r].getTailley() <= m[r].getY())){
-						if((ma.getX() >= m[r].getX()) && (ma.getX()-m[r].getTaillex()-2 <= m[r].getX())) {
-							ma.existe = false;
-						}
-					}
-				}
+				collisionEnnemi(ma);
 
 			}
 
