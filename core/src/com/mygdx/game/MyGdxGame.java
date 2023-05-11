@@ -62,6 +62,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
 			hero.bas();
 		}
+
 		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
 			bullet.add(hero.tirer());
 		}
