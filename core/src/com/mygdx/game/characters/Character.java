@@ -67,24 +67,11 @@ public abstract class Character {
 
     public void setBullet(Bullet bullet) {this.bullet = bullet;}
 
+    protected abstract Bullet shoot();
     public void draw(SpriteBatch batch){
         batch.draw(getTexture(), getX(),getY());
     }
 
-
-
-
-    public abstract void gauche();
-
-
-    public abstract void droite();
-
-
-    public abstract void haut();
-
-
-    public abstract void bas();
-    protected abstract Bullet tirer();
 
     public void toucher(int degat){
         setLife(getLife() - degat);

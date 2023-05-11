@@ -18,6 +18,7 @@ public class Monster extends Character {
         this.xp = xp;
         this.taillex = 52;
         this.tailley = 42;
+        this.setBullet(new BulletEnnemi(this.y, this.x));
 
     }
 
@@ -33,10 +34,8 @@ public class Monster extends Character {
 
     public void setXp(int xp) {this.xp = xp;}
 
-    public Bullet tirer() {
-        Texture bulletimg = new Texture("laserRed.png");
-        BulletEnnemi bullet = new BulletEnnemi(this.y, this.x);
-        return bullet;
+    public Bullet shoot() {
+        return this.getBullet();
     }
     public void gauche(){
         if(this.x - this.xspeed < 0){
@@ -88,6 +87,8 @@ public class Monster extends Character {
         }
         return false;
     }
+
+
 
     public void update(){
         if(this.getcooldown()<=0){

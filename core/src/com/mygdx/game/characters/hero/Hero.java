@@ -36,17 +36,16 @@ public class Hero extends Character {
 
     public void setLevel(int level) {this.level = level;}
 
-    public void shootH() {
-        if(this.getcooldown()<=0){
-            getBullet().haut();
-            this.setCooldownreset();
-        }
-        this.cooldownDown();
+    public Bullet shoot() {
+        return this.getBullet();
 
     }
 
-    public void update(){
-        shootH();
+    public void updateH(){
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+            shoot();
+        }
+
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             if(this.x - this.xspeed < -getTaillex() + 10){
                 this.x = Gdx.graphics.getWidth() - this.getTaillex() + getTaillex() - 10;}
