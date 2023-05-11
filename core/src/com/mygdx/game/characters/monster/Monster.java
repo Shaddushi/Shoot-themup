@@ -82,6 +82,13 @@ public class Monster extends Character {
 
     }
 
+    public boolean mort(){
+        if(this.getLife() <= 0){
+            return true;
+        }
+        return false;
+    }
+
     }
 
 
