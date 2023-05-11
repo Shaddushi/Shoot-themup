@@ -17,6 +17,8 @@ public class Bullet {
     private int cooldownMax ;
     private int cooldown;
 
+     public boolean existe;
+
     public int getX() {
         return x;
     }
@@ -32,6 +34,7 @@ public class Bullet {
         this.x = x ;
         this.y = y ;
         this.texture = texture;
+        this.existe = true;
         this.cooldownMax = cooldownMax;
 
     }

@@ -12,6 +12,7 @@ import com.mygdx.game.characters.hero.Hero;
 import com.mygdx.game.characters.monster.Monster;
 import com.mygdx.game.characters.monster.SmallMonster;
 import com.mygdx.game.weapon.Bullet;
+import com.mygdx.game.weapon.BulletHero;
 
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -29,7 +30,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	protected Texture background;
 	public SpriteBatch batch;
 
-	LinkedHashSet<Bullet> bullet=new LinkedHashSet();
+	LinkedHashSet<BulletHero> bullet=new LinkedHashSet();
 
 	public SmallMonster[] m = new SmallMonster[8];
 
@@ -64,18 +65,42 @@ public class MyGdxGame extends ApplicationAdapter {
 		}
 
 		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-			bullet.add(hero.tirer());
+			bullet.add((BulletHero) hero.tirer());
+			System.out.println(bullet.size());
 		}
-		Iterator<Bullet> i=bullet.iterator();
 		batch.begin();
+		batch.draw(background,0,0);
 
-		while(i.hasNext()) {
-			Bullet m = i.next();
-			m.bas();
+		for (Bullet ma : bullet) {
+			if(ma.getY() >= Gdx.graphics.getHeight()){
+				ma.existe = false;
+			}
+			else{
+				for(int r = 0;r<m.length;r++){
+					if((ma.getY() >= m[r].getY()) && (ma.getY()-m[r].getTailley() <= m[r].getY())){
+						if((ma.getX() >= m[r].getX()) && (ma.getX()-m[r].getTaillex()-2 <= m[r].getX())) {
+							ma.existe = false;
+						}
+					}
+				}
+
+			}
+
+		}
+		BulletHero[] bull = bullet.toArray(new BulletHero[0]);
+		for(BulletHero ma : bull){
+			if(!ma.existe){
+				bullet.remove(ma);
+			}
+		}
+		for (BulletHero ma : bullet) {
+			ma.draw(batch);
+			ma.haut();
 		}
 
 
-		batch.draw(background,0,0);
+
+
 		hero.draw(batch);
 		for(int j = 0;j<m.length;j++){
 			m[j].draw(batch);

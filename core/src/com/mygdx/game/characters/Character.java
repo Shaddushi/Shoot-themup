@@ -19,6 +19,7 @@ public abstract class Character {
     protected Bullet bullet;
 
 
+
     public Character(int x, int y,int xspeed, int yspeed, int life,Texture texture){
         this.x = x;
         this.y = y;
