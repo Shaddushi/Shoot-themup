@@ -6,7 +6,7 @@ public class BulletEnnemi extends Bullet{
 
 
     public BulletEnnemi(int y, int x){
-        super(1,3,3,y,x,new Texture("laserRed.png"));
+        super(1,3,3,y,x,new Texture("laserRed.png"), 70);
 
     }
 

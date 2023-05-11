@@ -113,7 +113,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		batch.draw(background, 0, 0);
-		hero.update();
+		hero.updateH();
 		
 		for (Bullet ma : bullet) {
 			if (ma.getY() >= Gdx.graphics.getHeight()) {
@@ -140,7 +140,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			hero.draw(batch);
 			for (Monster mon : m) {
 				mon.draw(batch);
-				mon.update();
+				mon.updateM();
 			}
 			batch.end();
 

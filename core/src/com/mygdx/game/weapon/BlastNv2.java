@@ -2,7 +2,7 @@ package com.mygdx.game.weapon;
 
 import com.badlogic.gdx.graphics.Texture;
 
-public class BlastNv2 extends BulletHero{
+public class BlastNv2 extends Bullet{
     private static int degat = 3 ;
     private static int xspeed = 20 ;
     private static int yspeed = 20 ;
