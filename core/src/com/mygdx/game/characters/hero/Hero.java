@@ -1,5 +1,6 @@
 package com.mygdx.game.characters.hero;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -15,11 +16,17 @@ public class Hero extends Character {
         super(x, y, speed, life, texture);
     }
 
-    public Bullet tirer(){
+    public void tirer(){
+        SpriteBatch batch = new SpriteBatch();
         Texture bulletimg = new Texture("laserGreen.png");
         Bullet bullet = new Bullet(5,12,12, this.getY()+ 75, this.getY() + 47, bulletimg);
-        return bullet;
+        bullet.draw(batch);
+        while(bullet.getX() != Gdx.graphics.getHeight()){
+            bullet.haut();
+        }
     }
+
+
 
 
 }

@@ -103,6 +103,10 @@ public abstract class Character {
 
     }
 
+    public void toucher(int degat){
+        setLife(getLife() - degat);
+    }
+
 
 
 }

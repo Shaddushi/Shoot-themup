@@ -54,6 +54,9 @@ public class MyGdxGame extends ApplicationAdapter {
 		if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
 			hero.bas();
 		}
+		if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+			hero.tirer();
+		}
 
 		batch.begin();
 		batch.draw(background,0,0);
