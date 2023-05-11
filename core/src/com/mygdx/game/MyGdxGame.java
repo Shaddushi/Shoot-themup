@@ -92,7 +92,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		}
 	}
 
-	public void shoot(){
+	/*public void shoot(){
 		for(Monster mon : m){
 			if(mon.getcooldown()<=0){
 				bulletEN.add((BulletEnnemi) mon.tirer());
@@ -100,7 +100,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			}
 			mon.cooldownDown();
 		}
-	}
+	}*/
 
 	@Override
 	public void render () {
@@ -118,8 +118,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 			}
 
-		}
-		shoot();
+
 		for (BulletEnnemi me : bulletEN) {
 			if(me.getY() <= 0){
 				me.existe = false;
