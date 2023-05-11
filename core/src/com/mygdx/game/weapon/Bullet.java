@@ -23,19 +23,18 @@ public class Bullet {
         return y;
     }
 
-    public Bullet(int degat, int xspeed, int yspeed, int y, int x, Texture texture){
+    public Bullet(int degat, int xspeed, int yspeed, int y, int x){
         this.degat = degat;
         this.xspeed = xspeed;
         this.yspeed = yspeed;
-        this.texture = texture;
+        //this.texture = texture;
     }
 
-    public void draw(SpriteBatch batch){
-        batch.draw(getTexture(), getX(),getY());
-    }
+    public void draw(SpriteBatch batch){batch.draw(getTexture(), getX(),getY());}
 
     private Texture getTexture() {return texture;}
 
+    public void setTexture(Texture texture) {this.texture = texture;}
 
     public void gauche(){
         this.x = this.x - this.xspeed;

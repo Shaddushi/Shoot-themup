@@ -15,6 +15,7 @@ public abstract class Character {
     private int y;
     private int life;
     private Texture texture;
+    private Bullet bullet;
 
 
     public Character(int x, int y, int speed, int life,Texture texture){
@@ -49,9 +50,9 @@ public abstract class Character {
         this.texture = texture;
     }
 
+    public Bullet getBullet() {return bullet;}
 
-
-
+    public void setBullet(Bullet bullet) {this.bullet = bullet;}
 
     public void draw(SpriteBatch batch){
         batch.draw(getTexture(), getX(),getY());
@@ -102,9 +103,16 @@ public abstract class Character {
         }
 
     }
+    protected abstract Bullet tirer();
 
     public void toucher(int degat){
         setLife(getLife() - degat);
+        if(getLife() <= 0){
+
+        }
+    }
+    public void mort(){
+        ;
     }
 
 
