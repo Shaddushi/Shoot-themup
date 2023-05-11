@@ -10,11 +10,12 @@ import com.mygdx.game.weapon.Bullet;
 
 
 public abstract class Character {
-    private int speed;
-    private int x;
-    private int y;
-    private int life;
-    private Texture texture;
+    protected int speed;
+    protected int x;
+    protected int y;
+    protected int life;
+    protected Texture texture;
+    protected Bullet bullet;
 
     public int largeur;
 
@@ -53,9 +54,9 @@ public abstract class Character {
         this.texture = texture;
     }
 
+    public Bullet getBullet() {return bullet;}
 
-
-
+    public void setBullet(Bullet bullet) {this.bullet = bullet;}
 
     public void draw(SpriteBatch batch){
         batch.draw(getTexture(), getX(),getY());
@@ -64,51 +65,26 @@ public abstract class Character {
 
 
 
-    public void gauche(){
-        if(this.x - this.speed < 0){
-            this.x = 0;}
-        else {
-            this.x = this.x - this.speed;
-        }
-    }
+    public abstract void gauche();
 
 
-    public void droite(){
-
-        if(this.x + this.speed > Gdx.graphics.getWidth() - 99) {
-            this.x = Gdx.graphics.getWidth() - 99;
-        }
-        else {
-            this.x = this.x + this.speed;
-        }
-
-    }
+    public abstract void droite();
 
 
-
-    public void haut(){
-        if (this.y + this.speed > Gdx.graphics.getHeight() - 75){
-            this.y = Gdx.graphics.getHeight() - 75;
-        }
-        else{
-            this.y = this.y + this.speed;
-        }
-
-    }
+    public abstract void haut();
 
 
-    public void bas(){
-        if(this.y - this.speed < 0){
-            this.y = 0;
-        }
-        else{
-            this.y = this.y - this.speed;
-        }
-
-    }
+    public abstract void bas();
+    protected abstract Bullet tirer();
 
     public void toucher(int degat){
         setLife(getLife() - degat);
+        if(getLife() <= 0){
+
+        }
+    }
+    public void mort(){
+        ;
     }
 
 
