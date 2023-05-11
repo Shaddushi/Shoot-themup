@@ -23,20 +23,19 @@ public class MyGdxGame extends ApplicationAdapter {
 	protected Texture background;
 	public SpriteBatch batch;
 
-	public Monster[] m = new Monster[4];
+	public Monster[] m = new Monster[8];
 
 	@Override
 	public void create () {
-		Bullet bullet = new Bullet(4,4,4,4,4);
 		monsterimg = new Texture("dreadnaught.png");
-		for(int i =0;i<4;i++){
-
-			m[i] = new Monster(40*i,40,20,10,monsterimg,bullet );
+		for(int i =0;i<m.length;i++){
+			System.out.println(i);
+			m[i] = new Monster(Gdx.graphics.getWidth()-((i+1)*(Gdx.graphics.getWidth()/(m.length+1))),(int)(Gdx.graphics.getHeight()-Gdx.graphics.getHeight()*0.3), 20,10,monsterimg,0);
 		}
 		batch = new SpriteBatch();
 		heroimg = new Texture("player.png");
-		background = new Texture(Gdx.files.internal("starry-night-shy.jpg"));
-		hero = new Hero(250, 250, 20, 100, heroimg,bullet);
+		background = new Texture(Gdx.files.internal("starry-night-sky.jpg"));
+		hero = new Hero(250, 250, 20, 100, heroimg);
 	}
 
 
@@ -59,7 +58,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch.begin();
 		batch.draw(background,0,0);
 		hero.draw(batch);
-		for(int i = 0;i<4;i++){
+		for(int i = 0;i<m.length;i++){
 			m[i].draw(batch);
 		}
 		batch.end();

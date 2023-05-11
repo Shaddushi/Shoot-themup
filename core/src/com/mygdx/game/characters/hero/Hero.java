@@ -15,8 +15,9 @@ public class Hero extends Character {
         super(x, y, speed, life, texture);
     }
 
-    public void tirer(){
+    public Bullet tirer(){
         Bullet bullet = new Bullet(5,12,12, this.getY()+ 75, this.getY() + 47);
+        return bullet;
 
     }
 

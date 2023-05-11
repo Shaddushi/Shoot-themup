@@ -49,7 +49,7 @@ public abstract class Character {
         this.texture = texture;
     }
 
-    
+
 
 
 
