@@ -1,15 +1,17 @@
 package com.mygdx.game.weapon;
 
+import java.util.LinkedHashSet;
+
 public class Bullet {
+    LinkedHashSet<Bullet> bulletList = new LinkedHashSet<>() ;
 
+    private int x;
 
-    int x;
+    private int y;
+    protected int degat;
 
-    int y;
-    int degat;
-
-    int yspeed;
-    int xspeed;
+    protected int yspeed;
+    protected int xspeed;
 
     public int getX() {
         return x;
@@ -23,6 +25,8 @@ public class Bullet {
         this.degat = degat;
         this.xspeed = xspeed;
         this.yspeed = yspeed;
+        this.x = x ;
+        this.y = y ;
     }
 
 
