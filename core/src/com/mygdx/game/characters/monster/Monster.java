@@ -90,7 +90,7 @@ public class Monster extends Character {
 
 
 
-    public void update(){
+    public void updateM(){
         if(this.getcooldown()<=0){
             this.shoot();
             this.setCooldownreset();

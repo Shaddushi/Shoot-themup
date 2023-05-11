@@ -37,7 +37,7 @@ public class Hero extends Character {
     public void setLevel(int level) {this.level = level;}
 
     public Bullet shoot() {
-        return this.getBullet();
+        return this.getBullet();}
 
 
 

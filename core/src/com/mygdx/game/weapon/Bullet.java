@@ -14,6 +14,7 @@ public class Bullet {
     protected int yspeed;
     protected int xspeed;
     Texture texture;
+    private int cooldownMax;
 
 
      public boolean existe;
@@ -26,7 +27,7 @@ public class Bullet {
         return y;
     }
 
-    public Bullet(int degat, int xspeed, int yspeed, int y, int x, Texture texture){
+    public Bullet(int degat, int xspeed, int yspeed, int y, int x, Texture texture, int cooldownMax){
         this.degat = degat;
         this.xspeed = xspeed;
         this.yspeed = yspeed;
@@ -34,6 +35,7 @@ public class Bullet {
         this.y = y ;
         this.texture = texture;
         this.existe = true;
+        this.cooldownMax = cooldownMax;
 
 
     }

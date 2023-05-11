@@ -6,6 +6,6 @@ public class BulletHero extends Bullet{
 
 
     public BulletHero(int y, int x){
-        super(1,12,12,x,y,new Texture("laserGreen.png"));
+        super(1,12,12,x,y,new Texture("laserGreen.png"), 10);
     }
 }
