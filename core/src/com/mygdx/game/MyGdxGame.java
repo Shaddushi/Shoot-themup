@@ -12,6 +12,9 @@ import com.mygdx.game.characters.hero.Hero;
 import com.mygdx.game.characters.monster.Monster;
 import com.mygdx.game.weapon.Bullet;
 
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+
 public class MyGdxGame extends ApplicationAdapter {
 
 	public ShapeRenderer shape;
@@ -20,14 +23,19 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	public Texture monsterimg;
 
+	public Texture bulletimg;
+
 	protected Texture background;
 	public SpriteBatch batch;
+
+	LinkedHashSet<Bullet> bullet=new LinkedHashSet();
 
 	public Monster[] m = new Monster[8];
 
 	@Override
 	public void create () {
 		monsterimg = new Texture("dreadnaught.png");
+		bulletimg = new Texture("laserGreen.png");
 		for(int i =0;i<m.length;i++){
 			System.out.println(i);
 			m[i] = new Monster(Gdx.graphics.getWidth()-((i+1)*(Gdx.graphics.getWidth()/(m.length+1))),(int)(Gdx.graphics.getHeight()-Gdx.graphics.getHeight()*0.3), 20,10,monsterimg,0);
@@ -42,24 +50,35 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void render () {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 			hero.gauche();
 		}
-		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
 			hero.droite();
 		}
-		if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
 			hero.haut();
 		}
-		if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+		if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
 			hero.bas();
 		}
 
+		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+			bullet.add(hero.tirer());
+		}
+		Iterator<Bullet> i=bullet.iterator();
 		batch.begin();
+
+		while(i.hasNext()) {
+			Bullet m = i.next();
+			m.bas();
+		}
+
+
 		batch.draw(background,0,0);
 		hero.draw(batch);
-		for(int i = 0;i<m.length;i++){
-			m[i].draw(batch);
+		for(int j = 0;j<m.length;j++){
+			m[j].draw(batch);
 		}
 		batch.end();
 
