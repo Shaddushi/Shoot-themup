@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.characters.hero.Hero;
 import com.mygdx.game.characters.monster.Monster;
+import com.mygdx.game.characters.monster.SmallMonster;
 import com.mygdx.game.weapon.Bullet;
 
 import java.util.Iterator;
@@ -30,20 +31,19 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	LinkedHashSet<Bullet> bullet=new LinkedHashSet();
 
-	public Monster[] m = new Monster[8];
+	public SmallMonster[] m = new SmallMonster[8];
 
 	@Override
 	public void create () {
-		monsterimg = new Texture("dreadnaught.png");
 		bulletimg = new Texture("laserGreen.png");
 		for(int i =0;i<m.length;i++){
 			System.out.println(i);
-			m[i] = new Monster(Gdx.graphics.getWidth()-((i+1)*(Gdx.graphics.getWidth()/(m.length+1))),(int)(Gdx.graphics.getHeight()-Gdx.graphics.getHeight()*0.3), 20,10,monsterimg,0);
+			m[i] = new SmallMonster(Gdx.graphics.getWidth()-((i+1)*(Gdx.graphics.getWidth()/(m.length+1))),(int)(Gdx.graphics.getHeight()-Gdx.graphics.getHeight()*0.3));
 		}
 		batch = new SpriteBatch();
 		heroimg = new Texture("player.png");
 		background = new Texture(Gdx.files.internal("starry-night-sky.jpg"));
-		hero = new Hero(250, 250, 20, 100, heroimg);
+		hero = new Hero(250, 250, 20, 20,100 ,heroimg);
 	}
 
 
@@ -79,6 +79,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		hero.draw(batch);
 		for(int j = 0;j<m.length;j++){
 			m[j].draw(batch);
+			m[j].update();
 		}
 		batch.end();
 

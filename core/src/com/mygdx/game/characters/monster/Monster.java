@@ -12,8 +12,8 @@ public class Monster extends Character {
     int taillex;
     int tailley;
     public int xp;
-    public Monster(int x, int y, int speed, int life,Texture texture, int xp){
-        super(x, y, speed, life,texture);
+    public Monster(int x, int y, int xspeed, int yspeed, int life,Texture texture, int xp){
+        super(x, y, xspeed, yspeed, life,texture);
         this.xp = xp;
         this.taillex = 52;
         this.tailley = 42;
@@ -38,21 +38,21 @@ public class Monster extends Character {
         return bullet;
     }
     public void gauche(){
-        if(this.x - this.speed < 0){
+        if(this.x - this.xspeed < 0){
             this.x = 0;}
         else {
-            this.x = this.x - this.speed;
+            this.x = this.x - this.xspeed;
         }
     }
 
 
     public void droite(){
 
-        if(this.x + this.speed > Gdx.graphics.getWidth() - this.getTaillex()) {
+        if(this.x + this.xspeed > Gdx.graphics.getWidth() - this.getTaillex()) {
             this.x = Gdx.graphics.getWidth() - this.getTaillex();
         }
         else {
-            this.x = this.x + this.speed;
+            this.x = this.x + this.xspeed;
         }
 
     }
@@ -60,40 +60,32 @@ public class Monster extends Character {
 
 
     public void haut(){
-        if (this.y + this.speed > Gdx.graphics.getHeight() - this.getTailley()){
+        if (this.y + this.yspeed > Gdx.graphics.getHeight() - this.getTailley()){
             this.y = Gdx.graphics.getHeight() - this.getTailley();
         }
         else{
-            this.y = this.y + this.speed;
+            this.y = this.y + this.yspeed;
         }
 
     }
 
 
     public void bas(){
-        if(this.y - this.speed < 0){
+        if(this.y - this.yspeed < 0){
             this.y = 0;
         }
         else{
-            this.y = this.y - this.speed;
+            this.y = this.y - this.yspeed;
         }
+
 
     }
 
-    public void update(){
-        if(this.getX() < 0){
-            this.droite();
-        }
-        if(this.getX() > Gdx.graphics.getWidth()) {
-            this.gauche();
-        }
-        if(this.getY() < (int)(Gdx.graphics.getHeight()-Gdx.graphics.getHeight()*0.4)){
-            this.haut();
-        }
-        if(this.getY() > Gdx.graphics.getHeight()){
-            this.bas();
-        }
     }
-}
+
+
+
+
+
 
 

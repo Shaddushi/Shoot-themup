@@ -10,7 +10,8 @@ import com.mygdx.game.weapon.Bullet;
 
 
 public abstract class Character {
-    protected int speed;
+    protected int xspeed;
+    protected int yspeed;
     protected int x;
     protected int y;
     protected int life;
@@ -18,17 +19,22 @@ public abstract class Character {
     protected Bullet bullet;
 
 
-    public Character(int x, int y, int speed, int life,Texture texture){
+    public Character(int x, int y,int xspeed, int yspeed, int life,Texture texture){
         this.x = x;
         this.y = y;
-        this.speed = speed;
+        this.xspeed = xspeed;
+        this.yspeed = yspeed;
         this.life = life;
         this.texture = texture;
     }
 
-    public int getSpeed() {return speed;}
+    public int getXspeed() {return xspeed;}
 
-    public void setSpeed(int speed) {this.speed = speed;}
+    public void setYspeed(int yspeed) {this.yspeed = yspeed;}
+
+    public int getYspeed() {return yspeed;}
+
+    public void setXspeed(int xspeed) {this.xspeed = xspeed;}
 
     public int getX() {return x;}
 
