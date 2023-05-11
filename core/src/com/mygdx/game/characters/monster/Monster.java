@@ -33,7 +33,7 @@ public class Monster extends Character {
 
     public Bullet tirer() {
         Texture bulletimg = new Texture("laserRed.png");
-        Bullet bullet = new Bullet(5, 12, 12, this.getY() + this.getTailley(), this.getY() +(this.getTaillex() /2), bulletimg);
+        Bullet bullet = new Bullet(5, 12, 12, this.getY() + this.getTailley(), this.getX() +(this.getTaillex() /2), bulletimg);
         return bullet;
     }
 }
