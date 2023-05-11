@@ -14,9 +14,8 @@ public class Hero extends Character {
     int tailley;
     int level;
 
-
-    public Hero(int x, int y, int speed, int life, Texture texture) {
-            super(x, y, speed, life, texture);
+    public Hero(int x, int y, int xspeed, int yspeed, int life, Texture texture) {
+        super(x, y, xspeed, yspeed, life, texture);
         this.taillex = 99;
         this.tailley = 75;
     }
@@ -39,21 +38,21 @@ public class Hero extends Character {
     }
 
     public void gauche(){
-        if(this.x - this.speed < 0){
+        if(this.x - this.xspeed < 0){
             this.x = 0;}
         else {
-            this.x = this.x - this.speed;
+            this.x = this.x - this.xspeed;
         }
     }
 
 
     public void droite(){
 
-        if(this.x + this.speed > Gdx.graphics.getWidth() - this.getTaillex()) {
+        if(this.x + this.xspeed > Gdx.graphics.getWidth() - this.getTaillex()) {
             this.x = Gdx.graphics.getWidth() - this.getTaillex();
         }
         else {
-            this.x = this.x + this.speed;
+            this.x = this.x + this.xspeed;
         }
 
     }
@@ -61,22 +60,22 @@ public class Hero extends Character {
 
 
     public void haut(){
-        if (this.y + this.speed > Gdx.graphics.getHeight() - this.getTailley()){
+        if (this.y + this.yspeed > Gdx.graphics.getHeight() - this.getTailley()){
             this.y = Gdx.graphics.getHeight() - this.getTailley();
         }
         else{
-            this.y = this.y + this.speed;
+            this.y = this.y + this.yspeed;
         }
 
     }
 
 
     public void bas(){
-        if(this.y - this.speed < 0){
+        if(this.y - this.yspeed < 0){
             this.y = 0;
         }
         else{
-            this.y = this.y - this.speed;
+            this.y = this.y - this.yspeed;
         }
 
     }
