@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class SmallMonster extends Monster{
     public SmallMonster(int x, int y){
-        super(x,y,5, 5, 1, new Texture("dreadnaught.png"), 2 );
+        super(x,y,5, 5, 1, new Texture("dreadnaught.png"), 2 ,7);
 
     }
     public void update(){

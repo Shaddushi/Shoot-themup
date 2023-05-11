@@ -6,14 +6,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.characters.Character;
 import com.mygdx.game.weapon.Bullet;
+import com.mygdx.game.weapon.BulletEnnemi;
 
 public class Monster extends Character {
 
     int taillex;
     int tailley;
     public int xp;
-    public Monster(int x, int y, int xspeed, int yspeed, int life,Texture texture, int xp){
-        super(x, y, xspeed, yspeed, life,texture);
+    public Monster(int x, int y, int xspeed, int yspeed, int life,Texture texture, int xp,int cooldown){
+        super(x, y, xspeed, yspeed, life,texture,cooldown);
         this.xp = xp;
         this.taillex = 52;
         this.tailley = 42;
@@ -34,7 +35,7 @@ public class Monster extends Character {
 
     public Bullet tirer() {
         Texture bulletimg = new Texture("laserRed.png");
-        Bullet bullet = new Bullet(5, 12, 12, this.getY() + this.getTailley(), this.getX() +(this.getTaillex() /2), bulletimg, 3);
+        BulletEnnemi bullet = new BulletEnnemi(5, 12);
         return bullet;
     }
     public void gauche(){

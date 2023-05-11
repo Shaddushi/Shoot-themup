@@ -14,13 +14,15 @@ public class Hero extends Character {
     int tailley;
     int level;
 
-    public Hero(int x, int y, int xspeed, int yspeed, int life, Texture texture) {
-        super(x, y, xspeed, yspeed, life, texture);
+    public Hero(int x, int y, int xspeed, int yspeed, int life, Texture texture,int cooldown) {
+        super(x, y, xspeed, yspeed, life, texture,cooldown);
         this.taillex = 99;
         this.tailley = 75;
     }
 
     public int getTaillex() {return taillex;}
+
+
 
     public void setTaillex(int taillex) {this.taillex = taillex;}
 

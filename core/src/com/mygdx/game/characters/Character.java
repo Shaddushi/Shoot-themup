@@ -18,16 +18,22 @@ public abstract class Character {
     protected Texture texture;
     protected Bullet bullet;
 
+    private int cooldownMax ;
+    private int cooldown;
 
 
-    public Character(int x, int y,int xspeed, int yspeed, int life,Texture texture){
+
+    public Character(int x, int y,int xspeed, int yspeed, int life,Texture texture,int cooldownMax){
         this.x = x;
         this.y = y;
         this.xspeed = xspeed;
         this.yspeed = yspeed;
         this.life = life;
         this.texture = texture;
+        this.cooldownMax = cooldownMax;
+        this.cooldown = cooldownMax;
     }
+
 
     public int getXspeed() {return xspeed;}
 
@@ -90,6 +96,17 @@ public abstract class Character {
         ;
     }
 
+    public void cooldownDown() {
+        this.cooldown--;
+    }
+
+    public void setCooldownreset() {
+        if(this.cooldown <= 0 ) {
+            this.cooldown = this.cooldownMax ;
+        }
+    }
+
+    public int getcooldown() {return cooldown;}
 
 
 }

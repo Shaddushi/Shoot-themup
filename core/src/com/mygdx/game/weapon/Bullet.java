@@ -14,8 +14,7 @@ public class Bullet {
     protected int yspeed;
     protected int xspeed;
     Texture texture;
-    private int cooldownMax ;
-    private int cooldown;
+
 
      public boolean existe;
 
@@ -35,7 +34,7 @@ public class Bullet {
         this.y = y ;
         this.texture = texture;
         this.existe = true;
-        this.cooldownMax = cooldownMax;
+
 
     }
 
@@ -60,14 +59,6 @@ public class Bullet {
 
     public void haut(){this.y = this.y + this.yspeed;}
 
-    public void cooldownDown() {
-        this.cooldown--;
-    }
 
-    public void setCooldownreset() {
-        if(this.cooldown <= 0 ) {
-            this.cooldown = this.cooldownMax ;
-        }
-    }
 
 }
