@@ -1,31 +1,21 @@
 package com.mygdx.game.weapon;
 
-<<<<<<< HEAD
 import java.util.LinkedHashSet;
-=======
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
->>>>>>> origin/main
 
 public class Bullet {
     LinkedHashSet<Bullet> bulletList = new LinkedHashSet<>() ;
 
-    private int x;
 
+    private int x;
     private int y;
     protected int degat;
-
-<<<<<<< HEAD
     protected int yspeed;
     protected int xspeed;
-=======
-    int y;
-    int degat;
-
-    int yspeed;
-    int xspeed;
     Texture texture;
->>>>>>> origin/main
+    private int cooldownMax ;
+    private int cooldown;
 
     public int getX() {
         return x;
@@ -39,12 +29,9 @@ public class Bullet {
         this.degat = degat;
         this.xspeed = xspeed;
         this.yspeed = yspeed;
-<<<<<<< HEAD
         this.x = x ;
         this.y = y ;
-=======
         this.texture = texture;
->>>>>>> origin/main
     }
 
     public void draw(SpriteBatch batch){
@@ -69,5 +56,14 @@ public class Bullet {
 
     public void haut(){this.y = this.y + this.yspeed;}
 
+    public void cooldownDown() {
+        this.cooldown--;
+    }
+
+    public void setCooldownreset() {
+        if(this.cooldown <= 0 ) {
+            this.cooldown = this.cooldownMax ;
+        }
+    }
 
 }
