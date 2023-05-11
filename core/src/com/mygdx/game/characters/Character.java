@@ -17,17 +17,14 @@ public abstract class Character {
     protected Texture texture;
     protected Bullet bullet;
 
-    public int largeur;
 
-    public int hauteur;
 
-    public Character(int x, int y, int speed, int life,Texture texture,int hauteur,int largeur){
+    public Character(int x, int y, int speed, int life,Texture texture){
         this.x = x;
         this.y = y;
         this.speed = speed;
         this.life = life;
         this.texture = texture;
-        this.largeur = largeur;
     }
 
     public int getSpeed() {return speed;}

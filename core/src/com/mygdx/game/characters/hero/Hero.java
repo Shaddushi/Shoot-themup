@@ -15,8 +15,8 @@ public class Hero extends Character {
     int level;
 
 
-    public Hero(int x, int y, int speed, int life, Texture texture,int hauteur,int largeur) {
-            super(x, y, speed, life, texture,hauteur,largeur);
+    public Hero(int x, int y, int speed, int life, Texture texture) {
+            super(x, y, speed, life, texture);
         this.taillex = 99;
         this.tailley = 75;
     }

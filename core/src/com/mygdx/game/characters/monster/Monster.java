@@ -12,8 +12,8 @@ public class Monster extends Character {
     int taillex;
     int tailley;
     public int xp;
-    public Monster(int x, int y, int speed, int life,Texture texture, int xp,int hauteur,int largeur){
-        super(x, y, speed, life,texture,hauteur,largeur);
+    public Monster(int x, int y, int speed, int life,Texture texture, int xp){
+        super(x, y, speed, life,texture);
         this.xp = xp;
         this.taillex = 52;
         this.tailley = 42;
