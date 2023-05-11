@@ -40,6 +40,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		for(int i =0;i<m.length;i++){
 			System.out.println(i);
 			m[i] = new SmallMonster(Gdx.graphics.getWidth()-((i+1)*(Gdx.graphics.getWidth()/(m.length+1))),(int)(Gdx.graphics.getHeight()-Gdx.graphics.getHeight()*0.3));
+			m[i].direction();
 		}
 		batch = new SpriteBatch();
 		heroimg = new Texture("player.png");
