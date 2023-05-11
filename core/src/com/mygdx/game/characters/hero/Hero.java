@@ -16,15 +16,13 @@ public class Hero extends Character {
         super(x, y, speed, life, texture);
     }
 
+
     public void tirer(){
-        SpriteBatch batch = new SpriteBatch();
         Texture bulletimg = new Texture("laserGreen.png");
         Bullet bullet = new Bullet(5,12,12, this.getY()+ 75, this.getY() + 47, bulletimg);
-        bullet.draw(batch);
         while(bullet.getX() != Gdx.graphics.getHeight()){
             bullet.haut();
         }
-    }
 
 
 

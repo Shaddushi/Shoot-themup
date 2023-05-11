@@ -12,6 +12,8 @@ import com.mygdx.game.characters.hero.Hero;
 import com.mygdx.game.characters.monster.Monster;
 import com.mygdx.game.weapon.Bullet;
 
+import java.util.LinkedHashSet;
+
 public class MyGdxGame extends ApplicationAdapter {
 
 	public ShapeRenderer shape;
@@ -22,6 +24,8 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	protected Texture background;
 	public SpriteBatch batch;
+
+	LinkedHashSet<Bullet> bullet=new LinkedHashSet();
 
 	public Monster[] m = new Monster[8];
 
@@ -42,20 +46,21 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void render () {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 			hero.gauche();
 		}
-		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
 			hero.droite();
 		}
-		if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
 			hero.haut();
 		}
-		if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+		if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
 			hero.bas();
 		}
-		if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-			hero.tirer();
+
+		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+			bullet.add(hero.tirer());
 		}
 
 		batch.begin();

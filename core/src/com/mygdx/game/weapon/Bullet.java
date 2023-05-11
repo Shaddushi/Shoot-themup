@@ -41,7 +41,6 @@ public class Bullet {
         this.x = this.x - this.xspeed;
     }
 
-
     public void droite(){
         this.x = this.x + this.xspeed;
     }
@@ -50,6 +49,8 @@ public class Bullet {
         this.y = this.y - this.yspeed;
     }
 
+
     public void haut(){this.y = this.y + this.yspeed;}
+
 
 }
