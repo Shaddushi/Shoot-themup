@@ -89,6 +89,14 @@ public class Monster extends Character {
         return false;
     }
 
+    public void update(){
+        if(this.getcooldown()<=0){
+            this.tirer();
+            this.setCooldownreset();
+        }
+        this.cooldownDown();
+    }
+
     }
 
 
