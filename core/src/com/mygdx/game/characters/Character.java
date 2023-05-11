@@ -71,8 +71,6 @@ public abstract class Character {
     public void draw(SpriteBatch batch){
         batch.draw(getTexture(), getX(),getY());
     }
-
-
     public void toucher(int degat){
         setLife(getLife() - degat);
     }

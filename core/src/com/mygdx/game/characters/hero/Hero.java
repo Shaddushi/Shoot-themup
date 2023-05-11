@@ -39,7 +39,7 @@ public class Hero extends Character {
     public Bullet shoot() {
         return this.getBullet();
 
-    }
+
 
     public void updateH(){
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
