@@ -6,10 +6,8 @@ import com.badlogic.gdx.graphics.Texture;
 import java.util.Random;
 
 public class SmallMonster extends Monster{
-    public int cpt;
     public SmallMonster(int x, int y){
         super(x,y,5, 5, 1, new Texture("dreadnaught.png"), 2 ,70);
-        this.cpt = 100;
     }
 
     public void direction(){

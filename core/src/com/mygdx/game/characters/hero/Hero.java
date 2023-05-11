@@ -1,6 +1,7 @@
 package com.mygdx.game.characters.hero;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -18,6 +19,7 @@ public class Hero extends Character {
         super(x, y, xspeed, yspeed, life, texture,cooldown);
         this.taillex = 99;
         this.tailley = 75;
+        this.setBullet(new BulletHero(this.getX() +(this.getTaillex() /2),this.getY() + this.getTailley()));
     }
 
     public int getTaillex() {return taillex;}
@@ -34,51 +36,53 @@ public class Hero extends Character {
 
     public void setLevel(int level) {this.level = level;}
 
-    public Bullet tirer() {
-        BulletHero bullet = new BulletHero(this.getX() +(this.getTaillex() /2),this.getY() + this.getTailley());
-        return bullet;
+    public Bullet shootH() {
+        Bullet b = this.getBullet();
+        return b;
     }
 
-    public void gauche(){
-        if(this.x - this.xspeed < 0){
-            this.x = 0;}
-        else {
-            this.x = this.x - this.xspeed;
+    public void update(){
+        shootH();
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            if(this.x - this.xspeed < -getTaillex() + 10){
+                this.x = Gdx.graphics.getWidth() - this.getTaillex() + getTaillex() - 10;}
+            else {
+                this.x = this.x - this.xspeed;
+            }
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            if(this.x + this.xspeed > Gdx.graphics.getWidth() - this.getTaillex() + getTaillex() - 10) {
+                this.x = 0 - getTaillex() + 10;
+            }
+            else {
+                this.x = this.x + this.xspeed;
+            }
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            if (this.y + this.yspeed > Gdx.graphics.getHeight() - this.getTailley()){
+                this.y = Gdx.graphics.getHeight() - this.getTailley();
+            }
+            else{
+                this.y = this.y + this.yspeed;
+            }
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            if(this.y - this.yspeed < 0){
+                this.y = 0;
+            }
+            else{
+                this.y = this.y - this.yspeed;
+            }
         }
     }
 
 
-    public void droite(){
-
-        if(this.x + this.xspeed > Gdx.graphics.getWidth() - this.getTaillex()) {
-            this.x = Gdx.graphics.getWidth() - this.getTaillex();
-        }
-        else {
-            this.x = this.x + this.xspeed;
-        }
-
-    }
 
 
 
-    public void haut(){
-        if (this.y + this.yspeed > Gdx.graphics.getHeight() - this.getTailley()){
-            this.y = Gdx.graphics.getHeight() - this.getTailley();
-        }
-        else{
-            this.y = this.y + this.yspeed;
-        }
-
-    }
 
 
-    public void bas(){
-        if(this.y - this.yspeed < 0){
-            this.y = 0;
-        }
-        else{
-            this.y = this.y - this.yspeed;
-        }
 
-    }
+
+
 }

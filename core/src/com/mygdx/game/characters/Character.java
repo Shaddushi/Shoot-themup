@@ -71,21 +71,6 @@ public abstract class Character {
         batch.draw(getTexture(), getX(),getY());
     }
 
-
-
-
-    public abstract void gauche();
-
-
-    public abstract void droite();
-
-
-    public abstract void haut();
-
-
-    public abstract void bas();
-    protected abstract Bullet tirer();
-
     public void toucher(int degat){
         setLife(getLife() - degat);
     }
