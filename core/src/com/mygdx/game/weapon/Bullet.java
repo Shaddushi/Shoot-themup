@@ -42,6 +42,8 @@ public class Bullet {
 
     private Texture getTexture() {return texture;}
 
+    public int getDegat() {return degat;}
+
     public void setTexture(Texture texture) {this.texture = texture;}
 
     public void gauche(){

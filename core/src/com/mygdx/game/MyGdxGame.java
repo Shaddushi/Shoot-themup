@@ -31,19 +31,19 @@ public class MyGdxGame extends ApplicationAdapter {
 	protected Texture background;
 	public SpriteBatch batch;
 
+	public int nbmonster;
 	LinkedHashSet<BulletHero> bullet=new LinkedHashSet();
 
 	LinkedHashSet<BulletEnnemi> bulletEN=new LinkedHashSet();
-	public SmallMonster[] m = new SmallMonster[5];
-
+	LinkedHashSet<Monster> m = new LinkedHashSet<>();
 	@Override
 	public void create () {
 		bulletimg = new Texture("laserGreen.png");
-		for(int i =0;i<m.length;i++){
+
+		for(int i =0;i<nbmonster;i++){
 			System.out.println(i);
-			m[i] = new SmallMonster(Gdx.graphics.getWidth()-((i+1)*(Gdx.graphics.getWidth()/(m.length+1))),(int)(Gdx.graphics.getHeight()-Gdx.graphics.getHeight()*0.3));
-			m[i].direction();
-		}
+			m.add(new SmallMonster(Gdx.graphics.getWidth()-((i+1)*(Gdx.graphics.getWidth()/(nbmonster+1))),(int)(Gdx.graphics.getHeight()-Gdx.graphics.getHeight()*0.3)));
+			}
 		batch = new SpriteBatch();
 		heroimg = new Texture("player.png");
 		background = new Texture(Gdx.files.internal("starry-night-sky.jpg"));
@@ -52,24 +52,25 @@ public class MyGdxGame extends ApplicationAdapter {
 
 
 	public void collisionEnnemi(Bullet ma){
-		for(int r = 0;r<m.length;r++){
-			if((ma.getY() >= m[r].getY()) && (ma.getY()-m[r].getTailley() <= m[r].getY())){
-				if((ma.getX() >= m[r].getX()) && (ma.getX()-m[r].getTaillex()-2 <= m[r].getX())) {
+		for(Monster mon : m){
+			if((ma.getY() >= mon.getY()) && (ma.getY()-mon.getTailley() <= mon.getY())){
+				if((ma.getX() >= mon.getX()) && (ma.getX()-mon.getTaillex()-2 <= mon.getX())) {
 					ma.existe = false;
+					mon.toucher(ma.getDegat());
 				}
 			}
 		}
 	}
 
 	public void collisionAllie(Bullet me){
-		if((me.getY() <= hero.getY()) && (me.getY()+hero.getTailley() >= hero.getY())){
-			if((me.getX() <= hero.getX()) && (me.getX()+hero.getTaillex() >= hero.getX())) {
+		if((me.getY() >= hero.getY()) && (me.getY()-hero.getTailley() <= hero.getY())){
+			if((me.getX() >= hero.getX()) && (me.getX()-hero.getTaillex() <= hero.getX())) {
 				me.existe = false;
 			}
 		}
 	}
 
-	public void bougetonboule(){
+	public void move(){
 		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 			hero.gauche();
 		}
@@ -102,10 +103,33 @@ public class MyGdxGame extends ApplicationAdapter {
 		}
 	}
 
+	public void delete(){
+		BulletHero[] bull = bullet.toArray(new BulletHero[0]);
+		for(BulletHero ma : bull){
+			if(!ma.existe){
+				bullet.remove(ma);
+			}
+		}
+		BulletEnnemi[] bullEN = bulletEN.toArray(new BulletEnnemi[0]);
+		for(BulletEnnemi me : bullEN){
+			if(!me.existe){
+				bulletEN.remove(me);
+			}
+		}
+
+		for (BulletHero ma : bullet) {
+			ma.draw(batch);
+			ma.haut();
+		}
+		for(BulletEnnemi me : bulletEN){
+			me.draw(batch);
+			me.bas();
+		}
+	}
 	@Override
 	public void render () {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		bougetonboule();
+		move();
 		batch.begin();
 		batch.draw(background,0,0);
 
@@ -115,7 +139,6 @@ public class MyGdxGame extends ApplicationAdapter {
 			}
 			else{
 				collisionEnnemi(ma);
-
 			}
 
 		}
@@ -132,29 +155,13 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		}
 
-
-		BulletHero[] bull = bullet.toArray(new BulletHero[0]);
-		for(BulletHero ma : bull){
-			if(!ma.existe){
-				bullet.remove(ma);
-			}
-		}
-		for (BulletHero ma : bullet) {
-			ma.draw(batch);
-			ma.haut();
-		}
-		for(BulletEnnemi me : bulletEN){
-			me.draw(batch);
-			me.bas();
-		}
-
-
+		delete();
 
 
 		hero.draw(batch);
-		for(int j = 0;j<m.length;j++){
-			m[j].draw(batch);
-			m[j].update();
+		for(Monster mon : m){
+			mon.draw(batch);
+			mon.update();
 		}
 		batch.end();
 
