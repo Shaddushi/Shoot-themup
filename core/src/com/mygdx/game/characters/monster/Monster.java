@@ -10,8 +10,8 @@ import com.mygdx.game.weapon.BulletEnnemi;
 
 public class Monster extends Character {
 
-    int taillex;
-    int tailley;
+    protected int taillex;
+    protected int tailley;
     public int xp;
     public Monster(int x, int y, int xspeed, int yspeed, int life,Texture texture, int xp,int cooldown){
         super(x, y, xspeed, yspeed, life,texture,cooldown);
@@ -80,6 +80,13 @@ public class Monster extends Character {
         }
 
 
+    }
+
+    public boolean mort(){
+        if(this.getLife() <= 0){
+            return true;
+        }
+        return false;
     }
 
     }
