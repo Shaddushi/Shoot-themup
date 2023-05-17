@@ -105,6 +105,29 @@ public class MyGdxGame extends ApplicationAdapter {
 		}
 	}
 
+	public void CollisionAll(){
+		for (Bullet ma : bullet) {
+			if (ma.getY() >= Gdx.graphics.getHeight()) {
+				ma.existe = false;
+			} else {
+				collisionEnnemi(ma);
+			}
+		}
+		shoot();
+
+		for (BulletEnnemi me : bulletEN) {
+			if (me.getY() <= 0) {
+				me.existe = false;
+			} else {
+				collisionAllie(me);
+
+
+			}
+
+		}
+	}
+
+
 	public void delete() {
 		BulletHero[] bull = bullet.toArray(new BulletHero[0]);
 		for (BulletHero ma : bull) {
@@ -135,38 +158,14 @@ public class MyGdxGame extends ApplicationAdapter {
 		move();
 		batch.begin();
 		batch.draw(background, 0, 0);
-
-		
-		for (Bullet ma : bullet) {
-			if (ma.getY() >= Gdx.graphics.getHeight()) {
-				ma.existe = false;
-			} else {
-				collisionEnnemi(ma);
-			}
+		CollisionAll();
+		delete();
+		hero.draw(batch);
+		for (Monster mon : m) {
+			mon.draw(batch);
+			mon.updateall();
 		}
-			shoot();
+		batch.end();
 
-			for (BulletEnnemi me : bulletEN) {
-				if (me.getY() <= 0) {
-					me.existe = false;
-				} else {
-					collisionAllie(me);
-
-
-				}
-
-			}
-
-			delete();
-
-
-			hero.draw(batch);
-			for (Monster mon : m) {
-				mon.draw(batch);
-				mon.updateM();
-				mon.update();
-			}
-			batch.end();
-
-		}
 	}
+}
