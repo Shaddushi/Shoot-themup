@@ -98,7 +98,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	public void shoot(){
 		for(Monster mon : m){
 			if(mon.getcooldown()<=0){
-				bulletEN.add((BulletEnnemi) mon.tirer());
+				bulletEN.add(mon.tirer());
 				mon.setCooldownreset();
 			}
 			mon.cooldownDown();
@@ -163,6 +163,8 @@ public class MyGdxGame extends ApplicationAdapter {
 			hero.draw(batch);
 			for (Monster mon : m) {
 				mon.draw(batch);
+				mon.updateM();
+				mon.update();
 			}
 			batch.end();
 

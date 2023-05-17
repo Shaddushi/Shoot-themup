@@ -80,7 +80,7 @@ public class Hero extends Character {
 
 
     public BulletHero tirer() {
-        BulletHero bullet = new BulletHero(this.y, this.x);
+        BulletHero bullet = new BulletHero(this.x, this.y);
         return bullet;
     }
 

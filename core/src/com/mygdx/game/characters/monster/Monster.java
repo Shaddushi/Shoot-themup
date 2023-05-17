@@ -49,10 +49,18 @@ public class Monster extends Character {
 
     public void updateM(){
         if(this.getcooldown()<=0){
-            //this.shoot();
             this.setCooldownreset();
         }
         this.cooldownDown();
+    }
+
+    public void update(){
+
+    }
+
+    public void updateall(){
+        updateM();
+        update();
     }
 
     public BulletEnnemi tirer() {
