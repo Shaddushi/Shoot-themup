@@ -10,6 +10,7 @@ public class MediumMonster extends Monster {
     public MediumMonster(int x, int y){
     super(x,y,5, 5, 1, new Texture("dreadnaught.png"), 2 , 70);
 
+
     }
 
     public void update(){}
