@@ -19,8 +19,8 @@ public abstract class Monster extends Character {
     public Monster(int x, int y, int xspeed, int yspeed, int life,Texture texture, int xp,int cooldown){
         super(x, y, xspeed, yspeed, life,texture,cooldown);
         this.xp = xp;
-        this.taillex = 52;
-        this.tailley = 42;
+        this.taillex = texture.getWidth();
+        this.tailley = texture.getHeight();
         this.existe=true;
 
     }
@@ -49,16 +49,11 @@ public abstract class Monster extends Character {
 
 
     public void updateall(){
-        //updateM();
+        updateM();
         update();
     }
 
-    public BulletEnnemi tirer() {
-        BulletEnnemi BE =new BulletEnnemi(this.x,this.y);
-        setBullet(BE);
-        return BE;
-
-    }
+    public abstract Bullet tirer();
 }
 
 

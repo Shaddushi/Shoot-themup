@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.characters.hero.Hero;
+import com.mygdx.game.characters.monster.MediumMonster;
 import com.mygdx.game.characters.monster.Monster;
 import com.mygdx.game.characters.monster.SmallMonster;
 import com.mygdx.game.weapon.Bullet;
@@ -35,10 +36,11 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	public SpriteBatch batch;
 
 	public int nbmonster = 8;
-	LinkedHashSet<BulletHero> bullet = new LinkedHashSet();
+	LinkedHashSet<Bullet> bullet = new LinkedHashSet();
 
-	LinkedHashSet<BulletEnnemi> bulletEN = new LinkedHashSet();
+	LinkedHashSet<Bullet> bulletEN = new LinkedHashSet();
 	LinkedHashSet<Monster> m = new LinkedHashSet();
+
 
 	@Override
 	public void create() {
@@ -48,54 +50,42 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 			System.out.println(i);
 			m.add(new SmallMonster(Gdx.graphics.getWidth() - ((i + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), (int) (Gdx.graphics.getHeight() - Gdx.graphics.getHeight() * 0.3)));
 		}
+
+		m.add(new MediumMonster(700,850));
+
 		shapeNoLife = new ShapeRenderer();
 		shapeLife = new ShapeRenderer();
+
 		batch = new SpriteBatch();
 		heroimg = new Texture("player.png");
 		background = new Texture(Gdx.files.internal("starry-night-sky.jpg"));
+
 		hero = new Hero(250, 250, 20, 20, 100, heroimg, 10);
 	}
 
 
-	public void collisionEnnemi(Bullet ma) {
+	public void collisionEnnemi(Bullet bullH) {
 		for (Monster mon : m) {
-			if ((ma.getY() >= mon.getY()) && (ma.getY() - mon.getTailley() <= mon.getY())) {
-				if ((ma.getX() >= mon.getX()) && (ma.getX() - mon.getTaillex() - 2 <= mon.getX())) {
-					ma.existe = false;
-					mon.toucher(ma.getDegat());
+			if ((bullH.getY() >= mon.getY()) && (bullH.getY() - mon.getTailley() <= mon.getY())) {
+				if ((bullH.getX() >= mon.getX()) && (bullH.getX() - mon.getTaillex() - 2 <= mon.getX())) {
+					bullH.existe = false;
+					mon.toucher(bullH.getDegat());
 					mon.mort();
 				}
 			}
 		}
 	}
 
-	public void collisionAllie(Bullet me) {
-		if ((me.getY() >= hero.getY()) && (me.getY() - hero.getTailley() <= hero.getY())) {
-			if ((me.getX() >= hero.getX()) && (me.getX() - hero.getTaillex() <= hero.getX())) {
-				me.existe = false;
-				hero.toucher(me.getDegat());
+	public void collisionAllie(Bullet bullM) {
+		if ((bullM.getY() >= hero.getY()) && (bullM.getY() - hero.getTailley() <= hero.getY())) {
+			if ((bullM.getX() >= hero.getX()) && (bullM.getX() - hero.getTaillex() <= hero.getX())) {
+				bullM.existe = false;
+				hero.toucher(bullM.getDegat());
 				hero.mort();
 			}
 		}
 	}
 
-	public void move(){
-
-		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-			hero.gauche();
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-			hero.droite();
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-			hero.haut();
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-			hero.bas();
-		}
-
-
-	}
 
 
 	public void shoot(){
@@ -109,7 +99,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
 			if(hero.getcooldown() <= 0) {
-				bullet.add((BulletHero) hero.tirer());
+				bullet.add(hero.tirer());
 				hero.setCooldownreset();
 			}
 			hero.cooldownDown();
@@ -118,21 +108,25 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	}
 
 	public void CollisionAll(){
-		for (Bullet ma : bullet) {
-			if (ma.getY() >= Gdx.graphics.getHeight()) {
-				ma.existe = false;
+		for (Bullet bullH : bullet) {
+			if (bullH.getY() >= Gdx.graphics.getHeight()) {
+				bullH.existe = false;
 			} else {
-				collisionEnnemi(ma);
+				collisionEnnemi(bullH);
 			}
 		}
 		shoot();
 
+<<<<<<< HEAD
 		for (BulletEnnemi me : bulletEN) {
 			if (me.getY() <= -40) {
+=======
+		for (Bullet me : bulletEN) {
+			if (me.getY() <= 0) {
+>>>>>>> origin/main
 				me.existe = false;
 			} else {
 				collisionAllie(me);
-
 
 			}
 
@@ -141,14 +135,14 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 
 	public void delete() {
-		BulletHero[] bull = bullet.toArray(new BulletHero[0]);
-		for (BulletHero ma : bull) {
+		Bullet[] bullHero = bullet.toArray(new Bullet[0]);
+		for (Bullet ma : bullHero) {
 			if (!ma.existe) {
 				bullet.remove(ma);
 			}
 		}
-		BulletEnnemi[] bullEN = bulletEN.toArray(new BulletEnnemi[0]);
-		for (BulletEnnemi me : bullEN) {
+		Bullet[] bullEN = bulletEN.toArray(new Bullet[0]);
+		for (Bullet me : bullEN) {
 			if (!me.existe) {
 				bulletEN.remove(me);
 			}
@@ -159,6 +153,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 				m.remove(mon);
 			}
 		}
+<<<<<<< HEAD
 		for (BulletHero ma : bullet) {
 			ma.draw(batch);
 			ma.updateBullet();
@@ -166,6 +161,15 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		for (BulletEnnemi me : bulletEN) {
 			me.draw(batch);
 			me.updateBullet();
+=======
+		for (Bullet bullH : bullet) {
+			bullH.draw(batch);
+			bullH.haut();
+		}
+		for (Bullet bullM : bulletEN) {
+			bullM.draw(batch);
+			bullM.bas();
+>>>>>>> origin/main
 		}
 		for (Monster mon : m) {
 			mon.draw(batch);

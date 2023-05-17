@@ -22,8 +22,8 @@ public class Hero extends Character {
 
     public Hero(int x, int y, int xspeed, int yspeed, int life, Texture texture, int cooldownMax) {
         super(x, y, xspeed, yspeed, life, texture, cooldownMax);
-        this.taillex = 99;
-        this.tailley = 75;
+        this.taillex = texture.getWidth();
+        this.tailley = texture.getHeight();
     }
 
 
