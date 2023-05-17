@@ -15,8 +15,8 @@ public class Hero extends Character {
     int tailley;
     int level;
 
-    public Hero(int x, int y, int xspeed, int yspeed, int life, Texture texture,int cooldown) {
-        super(x, y, xspeed, yspeed, life, texture,cooldown);
+    public Hero(int x, int y, int xspeed, int yspeed, int life, Texture texture) {
+        super(x, y, xspeed, yspeed, life, texture,10);
         this.taillex = 99;
         this.tailley = 75;
     }
@@ -36,9 +36,14 @@ public class Hero extends Character {
 
     public void setLevel(int level) {this.level = level;}
 
-    public Bullet shoot() {
-        return new BulletHero(this.getX() +(this.getTaillex() /2),this.getY() + this.getTailley());}
 
+    public void gauche(){
+        if(this.x - this.xspeed < -getTaillex() + 10){
+            this.x = Gdx.graphics.getWidth() - this.getTaillex() + getTaillex() - 10;}
+        else {
+            this.x = this.x - this.xspeed;
+        }
+    }
 
 
     public void move() {
@@ -64,6 +69,4 @@ public class Hero extends Character {
 
 
 
-
-
-}
+        }

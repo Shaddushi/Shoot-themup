@@ -48,7 +48,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		heroimg = new Texture("player.png");
 		background = new Texture(Gdx.files.internal("starry-night-sky.jpg"));
-		hero = new Hero(250, 250, 20, 20, 100, heroimg, 10);
+		hero = new Hero(250, 250, 20, 20, 100, heroimg);
 	}
 
 
@@ -82,7 +82,6 @@ public class MyGdxGame extends ApplicationAdapter {
 				bulletEN.add(mon.tirer());
 				mon.setCooldownreset();
 			}
-
 			mon.cooldownDown();
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){

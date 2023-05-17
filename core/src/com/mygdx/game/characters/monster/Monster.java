@@ -47,8 +47,9 @@ public abstract class Monster extends Character {
 
     public abstract void update();
 
+
     public void updateall(){
-        updateM();
+        //updateM();
         update();
     }
 
