@@ -8,13 +8,13 @@ import com.mygdx.game.characters.Character;
 import com.mygdx.game.weapon.Bullet;
 import com.mygdx.game.weapon.BulletEnnemi;
 
-public class Monster extends Character {
+public abstract class Monster extends Character {
 
     protected int taillex;
     protected int tailley;
     public int xp;
-    public Monster(int x, int y, int xspeed, int yspeed, int life,Texture texture, int xp,int cooldown){
-        super(x, y, xspeed, yspeed, life,texture,cooldown);
+    public Monster(int x, int y, int xspeed, int yspeed, int life,Texture texture, int xp){
+        super(x, y, xspeed, yspeed, life,texture);
         this.xp = xp;
         this.taillex = 52;
         this.tailley = 42;
@@ -34,7 +34,7 @@ public class Monster extends Character {
 
     public void setXp(int xp) {this.xp = xp;}
 
-    public Bullet shoot() {
+    public Bullet tirer() {
         return this.getBullet();
     }
     public void gauche(){
@@ -88,15 +88,10 @@ public class Monster extends Character {
         return false;
     }
 
+    public abstract void update();
 
+    public abstract void direction();
 
-    public void updateM(){
-        if(this.getcooldown()<=0){
-            this.shoot();
-            this.setCooldownreset();
-        }
-        this.cooldownDown();
-    }
 
     }
 
