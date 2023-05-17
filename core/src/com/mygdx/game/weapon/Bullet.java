@@ -36,8 +36,6 @@ public class Bullet {
         this.texture = texture;
         this.existe = true;
         this.cooldownMax = cooldownMax;
-
-
     }
 
     public void draw(SpriteBatch batch){batch.draw(getTexture(), getX(),getY());}
@@ -48,21 +46,11 @@ public class Bullet {
 
     public void setTexture(Texture texture) {this.texture = texture;}
 
-    public void gauche(){
-        this.x = this.x - this.xspeed;
+    public void updateBullet() {
+        if (this.xspeed > 0) this.x = this.x + this.xspeed ; // bullet va a droite
+        if (this.xspeed < 0) this.x = this.x - -this.xspeed ; //bullet va a gauche
+        if (this.yspeed > 0) this.y = this.y + this.yspeed ; //bullet va en hau
+        if (this.yspeed < 0) this.y = this.y - -this.yspeed ; //bullet va en bas
     }
-
-    public void droite(){
-        this.x = this.x + this.xspeed;
-    }
-
-    public void bas(){
-        this.y = this.y - this.yspeed;
-    }
-
-
-    public void haut(){this.y = this.y + this.yspeed;}
-
-
 
 }

@@ -116,7 +116,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		shoot();
 
 		for (BulletEnnemi me : bulletEN) {
-			if (me.getY() <= 0) {
+			if (me.getY() <= -40) {
 				me.existe = false;
 			} else {
 				collisionAllie(me);
@@ -144,11 +144,11 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		for (BulletHero ma : bullet) {
 			ma.draw(batch);
-			ma.haut();
+			ma.updateBullet();
 		}
 		for (BulletEnnemi me : bulletEN) {
 			me.draw(batch);
-			me.bas();
+			me.updateBullet();
 		}
 	}
 
