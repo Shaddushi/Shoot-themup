@@ -17,12 +17,12 @@ public abstract class Character {
     protected int life;
     protected Texture texture;
     protected  Bullet bullet;
-    private int cooldownMax;
+
     private int cooldown;
 
     public boolean existe;
 
-    private int cooldownmax;
+    public int cooldownmax;
 
 
     public Character(int x, int y,int xspeed, int yspeed, int life,Texture texture,int cooldown){
@@ -104,7 +104,7 @@ public abstract class Character {
 
     public void setCooldownreset() {
         if(this.cooldown <= 0 ) {
-            this.cooldown = this.cooldownMax ;
+            this.cooldown = this.cooldownmax ;
         }
     }
 
