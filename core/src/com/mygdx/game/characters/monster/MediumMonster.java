@@ -2,6 +2,7 @@ package com.mygdx.game.characters.monster;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.weapon.Bullet;
 import com.mygdx.game.weapon.BulletMediumEnnemi;
 
@@ -12,9 +13,11 @@ public class MediumMonster extends Monster {
     public Random random = new Random();
     private int rand;
 
-    public MediumMonster(int x, int y){
 
-    super(x,y,5,3 , 1, new Texture("mediumMonster.png"), 2 , 100,2);
+
+    public MediumMonster(int x, int y, MyGdxGame gdx){
+    super(x,y,5,3 , 1, new Texture("mediumMonster.png"), 2 , 100,2,gdx);
+
     this.rand = random.nextInt(20);
 
     }

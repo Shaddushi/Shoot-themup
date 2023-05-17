@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.characters.Character;
 import com.mygdx.game.weapon.Bullet;
 import com.mygdx.game.weapon.BulletHero;
@@ -20,8 +21,8 @@ public class Hero extends Character {
 
 
 
-    public Hero(int x, int y, int xspeed, int yspeed, int life, Texture texture, int cooldownMax) {
-        super(x, y, xspeed, yspeed, life, texture, cooldownMax,2);
+    public Hero(int x, int y, int xspeed, int yspeed, int life, Texture texture, int cooldownMax,MyGdxGame gdx) {
+        super(x, y, xspeed, yspeed, life, texture, cooldownMax,2,gdx);
         this.taillex = texture.getWidth();
         this.tailley = texture.getHeight();
     }

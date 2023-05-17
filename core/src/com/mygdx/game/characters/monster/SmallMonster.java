@@ -2,14 +2,15 @@ package com.mygdx.game.characters.monster;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.weapon.Bullet;
 import com.mygdx.game.weapon.BulletSmallEnnemi;
 
 import java.util.Random;
 
 public class SmallMonster extends Monster{
-    public SmallMonster(int x, int y){
-        super(x,y,5, 5, 1, new Texture("dreadnaught.png"), 2 , 70,1);
+    public SmallMonster(int x, int y, MyGdxGame gdx){
+        super(x,y,5, 5, 1, new Texture("dreadnaught.png"), 2 , 70,1,gdx);
 
         direction();
     }

@@ -39,6 +39,8 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	public int nbmonster = 8;
 
 	public Music menuMusic;
+
+	public Music Honteux;
 	LinkedHashSet<Bullet> bullet = new LinkedHashSet();
 
 	LinkedHashSet<Bullet> bulletEN = new LinkedHashSet();
@@ -51,11 +53,12 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 		for (int i = 0; i < nbmonster; i++) {
 			System.out.println(i);
-			m.add(new SmallMonster(Gdx.graphics.getWidth() - ((i + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), (int) (Gdx.graphics.getHeight() - Gdx.graphics.getHeight() * 0.3)));
+			m.add(new SmallMonster(Gdx.graphics.getWidth() - ((i + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), (int) (Gdx.graphics.getHeight() - Gdx.graphics.getHeight() * 0.3),this));
 		}
 
-		m.add(new MediumMonster(700,850));
+		m.add(new MediumMonster(700,850,this));
 		menuMusic = Gdx.audio.newMusic(Gdx.files.internal("Shreksophone.mp3"));
+		Honteux = Gdx.audio.newMusic(Gdx.files.internal("Honteux.mp3"));
 		menuMusic.setLooping(true);
 		menuMusic.play();
 		shapeNoLife = new ShapeRenderer();
@@ -64,7 +67,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		heroimg = new Texture("player.png");
 		background = new Texture(Gdx.files.internal("starry-night-sky.jpg"));
-		hero = new Hero(250, 250, 20, 20, 5, heroimg, 10);
+		hero = new Hero(250, 250, 20, 20, 5, heroimg, 10,this);
 	}
 
 
@@ -86,6 +89,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 				bullM.existe = false;
 				hero.toucher(bullM.getDegat());
 				hero.mort();
+				Honteux.play();
 			}
 		}
 		for(Monster mon: m) {
@@ -126,8 +130,6 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 				collisionEnnemi(bullH);
 			}
 		}
-		shoot();
-
 		for (Bullet me : bulletEN) {
 			if (me.getY() <= 0) {
 				me.existe = false;
@@ -159,6 +161,12 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 				m.remove(mon);
 			}
 		}
+	}
+	public void dessine() {
+		batch.begin();
+		batch.draw(background, 0, 0);
+		hero.draw(batch);
+
 		for (Bullet bullH : bullet) {
 			bullH.draw(batch);
 			bullH.haut();
@@ -171,6 +179,8 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 			mon.draw(batch);
 			mon.updateall();
 		}
+
+		batch.end();
 
 	}
 
@@ -208,16 +218,12 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	@Override
 	public void render() {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
 		hero.update();
-
-		batch.begin();
-		batch.draw(background, 0, 0);
-		hero.draw(batch);
 		CollisionAll();
+		shoot();
 		delete();
-
-
-		batch.end();
+		dessine();
 		HealthBar();
 
 
