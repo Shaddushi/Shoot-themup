@@ -9,16 +9,19 @@ import com.mygdx.game.weapon.Bullet;
 import com.mygdx.game.weapon.BulletEnnemi;
 import com.mygdx.game.weapon.BulletHero;
 
-public class Monster extends Character {
+public abstract class Monster extends Character {
 
     protected int taillex;
     protected int tailley;
     public int xp;
+
+
     public Monster(int x, int y, int xspeed, int yspeed, int life,Texture texture, int xp,int cooldown){
         super(x, y, xspeed, yspeed, life,texture,cooldown);
         this.xp = xp;
         this.taillex = 52;
         this.tailley = 42;
+        this.existe=true;
 
     }
 
@@ -35,18 +38,6 @@ public class Monster extends Character {
     public void setXp(int xp) {this.xp = xp;}
 
 
-
-
-    public boolean mort(){
-        if(this.getLife() <= 0){
-            return true;
-        }
-        return false;
-    }
-
-
-
-
     public void updateM(){
         if(this.getcooldown()<=0){
             this.setCooldownreset();
@@ -54,17 +45,19 @@ public class Monster extends Character {
         this.cooldownDown();
     }
 
-    public void update(){
+    public abstract void update();
 
-    }
 
     public void updateall(){
-        updateM();
+        //updateM();
         update();
     }
 
     public BulletEnnemi tirer() {
-        return new BulletEnnemi(this.x,this.y);
+        BulletEnnemi BE =new BulletEnnemi(this.x,this.y);
+        setBullet(BE);
+        return BE;
+
     }
 }
 

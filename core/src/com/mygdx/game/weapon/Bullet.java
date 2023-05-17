@@ -13,8 +13,9 @@ public class Bullet {
     protected int degat;
     protected int yspeed;
     protected int xspeed;
-    Texture texture;
-    private int cooldownMax;
+    private Texture texture;
+     private int cooldown;
+
 
 
      public boolean existe;
@@ -27,7 +28,7 @@ public class Bullet {
         return y;
     }
 
-    public Bullet(int degat, int xspeed, int yspeed, int x, int y, Texture texture, int cooldownMax){
+    public Bullet(int degat, int xspeed, int yspeed, int x, int y, Texture texture, int cooldown){
         this.degat = degat;
         this.xspeed = xspeed;
         this.yspeed = yspeed;
@@ -35,7 +36,14 @@ public class Bullet {
         this.y = y ;
         this.texture = texture;
         this.existe = true;
+<<<<<<< HEAD
         this.cooldownMax = cooldownMax;
+=======
+        this.cooldown = cooldown;
+
+
+
+>>>>>>> origin/main
     }
 
     public void draw(SpriteBatch batch){batch.draw(getTexture(), getX(),getY());}
@@ -53,4 +61,21 @@ public class Bullet {
         if (this.yspeed < 0) this.y = this.y - -this.yspeed ; //bullet va en bas
     }
 
+<<<<<<< HEAD
+=======
+    public void droite(){
+        this.x = this.x + this.xspeed;
+    }
+
+    public void bas(){
+        this.y = this.y - this.yspeed;
+    }
+
+
+    public void haut(){this.y = this.y + this.yspeed;}
+
+
+
+
+>>>>>>> origin/main
 }

@@ -7,7 +7,9 @@ import java.util.Random;
 
 public class SmallMonster extends Monster{
     public SmallMonster(int x, int y){
-        super(x,y,5, 5, 1, new Texture("dreadnaught.png"), 2 ,70);
+        super(x,y,5, 5, 1, new Texture("dreadnaught.png"), 2 , 70);
+
+        direction();
     }
 
     public void direction(){
@@ -25,6 +27,7 @@ public class SmallMonster extends Monster{
         }
     }
 
+    @Override
     public void update(){
 
         x += xspeed;

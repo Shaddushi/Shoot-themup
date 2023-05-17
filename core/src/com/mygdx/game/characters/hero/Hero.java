@@ -9,17 +9,23 @@ import com.mygdx.game.characters.Character;
 import com.mygdx.game.weapon.Bullet;
 import com.mygdx.game.weapon.BulletHero;
 
+import java.util.LinkedHashSet;
+
 public class Hero extends Character {
 
     int taillex;
     int tailley;
     int level;
 
-    public Hero(int x, int y, int xspeed, int yspeed, int life, Texture texture,int cooldown) {
-        super(x, y, xspeed, yspeed, life, texture,cooldown);
+
+
+
+    public Hero(int x, int y, int xspeed, int yspeed, int life, Texture texture, int cooldownMax) {
+        super(x, y, xspeed, yspeed, life, texture, cooldownMax);
         this.taillex = 99;
         this.tailley = 75;
     }
+
 
     public int getTaillex() {return taillex;}
 
@@ -35,57 +41,69 @@ public class Hero extends Character {
 
     public void setLevel(int level) {this.level = level;}
 
-    public Bullet shoot() {
+
+
+    public Bullet tirer() {
         return new BulletHero(this.getX() +(this.getTaillex() /2),this.getY() + this.getTailley());}
 
 
 
-    /*public void updateH(){
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-            shoot();
-        }
 
+
+    public void move() {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            if(this.x - this.xspeed < -getTaillex() + 10){
-                this.x = Gdx.graphics.getWidth() - this.getTaillex() + getTaillex() - 10;}
-            else {
-                this.x = this.x - this.xspeed;
-            }
+            this.gauche();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            if(this.x + this.xspeed > Gdx.graphics.getWidth() - this.getTaillex() + getTaillex() - 10) {
-                this.x = 0 - getTaillex() + 10;
-            }
-            else {
-                this.x = this.x + this.xspeed;
-            }
+            this.droite();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            if (this.y + this.yspeed > Gdx.graphics.getHeight() - this.getTailley()){
-                this.y = Gdx.graphics.getHeight() - this.getTailley();
-            }
-            else{
-                this.y = this.y + this.yspeed;
-            }
+            this.haut();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            if(this.y - this.yspeed < 0){
-                this.y = 0;
-            }
-            else{
-                this.y = this.y - this.yspeed;
-            }
+            this.bas();
         }
-    }*/
+    }
 
 
-    public BulletHero tirer() {
-        BulletHero bullet = new BulletHero(this.x, this.y);
-        return bullet;
+
+
+    public void bas() {
+        if (this.y - this.yspeed < 0 ) {
+            this.y = 0;
+        } else {
+            this.y = this.y - this.yspeed;
+        }
+    }
+    public void gauche(){
+        if(this.x - this.xspeed < -getTaillex() + 10){
+            this.x = Gdx.graphics.getWidth() - this.getTaillex() + getTaillex() - 10;}
+        else {
+            this.x = this.x - this.xspeed;
+        }
+    }
+
+    public void droite(){
+        if(this.x + this.xspeed > Gdx.graphics.getWidth() - this.getTaillex() + getTaillex() - 10) {
+            this.x = 0 - getTaillex() + 10;
+        }
+        else {
+            this.x = this.x + this.xspeed;
+        }
+    }
+
+    public void haut() {
+        if (this.y + this.yspeed > Gdx.graphics.getHeight() - this.getTailley()) {
+            this.y = Gdx.graphics.getHeight() - this.getTailley();
+        } else {
+            this.y = this.y + this.yspeed;
+        }
     }
 
 
 
 
 
-}
+
+
+        }

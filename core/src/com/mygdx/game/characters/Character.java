@@ -9,21 +9,22 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.weapon.Bullet;
 
 
-public abstract class Character {
+public class Character {
     protected int xspeed;
     protected int yspeed;
     protected int x;
     protected int y;
     protected int life;
     protected Texture texture;
-
-
-    private int cooldownMax ;
+    protected  Bullet bullet;
+    private int cooldownMax;
     private int cooldown;
 
+    public boolean existe;
 
 
-    public Character(int x, int y,int xspeed, int yspeed, int life,Texture texture,int cooldownMax){
+
+    public Character(int x, int y,int xspeed, int yspeed, int life,Texture texture, int cooldownMax){
         this.x = x;
         this.y = y;
         this.xspeed = xspeed;
@@ -64,6 +65,12 @@ public abstract class Character {
     }
 
 
+    public Bullet getBullet() {return this.bullet;}
+
+    public void setBullet(Bullet bullet) {this.bullet = bullet;}
+
+
+
     public void draw(SpriteBatch batch){
         batch.draw(getTexture(), getX(),getY());
     }
@@ -71,17 +78,9 @@ public abstract class Character {
         setLife(getLife() - degat);
     }
 
-    public void cooldownDown() {
-        this.cooldown--;
-    }
 
-    public void setCooldownreset() {
-        if(this.cooldown <= 0 ) {
-            this.cooldown = this.cooldownMax ;
-        }
-    }
 
-    public int getcooldown() {return cooldown;}
+
 
     public void gauche(){
         this.x = this.x - this.xspeed;
@@ -97,6 +96,27 @@ public abstract class Character {
 
 
     public void haut(){this.y = this.y + this.yspeed;}
+
+
+    public void cooldownDown() {
+        this.cooldown--;
+    }
+
+    public void setCooldownreset() {
+        if(this.cooldown <= 0 ) {
+            this.cooldown = this.cooldownMax ;
+        }
+    }
+
+    public int getcooldown() {return cooldown;}
+
+
+    public void mort(){
+        if(this.getLife() <= 0){
+            this.existe = false;
+        }
+    }
+
 
 }
 

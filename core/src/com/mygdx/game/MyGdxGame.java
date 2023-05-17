@@ -58,6 +58,7 @@ public class MyGdxGame extends ApplicationAdapter {
 				if ((ma.getX() >= mon.getX()) && (ma.getX() - mon.getTaillex() - 2 <= mon.getX())) {
 					ma.existe = false;
 					mon.toucher(ma.getDegat());
+					mon.mort();
 				}
 			}
 		}
@@ -67,11 +68,14 @@ public class MyGdxGame extends ApplicationAdapter {
 		if ((me.getY() >= hero.getY()) && (me.getY() - hero.getTailley() <= hero.getY())) {
 			if ((me.getX() >= hero.getX()) && (me.getX() - hero.getTaillex() <= hero.getX())) {
 				me.existe = false;
+				hero.toucher(me.getDegat());
+				hero.mort();
 			}
 		}
 	}
 
 	public void move(){
+
 		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 			hero.gauche();
 		}
@@ -85,13 +89,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			hero.bas();
 		}
 
-		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-			if(hero.getcooldown() <= 0) {
-				bullet.add((BulletHero) hero.tirer());
-				hero.setCooldownreset();
-			}
-			hero.cooldownDown();
-		}
+
 	}
 
 
@@ -102,6 +100,15 @@ public class MyGdxGame extends ApplicationAdapter {
 				mon.setCooldownreset();
 			}
 			mon.cooldownDown();
+
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+			if(hero.getcooldown() <= 0) {
+				bullet.add((BulletHero) hero.tirer());
+				hero.setCooldownreset();
+			}
+			hero.cooldownDown();
+
 		}
 	}
 
@@ -141,7 +148,12 @@ public class MyGdxGame extends ApplicationAdapter {
 				bulletEN.remove(me);
 			}
 		}
-
+		Monster[] monstre = m.toArray(new Monster[0]);
+		for(Monster mon : monstre) {
+			if (!mon.existe) {
+				m.remove(mon);
+			}
+		}
 		for (BulletHero ma : bullet) {
 			ma.draw(batch);
 			ma.updateBullet();
@@ -150,21 +162,23 @@ public class MyGdxGame extends ApplicationAdapter {
 			me.draw(batch);
 			me.updateBullet();
 		}
+		for (Monster mon : m) {
+			mon.draw(batch);
+			mon.updateall();
+		}
+
 	}
 
 	@Override
 	public void render() {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		move();
+		hero.move();
 		batch.begin();
 		batch.draw(background, 0, 0);
 		CollisionAll();
 		delete();
 		hero.draw(batch);
-		for (Monster mon : m) {
-			mon.draw(batch);
-			mon.updateall();
-		}
+
 		batch.end();
 
 	}
