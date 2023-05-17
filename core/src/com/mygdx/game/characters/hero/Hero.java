@@ -47,13 +47,7 @@ public class Hero extends Character {
         return new BulletHero(this.getX() +(this.getTaillex() /2),this.getY() + this.getTailley());}
 
 
-    public void gauche(){
-        if(this.x - this.xspeed < -getTaillex() + 10){
-            this.x = Gdx.graphics.getWidth() - this.getTaillex() + getTaillex() - 10;}
-        else {
-            this.x = this.x - this.xspeed;
-        }
-    }
+
 
 
     public void move() {
@@ -79,6 +73,30 @@ public class Hero extends Character {
             this.y = 0;
         } else {
             this.y = this.y - this.yspeed;
+        }
+    }
+    public void gauche(){
+        if(this.x - this.xspeed < -getTaillex() + 10){
+            this.x = Gdx.graphics.getWidth() - this.getTaillex() + getTaillex() - 10;}
+        else {
+            this.x = this.x - this.xspeed;
+        }
+    }
+
+    public void droite(){
+        if(this.x + this.xspeed > Gdx.graphics.getWidth() - this.getTaillex() + getTaillex() - 10) {
+            this.x = 0 - getTaillex() + 10;
+        }
+        else {
+            this.x = this.x + this.xspeed;
+        }
+    }
+
+    public void haut() {
+        if (this.y + this.yspeed > Gdx.graphics.getHeight() - this.getTailley()) {
+            this.y = Gdx.graphics.getHeight() - this.getTailley();
+        } else {
+            this.y = this.y + this.yspeed;
         }
     }
 
