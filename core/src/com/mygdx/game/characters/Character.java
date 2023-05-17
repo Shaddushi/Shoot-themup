@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.weapon.Bullet;
 
 
-public abstract class Character {
+public class Character {
     protected int xspeed;
     protected int yspeed;
     protected int x;
@@ -21,7 +21,7 @@ public abstract class Character {
     private int cooldownMax ;
     private int cooldown;
 
-
+    public boolean existe;
 
     public Character(int x, int y,int xspeed, int yspeed, int life,Texture texture,int cooldownMax){
         this.x = x;
@@ -97,6 +97,13 @@ public abstract class Character {
 
 
     public void haut(){this.y = this.y + this.yspeed;}
+
+    public void mort(){
+        if(this.getLife() <= 0){
+            this.existe = false;
+        }
+    }
+
 
 }
 

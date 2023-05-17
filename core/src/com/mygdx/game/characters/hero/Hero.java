@@ -21,6 +21,7 @@ public class Hero extends Character {
         this.tailley = 75;
     }
 
+
     public int getTaillex() {return taillex;}
 
 
@@ -40,43 +41,20 @@ public class Hero extends Character {
 
 
 
-    /*public void updateH(){
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-            shoot();
-        }
-
+    public void move() {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            if(this.x - this.xspeed < -getTaillex() + 10){
-                this.x = Gdx.graphics.getWidth() - this.getTaillex() + getTaillex() - 10;}
-            else {
-                this.x = this.x - this.xspeed;
-            }
+            this.gauche();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            if(this.x + this.xspeed > Gdx.graphics.getWidth() - this.getTaillex() + getTaillex() - 10) {
-                this.x = 0 - getTaillex() + 10;
-            }
-            else {
-                this.x = this.x + this.xspeed;
-            }
+            this.droite();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            if (this.y + this.yspeed > Gdx.graphics.getHeight() - this.getTailley()){
-                this.y = Gdx.graphics.getHeight() - this.getTailley();
-            }
-            else{
-                this.y = this.y + this.yspeed;
-            }
+            this.haut();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            if(this.y - this.yspeed < 0){
-                this.y = 0;
-            }
-            else{
-                this.y = this.y - this.yspeed;
-            }
+            this.bas();
         }
-    }*/
+    }
 
 
     public BulletHero tirer() {

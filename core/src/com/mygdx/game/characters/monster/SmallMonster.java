@@ -25,6 +25,7 @@ public class SmallMonster extends Monster{
         }
     }
 
+    @Override
     public void update(){
 
         x += xspeed;
