@@ -3,11 +3,13 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.characters.hero.Hero;
 import com.mygdx.game.characters.monster.MediumMonster;
 import com.mygdx.game.characters.monster.Monster;
@@ -16,12 +18,13 @@ import com.mygdx.game.weapon.Bullet;
 import com.mygdx.game.weapon.BulletEnnemi;
 import com.mygdx.game.weapon.BulletHero;
 
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 
-public class MyGdxGame extends ApplicationAdapter {
+public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
-	public ShapeRenderer shape;
+	public ShapeRenderer shapeLife;
+
+	public ShapeRenderer shapeNoLife;
 	public Hero hero;
 	public Texture heroimg;
 
@@ -47,7 +50,12 @@ public class MyGdxGame extends ApplicationAdapter {
 			System.out.println(i);
 			m.add(new SmallMonster(Gdx.graphics.getWidth() - ((i + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), (int) (Gdx.graphics.getHeight() - Gdx.graphics.getHeight() * 0.3)));
 		}
+
 		m.add(new MediumMonster(700,850));
+
+		shapeNoLife = new ShapeRenderer();
+		shapeLife = new ShapeRenderer();
+
 		batch = new SpriteBatch();
 		heroimg = new Texture("player.png");
 		background = new Texture(Gdx.files.internal("starry-night-sky.jpg"));
@@ -155,17 +163,52 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	}
 
+	public void HealthBar(){
+		shapeLife = new ShapeRenderer();
+		shapeNoLife = new ShapeRenderer();
+		shapeNoLife.begin(ShapeRenderer.ShapeType.Filled);
+		shapeLife.begin(ShapeRenderer.ShapeType.Filled);
+		shapeLife.setColor(0, 255, 0,1);
+		shapeNoLife.setColor(255, 0, 0,1);
+		if(hero.getLife()<=0){
+			shapeLife.rect((int)(
+							(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth()/3) -50)), 50
+					, 0, (int)(Gdx.graphics.getHeight()/20)
+			);
+		}
+		else {
+			shapeLife.rect((int) (
+							(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() / 3) - 50))
+					, 50
+					, (int) Math.round(((float) (Gdx.graphics.getWidth() / 3) * ((float) hero.getLife() / (float) hero.getMaxlife())))
+					, (int) (Gdx.graphics.getHeight() / 20)
+			);
+		}
+		shapeNoLife.rect((int)(
+						(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth()/3) -50)), 50
+				, (float)(Gdx.graphics.getWidth()/3), (int)(Gdx.graphics.getHeight()/20)
+		);
+		shapeNoLife.end();
+		shapeLife.end();
+	}
+
+
+
 	@Override
 	public void render() {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		hero.move();
 		batch.begin();
 		batch.draw(background, 0, 0);
+		hero.draw(batch);
 		CollisionAll();
 		delete();
-		hero.draw(batch);
 
+
+		HealthBar();
 		batch.end();
+
+
 
 	}
 }

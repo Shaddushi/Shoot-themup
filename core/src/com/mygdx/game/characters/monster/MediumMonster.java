@@ -45,6 +45,7 @@ public class MediumMonster extends Monster {
         System.out.println(this.x+ "   " +this.y);
         return BE;
 
+
     }
 
 
