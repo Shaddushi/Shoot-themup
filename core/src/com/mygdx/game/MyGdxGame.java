@@ -17,6 +17,7 @@ import com.mygdx.game.characters.monster.Monster;
 import com.mygdx.game.characters.monster.MonstreJaponais;
 import com.mygdx.game.characters.monster.SmallMonster;
 import com.mygdx.game.weapon.Bullet;
+import com.mygdx.game.weapon.BulletEnnemi;
 
 
 import javax.print.attribute.standard.Media;
@@ -135,18 +136,11 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 				collisionEnnemi(bullH);
 			}
 		}
-<<<<<<< HEAD
+
 		shoot();
 
-<<<<<<< HEAD
-		for (BulletEnnemi me : bulletEN) {
-			if (me.getY() <= -40) {
-=======
-=======
->>>>>>> origin/main
 		for (Bullet me : bulletEN) {
-			if (me.getY() <= 0) {
->>>>>>> origin/main
+			if (me.getY() <= -40) {
 				me.existe = false;
 			} else {
 				collisionAllie(me);
@@ -176,32 +170,20 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 				m.remove(mon);
 			}
 		}
-<<<<<<< HEAD
-<<<<<<< HEAD
-		for (BulletHero ma : bullet) {
-			ma.draw(batch);
-			ma.updateBullet();
-		}
-		for (BulletEnnemi me : bulletEN) {
-			me.draw(batch);
-			me.updateBullet();
-=======
-=======
+
 	}
 	public void dessine() {
 		batch.begin();
 		batch.draw(background, 0, 0);
 		hero.draw(batch);
 
->>>>>>> origin/main
 		for (Bullet bullH : bullet) {
 			bullH.draw(batch);
-			bullH.haut();
+			bullH.updateBullet();
 		}
 		for (Bullet bullM : bulletEN) {
 			bullM.draw(batch);
-			bullM.bas();
->>>>>>> origin/main
+			bullM.updateBullet();
 		}
 		for (Monster mon : m) {
 			mon.draw(batch);

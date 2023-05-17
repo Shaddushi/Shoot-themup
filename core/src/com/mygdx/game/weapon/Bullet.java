@@ -5,8 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Bullet {
-    LinkedHashSet<Bullet> bulletList = new LinkedHashSet<>() ;
-
 
     private int x;
     private int y;
