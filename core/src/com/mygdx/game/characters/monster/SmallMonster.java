@@ -3,7 +3,7 @@ package com.mygdx.game.characters.monster;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.weapon.Bullet;
-import com.mygdx.game.weapon.BulletEnnemi;
+import com.mygdx.game.weapon.BulletSmallEnnemi;
 
 import java.util.Random;
 
@@ -29,8 +29,9 @@ public class SmallMonster extends Monster{
         }
     }
 
-    public Bullet tirer() {
-        Bullet BE =new BulletEnnemi(this.x,this.y);
+    public Bullet[] tirer() {
+        Bullet[] BE =new Bullet[1];
+        BE[0] = new BulletSmallEnnemi(this.x,this.y);
         return BE;
 
     }

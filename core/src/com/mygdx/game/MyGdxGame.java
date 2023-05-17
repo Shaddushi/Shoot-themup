@@ -15,8 +15,7 @@ import com.mygdx.game.characters.monster.MediumMonster;
 import com.mygdx.game.characters.monster.Monster;
 import com.mygdx.game.characters.monster.SmallMonster;
 import com.mygdx.game.weapon.Bullet;
-import com.mygdx.game.weapon.BulletEnnemi;
-import com.mygdx.game.weapon.BulletHero;
+
 
 import java.util.LinkedHashSet;
 
@@ -91,7 +90,8 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	public void shoot(){
 		for(Monster mon : m){
 			if(mon.getcooldown()<=0){
-				bulletEN.add(mon.tirer());
+				for(Bullet B : mon.tirer())
+					bulletEN.add(B);
 				mon.setCooldownreset();
 			}
 			mon.cooldownDown();

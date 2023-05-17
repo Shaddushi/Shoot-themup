@@ -6,8 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.characters.Character;
 import com.mygdx.game.weapon.Bullet;
-import com.mygdx.game.weapon.BulletEnnemi;
-import com.mygdx.game.weapon.BulletHero;
+
 
 public abstract class Monster extends Character {
 
@@ -53,7 +52,7 @@ public abstract class Monster extends Character {
         update();
     }
 
-    public abstract Bullet tirer();
+    public abstract Bullet[] tirer();
 }
 
 
