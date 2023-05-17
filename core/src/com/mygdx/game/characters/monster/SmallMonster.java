@@ -32,7 +32,9 @@ public class SmallMonster extends Monster{
 
     public Bullet[] tirer() {
         Bullet[] BE =new Bullet[1];
-        BE[0] = new BulletSmallEnnemi(this.x,this.y);
+        BulletSmallEnnemi b = new BulletSmallEnnemi(this.x,this.y);
+
+        BE[0] = b ;
         return BE;
 
     }

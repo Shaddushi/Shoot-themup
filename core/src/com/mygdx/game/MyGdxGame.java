@@ -46,7 +46,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	LinkedHashSet<Bullet> bullet = new LinkedHashSet();
 
 	LinkedHashSet<Bullet> bulletEN = new LinkedHashSet();
-	LinkedHashSet<Monster> m = new LinkedHashSet();
+	public LinkedHashSet<Monster> m = new LinkedHashSet();
 
 
 	@Override
@@ -63,14 +63,14 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		menuMusic = Gdx.audio.newMusic(Gdx.files.internal("Shreksophone.mp3"));
 		Honteux = Gdx.audio.newMusic(Gdx.files.internal("Honteux.mp3"));
 		menuMusic.setLooping(true);
-		menuMusic.play();
+		//menuMusic.play();
 		shapeNoLife = new ShapeRenderer();
 		shapeLife = new ShapeRenderer();
 
 		batch = new SpriteBatch();
 		heroimg = new Texture("player.png");
 		background = new Texture(Gdx.files.internal("starry-night-sky.jpg"));
-		hero = new Hero(250, 250, 20, 20, 5, heroimg, 10,this);
+		hero = new Hero(250, 250, 20, 20, 20, heroimg, 10,this);
 	}
 
 
@@ -88,16 +88,20 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 	public void collisionAllie(Bullet bullM) {
 		if ((bullM.getY() >= hero.getY()) && (bullM.getY() - hero.getTailley() <= hero.getY())) {
-			if ((bullM.getX() >= hero.getX()) && (bullM.getX() - hero.getTaillex() <= hero.getX())) {
+			if (((bullM.getX() >= hero.getX()) && (bullM.getX() - hero.getTaillex() <= hero.getX())) || (hero.getX() >= bullM.getX() && hero.getX() <= (bullM.getX() + bullM.getTexture().getWidth()) )) {
 				bullM.existe = false;
 				hero.toucher(bullM.getDegat());
 				hero.mort();
-				Honteux.play();
+				//Honteux.play();
 			}
 		}
 		for(Monster mon: m) {
-			if ((mon.getY() >= hero.getY()) && (bullM.getY() - hero.getTailley() <= hero.getY())) {
-				if ((bullM.getX() >= hero.getX()) && (bullM.getX() - hero.getTaillex() <= hero.getX())) {
+			if ((mon.getY() >= hero.getY()) && (mon.getY() - hero.getTailley() <= hero.getY())) {
+				if ((mon.getX() >= hero.getX()) && (mon.getX() - hero.getTaillex() <= hero.getX())|| ((hero.getX() >= mon.getX()) && hero.getX() <= (mon.getX() + mon.getTexture().getWidth()) )){
+					hero.toucher(mon.getDegatCAC());
+					mon.toucher(hero.getDegatCAC());
+					hero.mort();
+					mon.mort();
 				}
 			}
 		}
@@ -108,7 +112,8 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	public void shoot(){
 		for(Monster mon : m){
 			if(mon.getcooldown()<=0){
-				for(Bullet B : mon.tirer())
+				Bullet[] BullHere = mon.tirer();
+				for(Bullet B : BullHere)
 					if(B != null){
 						bulletEN.add(B);
 					}
@@ -231,7 +236,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 		hero.update();
 		CollisionAll();
-		shoot();
+		//shoot();
 		delete();
 		dessine();
 		HealthBar();

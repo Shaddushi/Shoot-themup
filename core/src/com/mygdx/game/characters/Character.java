@@ -44,6 +44,9 @@ public abstract class Character {
         this.degatCAC = degatCAC;
     }
 
+    public int getDegatCAC(){return this.degatCAC;}
+
+
     public int getMaxlife(){
         return Maxlife;
     }

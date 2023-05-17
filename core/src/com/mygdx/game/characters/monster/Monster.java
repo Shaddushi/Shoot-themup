@@ -54,6 +54,10 @@ public abstract class Monster extends Character {
     }
 
     public abstract Bullet[] tirer();
+
+
+
+
 }
 
 

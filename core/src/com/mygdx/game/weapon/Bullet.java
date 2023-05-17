@@ -39,16 +39,17 @@ public class Bullet {
 
     public void draw(SpriteBatch batch){batch.draw(getTexture(), getX(),getY());}
 
-    private Texture getTexture() {return texture;}
 
     public int getDegat() {return degat;}
 
     public void setTexture(Texture texture) {this.texture = texture;}
 
+    public Texture getTexture(){return this.texture;}
+
     public void updateBullet() {
         if (this.xspeed > 0) this.x = this.x + this.xspeed ; // bullet va a droite
         if (this.xspeed < 0) this.x = this.x - -this.xspeed ; //bullet va a gauche
-        if (this.yspeed > 0) this.y = this.y + this.yspeed ; //bullet va en hau
+        if (this.yspeed > 0) this.y = this.y + this.yspeed ; //bullet va en haut
         if (this.yspeed < 0) this.y = this.y - -this.yspeed ; //bullet va en bas
     }
 }
