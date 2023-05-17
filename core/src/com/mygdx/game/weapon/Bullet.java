@@ -36,14 +36,7 @@ public class Bullet {
         this.y = y ;
         this.texture = texture;
         this.existe = true;
-<<<<<<< HEAD
-        this.cooldownMax = cooldownMax;
-=======
         this.cooldown = cooldown;
-
-
-
->>>>>>> origin/main
     }
 
     public void draw(SpriteBatch batch){batch.draw(getTexture(), getX(),getY());}
@@ -60,22 +53,4 @@ public class Bullet {
         if (this.yspeed > 0) this.y = this.y + this.yspeed ; //bullet va en hau
         if (this.yspeed < 0) this.y = this.y - -this.yspeed ; //bullet va en bas
     }
-
-<<<<<<< HEAD
-=======
-    public void droite(){
-        this.x = this.x + this.xspeed;
-    }
-
-    public void bas(){
-        this.y = this.y - this.yspeed;
-    }
-
-
-    public void haut(){this.y = this.y + this.yspeed;}
-
-
-
-
->>>>>>> origin/main
 }
