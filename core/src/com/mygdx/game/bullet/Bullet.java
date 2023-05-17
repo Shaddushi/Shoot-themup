@@ -1,4 +1,4 @@
-package com.mygdx.game.weapon;
+package com.mygdx.game.bullet;
 
 import java.util.LinkedHashSet;
 import com.badlogic.gdx.graphics.Texture;

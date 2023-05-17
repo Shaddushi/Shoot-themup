@@ -1,8 +1,9 @@
-package com.mygdx.game.weapon;
+package com.mygdx.game.bullet.Ally;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.mygdx.game.bullet.Bullet;
 
-public class BulletHero extends Bullet{
+public class BulletHero extends Bullet {
 
 
     public BulletHero(int x, int y){

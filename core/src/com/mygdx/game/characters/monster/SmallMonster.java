@@ -3,8 +3,8 @@ package com.mygdx.game.characters.monster;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.weapon.Bullet;
-import com.mygdx.game.weapon.BulletSmallEnnemi;
+import com.mygdx.game.bullet.Bullet;
+import com.mygdx.game.bullet.Enemy.BulletSmallEnnemi;
 
 import java.util.Random;
 

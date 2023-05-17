@@ -2,8 +2,7 @@ package com.mygdx.game.characters.monster;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.weapon.Bullet;
-import com.mygdx.game.weapon.BulletMediumEnnemi;
+import com.mygdx.game.bullet.Bullet;
 
 public class MonstreJaponais extends Monster {
 

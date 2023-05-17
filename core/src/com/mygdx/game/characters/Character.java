@@ -1,13 +1,11 @@
 package com.mygdx.game.characters;
 
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.weapon.Bullet;
+import com.mygdx.game.bullet.Bullet;
 
 
 public abstract class Character {

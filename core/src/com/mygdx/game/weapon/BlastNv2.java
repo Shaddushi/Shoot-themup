@@ -1,8 +1,9 @@
 package com.mygdx.game.weapon;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.mygdx.game.bullet.Bullet;
 
-public class BlastNv2 extends Bullet{
+public class BlastNv2 extends Bullet {
     private static int degat = 3 ;
     private static int xspeed = 20 ;
     private static int yspeed = 20 ;

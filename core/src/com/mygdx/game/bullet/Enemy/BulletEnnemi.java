@@ -1,6 +1,7 @@
-package com.mygdx.game.weapon;
+package com.mygdx.game.bullet.Enemy;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.mygdx.game.bullet.Bullet;
 
 public class BulletEnnemi extends Bullet {
 

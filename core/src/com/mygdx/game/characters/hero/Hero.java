@@ -3,14 +3,10 @@ package com.mygdx.game.characters.hero;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.characters.Character;
-import com.mygdx.game.weapon.Bullet;
-import com.mygdx.game.weapon.BulletHero;
-
-import java.util.LinkedHashSet;
+import com.mygdx.game.bullet.Bullet;
+import com.mygdx.game.bullet.Ally.BulletHero;
 
 public class Hero extends Character {
 

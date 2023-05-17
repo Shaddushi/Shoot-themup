@@ -4,23 +4,18 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.characters.hero.Hero;
 import com.mygdx.game.characters.monster.MediumMonster;
 import com.mygdx.game.characters.monster.Monster;
 import com.mygdx.game.characters.monster.MonstreJaponais;
 import com.mygdx.game.characters.monster.SmallMonster;
-import com.mygdx.game.weapon.Bullet;
-import com.mygdx.game.weapon.BulletEnnemi;
+import com.mygdx.game.bullet.Bullet;
 
 
-import javax.print.attribute.standard.Media;
 import java.util.LinkedHashSet;
 
 public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
