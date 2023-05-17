@@ -3,11 +3,13 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.characters.hero.Hero;
 import com.mygdx.game.characters.monster.Monster;
 import com.mygdx.game.characters.monster.SmallMonster;
@@ -15,10 +17,9 @@ import com.mygdx.game.weapon.Bullet;
 import com.mygdx.game.weapon.BulletEnnemi;
 import com.mygdx.game.weapon.BulletHero;
 
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 
-public class MyGdxGame extends ApplicationAdapter {
+public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 	public ShapeRenderer shape;
 	public Hero hero;
@@ -45,6 +46,7 @@ public class MyGdxGame extends ApplicationAdapter {
 			System.out.println(i);
 			m.add(new SmallMonster(Gdx.graphics.getWidth() - ((i + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), (int) (Gdx.graphics.getHeight() - Gdx.graphics.getHeight() * 0.3)));
 		}
+		shape = new ShapeRenderer();
 		batch = new SpriteBatch();
 		heroimg = new Texture("player.png");
 		background = new Texture(Gdx.files.internal("starry-night-sky.jpg"));
@@ -161,6 +163,11 @@ public class MyGdxGame extends ApplicationAdapter {
 		hero.draw(batch);
 
 		batch.end();
+		shape = new ShapeRenderer();
+		shape.begin(ShapeRenderer.ShapeType.Line);
+		shape.setColor(255, 1, 0, 1);
+		shape.rect(200, 200, 200, 200);
+		shape.end();
 
 	}
 }

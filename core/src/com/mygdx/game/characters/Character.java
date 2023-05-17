@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.weapon.Bullet;
 
 
-public class Character {
+public abstract class Character {
     protected int xspeed;
     protected int yspeed;
     protected int x;
@@ -20,15 +20,20 @@ public class Character {
 
     public boolean existe;
 
+    public int cooldown;
+
+    private int cooldownmax;
 
 
-    public Character(int x, int y,int xspeed, int yspeed, int life,Texture texture){
+    public Character(int x, int y,int xspeed, int yspeed, int life,Texture texture,int cooldown){
         this.x = x;
         this.y = y;
         this.xspeed = xspeed;
         this.yspeed = yspeed;
         this.life = life;
         this.texture = texture;
+        this.cooldown = cooldown;
+        this.cooldownmax = cooldown;
     }
 
 
@@ -74,9 +79,17 @@ public class Character {
         setLife(getLife() - degat);
     }
 
+    public int getcooldown(){
+        return this.cooldown;
+    }
 
+    public void setCooldownreset(){
+        this.cooldown = this.cooldownmax;
+    }
 
-
+    public void cooldownDown(){
+        this.cooldown--;
+    }
 
     public void gauche(){
         this.x = this.x - this.xspeed;
