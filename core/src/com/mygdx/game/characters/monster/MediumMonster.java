@@ -16,28 +16,28 @@ public class MediumMonster extends Monster {
 
     public MediumMonster(int x, int y){
     super(x,y,20, -3, 1, new Texture("mediumMonster.png"), 2 , 10);
-    this.rand = random.nextInt(10);
+    //this.rand = random.nextInt(10);
     }
 
     public void update(){
         this.x += xspeed;
-        this.y += yspeed;
+        this.y +=yspeed;
         if (this.x <= 0){
             this.x = 0;
         }
         if(this.x >= Gdx.graphics.getWidth() - this.getTaillex()){
             this.x = Gdx.graphics.getWidth() - this.getTaillex();
         }
-        if(this.y <= 500){
+        if(this.y <= 0){
             this.yspeed = 0;
         }
-        if(rand <= 0){
+        /*if(rand <= 0){
             this.x = -this.x;
             rand = random.nextInt(10);
         }
         else{
             rand--;
-        }
+        }*/
     }
 
     public Bullet tirer() {
