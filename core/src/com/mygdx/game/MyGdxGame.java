@@ -51,7 +51,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 			m.add(new SmallMonster(Gdx.graphics.getWidth() - ((i + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), (int) (Gdx.graphics.getHeight() - Gdx.graphics.getHeight() * 0.3)));
 		}
 
-		//m.add(new MediumMonster(700,850));
+		m.add(new MediumMonster(700,850));
 
 		shapeNoLife = new ShapeRenderer();
 		shapeLife = new ShapeRenderer();
@@ -198,7 +198,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	public void render() {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		hero.move();
-		HealthBar();
+
 		batch.begin();
 		batch.draw(background, 0, 0);
 		hero.draw(batch);
@@ -207,7 +207,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 
 		batch.end();
-
+		HealthBar();
 
 
 	}
