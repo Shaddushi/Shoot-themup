@@ -15,6 +15,7 @@ public abstract class Character {
     protected int x;
     protected int y;
     protected int life;
+    protected int Maxlife;
     protected Texture texture;
     protected  Bullet bullet;
 
@@ -35,8 +36,12 @@ public abstract class Character {
         this.texture = texture;
         this.cooldown = cooldown;
         this.cooldownmax = cooldown;
+        this.Maxlife = life;
     }
 
+    public int getMaxlife(){
+        return Maxlife;
+    }
 
     public int getXspeed() {return xspeed;}
 
