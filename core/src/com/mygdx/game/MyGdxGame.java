@@ -208,7 +208,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	@Override
 	public void render() {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		hero.move();
+		hero.update();
 
 		batch.begin();
 		batch.draw(background, 0, 0);
@@ -224,5 +224,5 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	}
 
 
-	//oskour
+
 }

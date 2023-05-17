@@ -50,55 +50,42 @@ public class Hero extends Character {
 
 
 
-    public void move() {
+    public void update() {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            this.gauche();
+            if(this.x - this.xspeed < -getTaillex() + 10){
+                this.x = Gdx.graphics.getWidth() - this.getTaillex() + getTaillex() - 10;}
+            else {
+                this.x = this.x - this.xspeed;
+            }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            this.droite();
+            if(this.x + this.xspeed > Gdx.graphics.getWidth() - this.getTaillex() + getTaillex() - 10) {
+                this.x = 0 - getTaillex() + 10;
+            }
+            else {
+                this.x = this.x + this.xspeed;
+            }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            this.haut();
+            if (this.y + this.yspeed > Gdx.graphics.getHeight() - this.getTailley()) {
+                this.y = Gdx.graphics.getHeight() - this.getTailley();
+            } else {
+                this.y = this.y + this.yspeed;
+            }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            this.bas();
+            if (this.y - this.yspeed < 0 ) {
+                this.y = 0;
+            } else {
+                this.y = this.y - this.yspeed;
+            }
         }
     }
 
 
 
 
-    public void bas() {
-        if (this.y - this.yspeed < 0 ) {
-            this.y = 0;
-        } else {
-            this.y = this.y - this.yspeed;
-        }
-    }
-    public void gauche(){
-        if(this.x - this.xspeed < -getTaillex() + 10){
-            this.x = Gdx.graphics.getWidth() - this.getTaillex() + getTaillex() - 10;}
-        else {
-            this.x = this.x - this.xspeed;
-        }
-    }
 
-    public void droite(){
-        if(this.x + this.xspeed > Gdx.graphics.getWidth() - this.getTaillex() + getTaillex() - 10) {
-            this.x = 0 - getTaillex() + 10;
-        }
-        else {
-            this.x = this.x + this.xspeed;
-        }
-    }
-
-    public void haut() {
-        if (this.y + this.yspeed > Gdx.graphics.getHeight() - this.getTailley()) {
-            this.y = Gdx.graphics.getHeight() - this.getTailley();
-        } else {
-            this.y = this.y + this.yspeed;
-        }
-    }
 
 
 
