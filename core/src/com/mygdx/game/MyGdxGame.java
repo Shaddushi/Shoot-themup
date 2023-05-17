@@ -21,7 +21,9 @@ import java.util.LinkedHashSet;
 
 public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
-	public ShapeRenderer shape;
+	public ShapeRenderer shapeLife;
+
+	public ShapeRenderer shapeNoLife;
 	public Hero hero;
 	public Texture heroimg;
 
@@ -46,7 +48,8 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 			System.out.println(i);
 			m.add(new SmallMonster(Gdx.graphics.getWidth() - ((i + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), (int) (Gdx.graphics.getHeight() - Gdx.graphics.getHeight() * 0.3)));
 		}
-		shape = new ShapeRenderer();
+		shapeNoLife = new ShapeRenderer();
+		shapeLife = new ShapeRenderer();
 		batch = new SpriteBatch();
 		heroimg = new Texture("player.png");
 		background = new Texture(Gdx.files.internal("starry-night-sky.jpg"));
@@ -171,22 +174,52 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 	}
 
+	public void HealthBar(){
+		shapeLife = new ShapeRenderer();
+		shapeNoLife = new ShapeRenderer();
+		shapeNoLife.begin(ShapeRenderer.ShapeType.Filled);
+		shapeLife.begin(ShapeRenderer.ShapeType.Filled);
+		shapeLife.setColor(0, 255, 0,1);
+		shapeNoLife.setColor(255, 0, 0,1);
+		if(hero.getLife()<=0){
+			shapeLife.rect((int)(
+							(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth()/3) -50)), 50
+					, 0, (int)(Gdx.graphics.getHeight()/20)
+			);
+		}
+		else {
+			shapeLife.rect((int) (
+							(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() / 3) - 50))
+					, 50
+					, (int) Math.round(((float) (Gdx.graphics.getWidth() / 3) * ((float) hero.getLife() / (float) hero.getMaxlife())))
+					, (int) (Gdx.graphics.getHeight() / 20)
+			);
+		}
+		shapeNoLife.rect((int)(
+						(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth()/3) -50)), 50
+				, (float)(Gdx.graphics.getWidth()/3), (int)(Gdx.graphics.getHeight()/20)
+		);
+		shapeNoLife.end();
+		shapeLife.end();
+	}
+
+
+
 	@Override
 	public void render() {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		hero.move();
 		batch.begin();
 		batch.draw(background, 0, 0);
+		hero.draw(batch);
 		CollisionAll();
 		delete();
-		hero.draw(batch);
 
+
+		HealthBar();
 		batch.end();
-		shape = new ShapeRenderer();
-		shape.begin(ShapeRenderer.ShapeType.Line);
-		shape.setColor(255, 1, 0, 1);
-		shape.rect((int)(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth()/8) -50) , 50, (int)(Gdx.graphics.getWidth()/8), (int)(Gdx.graphics.getWidth()/10));
-		shape.end();
+
+
 
 	}
 }
