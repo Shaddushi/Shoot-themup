@@ -185,7 +185,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		shape = new ShapeRenderer();
 		shape.begin(ShapeRenderer.ShapeType.Line);
 		shape.setColor(255, 1, 0, 1);
-		shape.rect(200, 200, 200, 200);
+		shape.rect((int)(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth()/8) -50) , 50, (int)(Gdx.graphics.getWidth()/8), (int)(Gdx.graphics.getWidth()/10));
 		shape.end();
 
 	}
