@@ -54,7 +54,10 @@ public abstract class Monster extends Character {
     }
 
     public BulletEnnemi tirer() {
-        return new BulletEnnemi(this.x,this.y);
+        BulletEnnemi BE =new BulletEnnemi(this.x,this.y);
+        setBullet(BE);
+        return BE;
+
     }
 }
 

@@ -50,7 +50,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		heroimg = new Texture("player.png");
 		background = new Texture(Gdx.files.internal("starry-night-sky.jpg"));
-		hero = new Hero(250, 250, 20, 20, 100, heroimg);
+		hero = new Hero(250, 250, 20, 20, 100, heroimg, 10);
 	}
 
 
@@ -72,9 +72,26 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 				me.existe = false;
 				hero.toucher(me.getDegat());
 				hero.mort();
-
 			}
 		}
+	}
+
+	public void move(){
+
+		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+			hero.gauche();
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+			hero.droite();
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+			hero.haut();
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+			hero.bas();
+		}
+
+
 	}
 
 
@@ -85,6 +102,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 				mon.setCooldownreset();
 			}
 			mon.cooldownDown();
+
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
 			if(hero.getcooldown() <= 0) {
@@ -92,6 +110,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 				hero.setCooldownreset();
 			}
 			hero.cooldownDown();
+
 		}
 	}
 

@@ -17,15 +17,16 @@ public abstract class Character {
     protected int life;
     protected Texture texture;
     protected  Bullet bullet;
+    private int cooldownMax;
+    private int cooldown;
 
     public boolean existe;
-
-    public int cooldown;
 
     private int cooldownmax;
 
 
     public Character(int x, int y,int xspeed, int yspeed, int life,Texture texture,int cooldown){
+
         this.x = x;
         this.y = y;
         this.xspeed = xspeed;
@@ -70,7 +71,7 @@ public abstract class Character {
 
     public void setBullet(Bullet bullet) {this.bullet = bullet;}
 
-    protected abstract Bullet tirer();
+
 
     public void draw(SpriteBatch batch){
         batch.draw(getTexture(), getX(),getY());
@@ -79,17 +80,7 @@ public abstract class Character {
         setLife(getLife() - degat);
     }
 
-    public int getcooldown(){
-        return this.cooldown;
-    }
 
-    public void setCooldownreset(){
-        this.cooldown = this.cooldownmax;
-    }
-
-    public void cooldownDown(){
-        this.cooldown--;
-    }
 
     public void gauche(){
         this.x = this.x - this.xspeed;
@@ -105,6 +96,20 @@ public abstract class Character {
 
 
     public void haut(){this.y = this.y + this.yspeed;}
+
+
+    public void cooldownDown() {
+        this.cooldown--;
+    }
+
+    public void setCooldownreset() {
+        if(this.cooldown <= 0 ) {
+            this.cooldown = this.cooldownMax ;
+        }
+    }
+
+    public int getcooldown() {return cooldown;}
+
 
     public void mort(){
         if(this.getLife() <= 0){
