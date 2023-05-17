@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -17,6 +18,7 @@ import com.mygdx.game.characters.monster.SmallMonster;
 import com.mygdx.game.weapon.Bullet;
 
 
+import javax.print.attribute.standard.Media;
 import java.util.LinkedHashSet;
 
 public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
@@ -35,6 +37,8 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	public SpriteBatch batch;
 
 	public int nbmonster = 8;
+
+	public Music menuMusic;
 	LinkedHashSet<Bullet> bullet = new LinkedHashSet();
 
 	LinkedHashSet<Bullet> bulletEN = new LinkedHashSet();
@@ -51,15 +55,16 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		}
 
 		m.add(new MediumMonster(700,850));
-
+		menuMusic = Gdx.audio.newMusic(Gdx.files.internal("Shreksophone.mp3"));
+		menuMusic.setLooping(true);
+		menuMusic.play();
 		shapeNoLife = new ShapeRenderer();
 		shapeLife = new ShapeRenderer();
 
 		batch = new SpriteBatch();
 		heroimg = new Texture("player.png");
 		background = new Texture(Gdx.files.internal("starry-night-sky.jpg"));
-
-		hero = new Hero(250, 250, 20, 20, 100, heroimg, 10);
+		hero = new Hero(250, 250, 20, 20, 5, heroimg, 10);
 	}
 
 
@@ -81,6 +86,12 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 				bullM.existe = false;
 				hero.toucher(bullM.getDegat());
 				hero.mort();
+			}
+		}
+		for(Monster mon: m) {
+			if ((mon.getY() >= hero.getY()) && (bullM.getY() - hero.getTailley() <= hero.getY())) {
+				if ((bullM.getX() >= hero.getX()) && (bullM.getX() - hero.getTaillex() <= hero.getX())) {
+				}
 			}
 		}
 	}
@@ -211,4 +222,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 
 	}
+
+
+	//oskour
 }

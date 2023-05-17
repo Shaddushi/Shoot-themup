@@ -25,8 +25,9 @@ public abstract class Character {
 
     public int cooldownmax;
 
+    public int degatCAC;
 
-    public Character(int x, int y,int xspeed, int yspeed, int life,Texture texture,int cooldown){
+    public Character(int x, int y,int xspeed, int yspeed, int life,Texture texture,int cooldown,int degatCAC){
 
         this.x = x;
         this.y = y;
@@ -37,6 +38,7 @@ public abstract class Character {
         this.cooldown = cooldown;
         this.cooldownmax = cooldown;
         this.Maxlife = life;
+        this.degatCAC = degatCAC;
     }
 
     public int getMaxlife(){

@@ -13,8 +13,9 @@ public class MediumMonster extends Monster {
     private int rand;
 
     public MediumMonster(int x, int y){
-    super(x,y,5,3 , 1, new Texture("mediumMonster.png"), 2 , 100);
-    this.rand = random.nextInt(20,30);
+
+    super(x,y,5,3 , 1, new Texture("mediumMonster.png"), 2 , 100,2);
+    this.rand = random.nextInt(20);
 
     }
 
