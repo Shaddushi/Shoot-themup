@@ -9,14 +9,18 @@ import com.mygdx.game.characters.Character;
 import com.mygdx.game.weapon.Bullet;
 import com.mygdx.game.weapon.BulletHero;
 
+import java.util.LinkedHashSet;
+
 public class Hero extends Character {
 
     int taillex;
     int tailley;
     int level;
 
-    public Hero(int x, int y, int xspeed, int yspeed, int life, Texture texture) {
-        super(x, y, xspeed, yspeed, life, texture);
+
+
+    public Hero(int x, int y, int xspeed, int yspeed, int life, Texture texture, int cooldownMax) {
+        super(x, y, xspeed, yspeed, life, texture, cooldownMax);
         this.taillex = 99;
         this.tailley = 75;
     }
@@ -38,7 +42,6 @@ public class Hero extends Character {
 
     public Bullet tirer() {
         return new BulletHero(this.getX() +(this.getTaillex() /2),this.getY() + this.getTailley());}
-
 
     public void gauche(){
         if(this.x - this.xspeed < -getTaillex() + 10){
@@ -64,6 +67,18 @@ public class Hero extends Character {
             this.y = this.y + this.yspeed;
         }
     }
+
+    public void bas() {
+        if (this.y - this.yspeed < 0 ) {
+            this.y = 0;
+        } else {
+            this.y = this.y - this.yspeed;
+        }
+    }
+
+
+
+
 
 
 

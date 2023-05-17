@@ -48,7 +48,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		heroimg = new Texture("player.png");
 		background = new Texture(Gdx.files.internal("starry-night-sky.jpg"));
-		hero = new Hero(250, 250, 20, 20, 100, heroimg);
+		hero = new Hero(250, 250, 20, 20, 100, heroimg, 10);
 	}
 
 
@@ -72,6 +72,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	}
 
 	public void move(){
+
 		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 			hero.gauche();
 		}
@@ -86,22 +87,22 @@ public class MyGdxGame extends ApplicationAdapter {
 		}
 
 		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-			if(hero.getBullet().getcooldown() <= 0) {
+			if(hero.getcooldown() <= 0) {
 				bullet.add((BulletHero) hero.tirer());
-				hero.getBullet().setCooldownreset();
+				hero.setCooldownreset();
 			}
-			hero.getBullet().cooldownDown();
+			hero.cooldownDown();
 		}
 	}
 
 
 	public void shoot(){
 		for(Monster mon : m){
-			if(mon.getBullet().getcooldown()<=0){
+			if(mon.getcooldown()<=0){
 				bulletEN.add(mon.tirer());
-				mon.getBullet().setCooldownreset();
+				mon.setCooldownreset();
 			}
-			mon.getBullet().cooldownDown();
+			mon.cooldownDown();
 		}
 	}
 
