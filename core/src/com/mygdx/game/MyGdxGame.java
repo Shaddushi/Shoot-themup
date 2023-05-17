@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.characters.hero.Hero;
 import com.mygdx.game.characters.monster.MediumMonster;
 import com.mygdx.game.characters.monster.Monster;
+import com.mygdx.game.characters.monster.MonstreJaponais;
 import com.mygdx.game.characters.monster.SmallMonster;
 import com.mygdx.game.weapon.Bullet;
 
@@ -57,6 +58,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		}
 
 		m.add(new MediumMonster(700,850,this));
+		m.add(new MonstreJaponais(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(), this));
 		menuMusic = Gdx.audio.newMusic(Gdx.files.internal("Shreksophone.mp3"));
 		Honteux = Gdx.audio.newMusic(Gdx.files.internal("Honteux.mp3"));
 		menuMusic.setLooping(true);
@@ -106,7 +108,10 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		for(Monster mon : m){
 			if(mon.getcooldown()<=0){
 				for(Bullet B : mon.tirer())
-					bulletEN.add(B);
+					if(B != null){
+						bulletEN.add(B);
+					}
+
 				mon.setCooldownreset();
 			}
 			mon.cooldownDown();
