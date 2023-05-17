@@ -15,8 +15,8 @@ public abstract class Character {
     protected int yspeed;
     protected int x;
     protected int y;
-    protected int life;
-    protected int Maxlife;
+    protected double life;
+    protected double Maxlife;
     protected Texture texture;
     protected  Bullet bullet;
 
@@ -26,11 +26,11 @@ public abstract class Character {
 
     public int cooldownmax;
 
-    public int degatCAC;
+    public double degatCAC;
 
     public MyGdxGame gdx;
 
-    public Character(int x, int y,int xspeed, int yspeed, int life,Texture texture,int cooldown,int degatCAC,MyGdxGame gdx){
+    public Character(int x, int y,int xspeed, int yspeed, int life,Texture texture,int cooldown,double degatCAC,MyGdxGame gdx){
         this.gdx=gdx;
         this.x = x;
         this.y = y;
@@ -44,10 +44,10 @@ public abstract class Character {
         this.degatCAC = degatCAC;
     }
 
-    public int getDegatCAC(){return this.degatCAC;}
+    public double getDegatCAC(){return this.degatCAC;}
 
 
-    public int getMaxlife(){
+    public double getMaxlife(){
         return Maxlife;
     }
 
@@ -67,9 +67,9 @@ public abstract class Character {
 
     public void setY(int y) {this.y = y;}
 
-    public int getLife() {return life;}
+    public double getLife() {return life;}
 
-    public void setLife(int life) {this.life = life;}
+    public void setLife(double life) {this.life = life;}
 
     public Texture getTexture() {
         return texture;
@@ -89,7 +89,7 @@ public abstract class Character {
     public void draw(SpriteBatch batch){
         batch.draw(getTexture(), getX(),getY());
     }
-    public void toucher(int degat){
+    public void toucher(double degat){
         setLife(getLife() - degat);
     }
 

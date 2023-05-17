@@ -22,7 +22,7 @@ public class Hero extends Character {
 
 
     public Hero(int x, int y, int xspeed, int yspeed, int life, Texture texture, int cooldownMax,MyGdxGame gdx) {
-        super(x, y, xspeed, yspeed, life, texture, cooldownMax,2,gdx);
+        super(x, y, xspeed, yspeed, life, texture, cooldownMax,0.02,gdx);
         this.taillex = texture.getWidth();
         this.tailley = texture.getHeight();
     }

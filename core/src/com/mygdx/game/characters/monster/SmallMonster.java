@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class SmallMonster extends Monster{
     public SmallMonster(int x, int y, MyGdxGame gdx){
-        super(x,y,5, 5, 1, new Texture("dreadnaught.png"), 2 , 70,1,gdx);
+        super(x,y,5, 5, 1, new Texture("dreadnaught.png"), 2 , 70,0.01,gdx);
 
         direction();
     }

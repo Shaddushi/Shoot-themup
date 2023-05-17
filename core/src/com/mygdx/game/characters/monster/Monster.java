@@ -16,7 +16,7 @@ public abstract class Monster extends Character {
     public int xp;
 
 
-    public Monster(int x, int y, int xspeed, int yspeed, int life, Texture texture, int xp, int cooldown, int DegatCAC, MyGdxGame gdx){
+    public Monster(int x, int y, int xspeed, int yspeed, int life, Texture texture, int xp, int cooldown, double DegatCAC, MyGdxGame gdx){
         super(x, y, xspeed, yspeed, life,texture,cooldown,DegatCAC,gdx);
         this.xp = xp;
         this.taillex = texture.getWidth();
