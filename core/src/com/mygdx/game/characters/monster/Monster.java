@@ -14,11 +14,14 @@ public abstract class Monster extends Character {
     protected int taillex;
     protected int tailley;
     public int xp;
-    public Monster(int x, int y, int xspeed, int yspeed, int life,Texture texture, int xp, int cooldownMax){
-        super(x, y, xspeed, yspeed, life,texture, cooldownMax);
+
+
+    public Monster(int x, int y, int xspeed, int yspeed, int life,Texture texture, int xp,int cooldown){
+        super(x, y, xspeed, yspeed, life,texture,cooldown);
         this.xp = xp;
         this.taillex = 52;
         this.tailley = 42;
+        this.existe=true;
 
     }
 
@@ -35,28 +38,14 @@ public abstract class Monster extends Character {
     public void setXp(int xp) {this.xp = xp;}
 
 
-    public void gauche(){
-        if(this.x - this.xspeed < 0){
-            this.x = 0;}
-        else {
-            this.x = this.x - this.xspeed;
+    public void updateM(){
+        if(this.getcooldown()<=0){
+            this.setCooldownreset();
         }
-    }
-
-
-
-    public boolean mort(){
-        if(this.getLife() <= 0){
-            return true;
-        }
-        return false;
+        this.cooldownDown();
     }
 
     public abstract void update();
-
-    public abstract void direction();
-
-
 
 
     public void updateall(){
