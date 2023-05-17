@@ -52,5 +52,6 @@ public class Bullet {
         if (this.xspeed < 0) this.x = this.x - -this.xspeed ; //bullet va a gauche
         if (this.yspeed > 0) this.y = this.y + this.yspeed ; //bullet va en hau
         if (this.yspeed < 0) this.y = this.y - -this.yspeed ; //bullet va en bas
+
     }
 }
