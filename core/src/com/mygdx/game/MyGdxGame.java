@@ -48,7 +48,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		heroimg = new Texture("player.png");
 		background = new Texture(Gdx.files.internal("starry-night-sky.jpg"));
-		hero = new Hero(250, 250, 20, 20, 100, heroimg, 10);
+		hero = new Hero(250, 250, 20, 20, 100, heroimg);
 	}
 
 
@@ -86,22 +86,22 @@ public class MyGdxGame extends ApplicationAdapter {
 		}
 
 		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-			if(hero.getcooldown() <= 0) {
+			if(hero.getBullet().getcooldown() <= 0) {
 				bullet.add((BulletHero) hero.tirer());
-				hero.setCooldownreset();
+				hero.getBullet().setCooldownreset();
 			}
-			hero.cooldownDown();
+			hero.getBullet().cooldownDown();
 		}
 	}
 
 
 	public void shoot(){
 		for(Monster mon : m){
-			if(mon.getcooldown()<=0){
+			if(mon.getBullet().getcooldown()<=0){
 				bulletEN.add(mon.tirer());
-				mon.setCooldownreset();
+				mon.getBullet().setCooldownreset();
 			}
-			mon.cooldownDown();
+			mon.getBullet().cooldownDown();
 		}
 	}
 

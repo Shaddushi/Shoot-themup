@@ -16,7 +16,8 @@ public abstract class Character {
     protected int y;
     protected int life;
     protected Texture texture;
-    protected Bullet bullet;
+    protected  Bullet bullet;
+
 
 
 
@@ -59,11 +60,13 @@ public abstract class Character {
         this.texture = texture;
     }
 
+
     public Bullet getBullet() {return this.bullet;}
 
     public void setBullet(Bullet bullet) {this.bullet = bullet;}
 
     protected abstract Bullet tirer();
+
     public void draw(SpriteBatch batch){
         batch.draw(getTexture(), getX(),getY());
     }
@@ -75,6 +78,20 @@ public abstract class Character {
 
 
 
+    public void gauche(){
+        this.x = this.x - this.xspeed;
+    }
+
+    public void droite(){
+        this.x = this.x + this.xspeed;
+    }
+
+    public void bas(){
+        this.y = this.y - this.yspeed;
+    }
+
+
+    public void haut(){this.y = this.y + this.yspeed;}
 
 }
 

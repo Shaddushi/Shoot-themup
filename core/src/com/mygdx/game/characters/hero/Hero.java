@@ -19,7 +19,6 @@ public class Hero extends Character {
         super(x, y, xspeed, yspeed, life, texture);
         this.taillex = 99;
         this.tailley = 75;
-        this.setBullet(new BulletHero(this.getX() +(this.getTaillex() /2),this.getY() + this.getTailley()));
     }
 
     public int getTaillex() {return taillex;}
@@ -36,10 +35,10 @@ public class Hero extends Character {
 
     public void setLevel(int level) {this.level = level;}
 
-    public Bullet tirer() {
 
-        return this.getBullet();
-    }
+    public Bullet tirer() {
+        return new BulletHero(this.getX() +(this.getTaillex() /2),this.getY() + this.getTailley());}
+
 
     public void gauche(){
         if(this.x - this.xspeed < -getTaillex() + 10){
@@ -58,37 +57,14 @@ public class Hero extends Character {
         }
     }
 
-    public void haut(){
-        if (this.y + this.yspeed > Gdx.graphics.getHeight() - this.getTailley()){
+    public void haut() {
+        if (this.y + this.yspeed > Gdx.graphics.getHeight() - this.getTailley()) {
             this.y = Gdx.graphics.getHeight() - this.getTailley();
-        }
-        else{
+        } else {
             this.y = this.y + this.yspeed;
         }
-
-    }
-
-    public void bas(){
-        if(this.y - this.yspeed < 0){
-            this.y = 0;
-        }
-        else{
-            this.y = this.y - this.yspeed;
-        }
-
     }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-}
+        }
