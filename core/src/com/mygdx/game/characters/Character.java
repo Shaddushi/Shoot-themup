@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.weapon.Bullet;
 
 
@@ -25,9 +26,12 @@ public abstract class Character {
 
     public int cooldownmax;
 
+    public int degatCAC;
 
-    public Character(int x, int y,int xspeed, int yspeed, int life,Texture texture,int cooldown){
+    public MyGdxGame gdx;
 
+    public Character(int x, int y,int xspeed, int yspeed, int life,Texture texture,int cooldown,int degatCAC,MyGdxGame gdx){
+        this.gdx=gdx;
         this.x = x;
         this.y = y;
         this.xspeed = xspeed;
@@ -37,6 +41,7 @@ public abstract class Character {
         this.cooldown = cooldown;
         this.cooldownmax = cooldown;
         this.Maxlife = life;
+        this.degatCAC = degatCAC;
     }
 
     public int getMaxlife(){

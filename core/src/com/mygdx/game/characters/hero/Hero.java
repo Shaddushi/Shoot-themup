@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.characters.Character;
 import com.mygdx.game.weapon.Bullet;
 import com.mygdx.game.weapon.BulletHero;
@@ -20,8 +21,8 @@ public class Hero extends Character {
 
 
 
-    public Hero(int x, int y, int xspeed, int yspeed, int life, Texture texture, int cooldownMax) {
-        super(x, y, xspeed, yspeed, life, texture, cooldownMax);
+    public Hero(int x, int y, int xspeed, int yspeed, int life, Texture texture, int cooldownMax,MyGdxGame gdx) {
+        super(x, y, xspeed, yspeed, life, texture, cooldownMax,2,gdx);
         this.taillex = texture.getWidth();
         this.tailley = texture.getHeight();
     }
@@ -50,55 +51,42 @@ public class Hero extends Character {
 
 
 
-    public void move() {
+    public void update() {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            this.gauche();
+            if(this.x - this.xspeed < -getTaillex() + 10){
+                this.x = Gdx.graphics.getWidth() - this.getTaillex() + getTaillex() - 10;}
+            else {
+                this.x = this.x - this.xspeed;
+            }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            this.droite();
+            if(this.x + this.xspeed > Gdx.graphics.getWidth() - this.getTaillex() + getTaillex() - 10) {
+                this.x = 0 - getTaillex() + 10;
+            }
+            else {
+                this.x = this.x + this.xspeed;
+            }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            this.haut();
+            if (this.y + this.yspeed > Gdx.graphics.getHeight() - this.getTailley()) {
+                this.y = Gdx.graphics.getHeight() - this.getTailley();
+            } else {
+                this.y = this.y + this.yspeed;
+            }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            this.bas();
+            if (this.y - this.yspeed < 0 ) {
+                this.y = 0;
+            } else {
+                this.y = this.y - this.yspeed;
+            }
         }
     }
 
 
 
 
-    public void bas() {
-        if (this.y - this.yspeed < 0 ) {
-            this.y = 0;
-        } else {
-            this.y = this.y - this.yspeed;
-        }
-    }
-    public void gauche(){
-        if(this.x - this.xspeed < -getTaillex() + 10){
-            this.x = Gdx.graphics.getWidth() - this.getTaillex() + getTaillex() - 10;}
-        else {
-            this.x = this.x - this.xspeed;
-        }
-    }
 
-    public void droite(){
-        if(this.x + this.xspeed > Gdx.graphics.getWidth() - this.getTaillex() + getTaillex() - 10) {
-            this.x = 0 - getTaillex() + 10;
-        }
-        else {
-            this.x = this.x + this.xspeed;
-        }
-    }
-
-    public void haut() {
-        if (this.y + this.yspeed > Gdx.graphics.getHeight() - this.getTailley()) {
-            this.y = Gdx.graphics.getHeight() - this.getTailley();
-        } else {
-            this.y = this.y + this.yspeed;
-        }
-    }
 
 
 

@@ -4,10 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.characters.Character;
 import com.mygdx.game.weapon.Bullet;
-import com.mygdx.game.weapon.BulletEnnemi;
-import com.mygdx.game.weapon.BulletHero;
+
 
 public abstract class Monster extends Character {
 
@@ -16,8 +16,8 @@ public abstract class Monster extends Character {
     public int xp;
 
 
-    public Monster(int x, int y, int xspeed, int yspeed, int life,Texture texture, int xp,int cooldown){
-        super(x, y, xspeed, yspeed, life,texture,cooldown);
+    public Monster(int x, int y, int xspeed, int yspeed, int life, Texture texture, int xp, int cooldown, int DegatCAC, MyGdxGame gdx){
+        super(x, y, xspeed, yspeed, life,texture,cooldown,DegatCAC,gdx);
         this.xp = xp;
         this.taillex = texture.getWidth();
         this.tailley = texture.getHeight();
@@ -53,7 +53,7 @@ public abstract class Monster extends Character {
         update();
     }
 
-    public abstract Bullet tirer();
+    public abstract Bullet[] tirer();
 }
 
 
