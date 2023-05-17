@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.weapon.Bullet;
 
 
@@ -27,8 +28,10 @@ public abstract class Character {
 
     public int degatCAC;
 
-    public Character(int x, int y,int xspeed, int yspeed, int life,Texture texture,int cooldown,int degatCAC){
+    MyGdxGame gdx;
 
+    public Character(int x, int y,int xspeed, int yspeed, int life,Texture texture,int cooldown,int degatCAC,MyGdxGame gdx){
+        this.gdx=gdx;
         this.x = x;
         this.y = y;
         this.xspeed = xspeed;
