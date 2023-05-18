@@ -7,7 +7,7 @@ import com.mygdx.game.bullet.Bullet;
 public class MonstreJaponais extends Monster {
 
     public MonstreJaponais(int x, int y, MyGdxGame gdx){
-        super(x,y,5,3 , 1, new Texture("kamikaze.png"), 2 , 0,5, gdx);
+        super(x,y,5,3 , 1, new Texture("kamikaze.png"), 2 , 0,5, gdx,20);
 
     }
 

@@ -6,7 +6,7 @@ import com.mygdx.game.bullet.Bullet;
 public class BulletSmallEnnemi extends Bullet {
 
     public BulletSmallEnnemi(int x, int y){
-        super(1,3,-3,x,y,new Texture("laserRed.png"), 70);
+        super(1,0,-3,x,y,new Texture("laserRed.png"), 70);
 
 
     }

@@ -14,19 +14,33 @@ public class Hero extends Character {
     int tailley;
     int level;
 
-
+    int maxexp = 100;
+    int experience;
 
 
     public Hero(int x, int y, int xspeed, int yspeed, int life, Texture texture, int cooldownMax,MyGdxGame gdx) {
         super(x, y, xspeed, yspeed, life, texture, cooldownMax,0.02,gdx);
         this.taillex = texture.getWidth();
         this.tailley = texture.getHeight();
+        this.experience = 0;
+        this.level = 1;
     }
 
 
     public int getTaillex() {return taillex;}
 
+    public void addExp(int exp){
+        while (this.experience + 1 < maxexp && exp > 0){
+            this.experience ++;
+            exp--;
+        }
+        if(this.experience == maxexp){
+            this.level ++;
+            this.experience = exp;
+            this.maxexp = (int)(this.maxexp *1.2);
+        }
 
+        }
 
     public void setTaillex(int taillex) {this.taillex = taillex;}
 

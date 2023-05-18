@@ -14,9 +14,12 @@ import com.mygdx.game.characters.monster.Monster;
 import com.mygdx.game.characters.monster.MonstreJaponais;
 import com.mygdx.game.characters.monster.SmallMonster;
 import com.mygdx.game.bullet.Bullet;
+import com.mygdx.game.powerUp.powerUp;
 
 
 import java.util.LinkedHashSet;
+
+import static com.badlogic.gdx.math.MathUtils.random;
 
 public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
@@ -38,18 +41,17 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	public Music menuMusic;
 
 	public Music Honteux;
-	LinkedHashSet<Bullet> bullet = new LinkedHashSet();
+	LinkedHashSet<Bullet> bullet = new LinkedHashSet<>();
 
-	LinkedHashSet<Bullet> bulletEN = new LinkedHashSet();
-	public LinkedHashSet<Monster> m = new LinkedHashSet();
+	LinkedHashSet<Bullet> bulletEN = new LinkedHashSet<>();
+	public LinkedHashSet<Monster> m = new LinkedHashSet<>();
 
-
+	public LinkedHashSet<powerUp> pU = new LinkedHashSet<powerUp>();
 	@Override
 	public void create() {
 		bulletimg = new Texture("laserGreen.png");
 
 		for (int i = 0; i < nbmonster; i++) {
-			System.out.println(i);
 			m.add(new SmallMonster(Gdx.graphics.getWidth() - ((i + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), (int) (Gdx.graphics.getHeight() - Gdx.graphics.getHeight() * 0.3),this));
 		}
 
@@ -164,9 +166,20 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 				bulletEN.remove(me);
 			}
 		}
+		powerUp[] powUps = pU.toArray(new powerUp[0]);
+		for (powerUp pu : powUps) {
+			if (!pu.existe) {
+				pU.remove(pu);
+			}
+		}
 		Monster[] monstre = m.toArray(new Monster[0]);
 		for(Monster mon : monstre) {
 			if (!mon.existe) {
+
+				if(mon.drop()){
+					mon.randomPowerUp();
+				}
+				hero.addExp(mon.xp);
 				m.remove(mon);
 			}
 		}
@@ -189,9 +202,23 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 			mon.draw(batch);
 			mon.updateall();
 		}
+		for(powerUp up: pU){
+			up.draw(batch);
+		}
 
 		batch.end();
 
+	}
+
+	public void usePowerUp() {
+		for (powerUp p : pU) {
+			if ((p.getY() >= hero.getY()) && (p.getY() - hero.getTailley() <= hero.getY())) {
+				if ((p.getX() >= hero.getX()) && (p.getX() - hero.getTaillex() <= hero.getX()) || (hero.getX() >= p.getX() && hero.getX() <= (p.getX() + p.getTexture().getWidth()))) {
+
+					p.use();
+				}
+			}
+		}
 	}
 
 	public void HealthBar(){
@@ -228,7 +255,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	@Override
 	public void render() {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+		usePowerUp();
 		hero.update();
 		CollisionAll();
 		//shoot();
