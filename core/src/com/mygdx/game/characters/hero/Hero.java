@@ -14,10 +14,10 @@ public class Hero extends Character {
     int tailley;
     int level;
 
-    int maxexp = 100;
-    int experience;
+    double maxexp;
+    double experience;
 
-    public int bonus_damage;
+    public double bonus_damage;
 
     public int bonus_exp;
 
@@ -31,10 +31,18 @@ public class Hero extends Character {
         this.level = 1;
         this.bonus_damage = 1;
         this.shield = 0;
+        this.maxexp = 20;
     }
 
 
     public int getTaillex() {return taillex;}
+
+    public void lvlUp(){
+        this.Maxlife = this.Maxlife * 1.1;
+        this.setLife(Maxlife);
+        this.bonus_damage = this.bonus_damage*1.2;
+        this.maxexp = this.maxexp*1.5;
+    }
 
     public void addExp(int exp){
         while (this.experience + 1 < maxexp && exp > 0){
@@ -43,6 +51,7 @@ public class Hero extends Character {
         }
         if(this.experience == maxexp){
             this.level ++;
+            this.lvlUp();
             this.experience = exp;
             this.maxexp = (int)(this.maxexp *1.2);
         }
@@ -61,6 +70,11 @@ public class Hero extends Character {
 
 
     public void setShield(double shield) {this.shield = shield;}
+
+
+    
+
+
     public Bullet tirer() {
         return new BulletHero(this.getX() +(this.getTaillex() /2),this.getY() + this.getTailley(),this.gdx);}
 

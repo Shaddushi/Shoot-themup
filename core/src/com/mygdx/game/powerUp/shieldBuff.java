@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.MyGdxGame;
 
 public class shieldBuff extends powerUp{
-    int bonus = 50;
+    int bonus = 5;
     public shieldBuff(int x, int y, MyGdxGame gdx) {
         super(x,y, new Texture("laserRedShot.png"), 0,gdx);
     }

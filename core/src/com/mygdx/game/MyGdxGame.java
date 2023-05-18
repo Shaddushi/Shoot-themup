@@ -37,7 +37,8 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	protected Texture background;
 	public SpriteBatch batch;
 
-	public int nbmonster = 8;
+	public int nbmonsterlast;
+	public int nbmonster;
 
 	public Music menuMusic;
 
@@ -53,13 +54,15 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	@Override
 	public void create() {
 		bulletimg = new Texture("laserGreen.png");
-
+		nbmonster = 5;
+		nbmonsterlast = nbmonster;
 		for (int i = 0; i < nbmonster; i++) {
 			m.add(new SmallMonster(Gdx.graphics.getWidth() - ((i + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), (int) (Gdx.graphics.getHeight() - Gdx.graphics.getHeight() * 0.3),this));
 		}
 
-		m.add(new MediumMonster(700,850,this));
-		m.add(new MonstreJaponais(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(), this));
+
+		//m.add(new MediumMonster(700,850,this));
+		//m.add(new MonstreJaponais(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(), this));
 		menuMusic = Gdx.audio.newMusic(Gdx.files.internal("Shreksophone.mp3"));
 		Honteux = Gdx.audio.newMusic(Gdx.files.internal("Honteux.mp3"));
 		menuMusic.setLooping(true);
@@ -96,10 +99,12 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 			}
 		}
 		for(Monster mon: m) {
+
 			if ((mon.getY() >= hero.getY()) && (mon.getY() - hero.getTailley() <= hero.getY())) {
 				if ((mon.getX() >= hero.getX()) && (mon.getX() - hero.getTaillex() <= hero.getX())|| ((hero.getX() >= mon.getX()) && hero.getX() <= (mon.getX() + mon.getTexture().getWidth()) )){
 					hero.toucher(mon.getDegatCAC());
 					mon.toucher(hero.getDegatCAC());
+					System.out.println(mon.getLife());
 					hero.mort();
 					mon.mort();
 				}
@@ -156,6 +161,23 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	}
 
 
+	public void Respawn(){
+		if(nbmonster == 1) {
+			nbmonster = (int) Math.round(nbmonsterlast * 1.2);
+			nbmonsterlast = nbmonster;
+			for (int i = 0; i < (3 * nbmonster) / 4; i++) {
+				m.add(new SmallMonster(Gdx.graphics.getWidth() - ((i + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), Gdx.graphics.getHeight()-100, this));
+			}
+			for (int j = 0; j < nbmonster / 4; j++) {
+				m.add(new MediumMonster((Gdx.graphics.getWidth() / 10) * random.nextInt(0, 10), Gdx.graphics.getHeight()-100, this));
+			}
+
+
+			System.out.println(nbmonster);
+		}
+	}
+
+
 	public void delete() {
 		Bullet[] bullHero = bullet.toArray(new Bullet[0]);
 		for (Bullet ma : bullHero) {
@@ -195,6 +217,9 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 				}
 				hero.addExp(mon.xp);
 				m.remove(mon);
+				System.out.println(this.nbmonster);
+				this.nbmonster = this.nbmonster - 1;
+
 			}
 		}
 
@@ -286,7 +311,9 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 	@Override
 	public void render() {
+		System.out.println(nbmonster);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		Respawn();
 		usePowerUp();
 		hero.update();
 		CollisionAll();

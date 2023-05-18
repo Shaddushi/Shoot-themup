@@ -34,7 +34,7 @@ public abstract class Character {
         this.y = y;
         this.xspeed = xspeed;
         this.yspeed = yspeed;
-        this.life = life;
+
         this.texture = texture;
         this.cooldown = cooldown;
         this.cooldownmax = cooldown;

@@ -10,6 +10,6 @@ public class BulletHero extends Bullet {
     public BulletHero(int x, int y, MyGdxGame gdx){
         super(0,5,x,y,new Texture("laserGreen.png"), 70);
         this.gdx = gdx;
-        this.degat = 2 * this.gdx.hero.bonus_damage;
+        this.degat = (int)Math.round(2 * this.gdx.hero.bonus_damage);
     }
 }
