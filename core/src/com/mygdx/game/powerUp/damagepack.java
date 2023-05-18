@@ -8,7 +8,7 @@ import com.mygdx.game.characters.monster.Monster;
 
 public class damagepack extends powerUp {
     public damagepack(int x, int y, MyGdxGame gdx) {
-        super(x,y, new Texture("kamikaze.png"), 5000,"overtime",gdx);
+        super(x,y, new Texture("kamikaze.png"), 1000,gdx);
     }
 
     @Override
@@ -17,5 +17,10 @@ public class damagepack extends powerUp {
         this.gdx.hero.degatCAC = this.gdx.hero.degatCAC *2;
         this.gdx.hero.bonus_damage = this.gdx.hero.bonus_damage *2;
         this.existe = false;
+    }
+
+    @Override
+    public void undo() {
+        this.gdx.hero.bonus_damage = this.gdx.hero.bonus_damage /2;
     }
 }

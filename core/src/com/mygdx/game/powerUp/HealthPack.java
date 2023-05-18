@@ -7,7 +7,7 @@ public class HealthPack extends powerUp{
 
     int bonus = 20;
     public HealthPack(int x, int y, MyGdxGame gdx) {
-        super(x,y, new Texture("HealthPickup.png"), 0,"instant",gdx);
+        super(x,y, new Texture("HealthPickup.png"), 0,gdx);
     }
 
     @Override
@@ -20,4 +20,7 @@ public class HealthPack extends powerUp{
         }
         this.existe = false;
     }
+
+    @Override
+    public void undo() {}
 }

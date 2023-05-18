@@ -19,6 +19,9 @@ public class Hero extends Character {
 
     public int bonus_damage;
 
+    public int bonus_exp;
+
+    public double shield;
 
     public Hero(int x, int y, int xspeed, int yspeed, int life, Texture texture, int cooldownMax,MyGdxGame gdx) {
         super(x, y, xspeed, yspeed, life, texture, cooldownMax,0.02,gdx);
@@ -27,6 +30,7 @@ public class Hero extends Character {
         this.experience = 0;
         this.level = 1;
         this.bonus_damage = 1;
+        this.shield = 0;
     }
 
 
@@ -56,12 +60,22 @@ public class Hero extends Character {
     public void setLevel(int level) {this.level = level;}
 
 
-
+    public void setShield(double shield) {this.shield = shield;}
     public Bullet tirer() {
         return new BulletHero(this.getX() +(this.getTaillex() /2),this.getY() + this.getTailley(),this.gdx);}
 
+    @Override
+    public void toucher(double degat){
+        double shieldminus = this.shield - degat;
+        if(shieldminus < 0){
+            this.setShield(0);
+            this.setLife(this.getLife() + shieldminus);
+        }
+        else{
+            this.shield = shieldminus;
+        }
 
-
+    }
 
 
     public void update() {

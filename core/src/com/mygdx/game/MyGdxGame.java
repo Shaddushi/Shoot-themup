@@ -25,7 +25,7 @@ import static com.badlogic.gdx.math.MathUtils.random;
 public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 	public ShapeRenderer shapeLife;
-
+	public ShapeRenderer shapeShield;
 	public ShapeRenderer shapeNoLife;
 	public Hero hero;
 	public Texture heroimg;
@@ -66,7 +66,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		//menuMusic.play();
 		shapeNoLife = new ShapeRenderer();
 		shapeLife = new ShapeRenderer();
-
+		shapeShield = new ShapeRenderer();
 		batch = new SpriteBatch();
 		heroimg = new Texture("player.png");
 		background = new Texture(Gdx.files.internal("starry-night-sky.jpg"));
@@ -179,6 +179,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		powerUp[] powerUpsInuse = pUInUse.toArray(new powerUp[0]);
 		for (powerUp pu : powerUpsInuse) {
 			if(pu.timer <= 0){
+				pu.undo();
 				pUInUse.remove(pu);
 			}
 			else{
@@ -218,6 +219,11 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		for(powerUp up: pU){
 			up.draw(batch);
 		}
+		int i = 1;
+		for(powerUp up: pUInUse){
+			batch.draw(up.getTexture(),100*i,100);
+			i++;
+		}
 
 		batch.end();
 
@@ -235,12 +241,20 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	}
 
 	public void HealthBar(){
-		shapeLife = new ShapeRenderer();
 		shapeNoLife = new ShapeRenderer();
+		shapeLife = new ShapeRenderer();
+		shapeShield = new ShapeRenderer();
 		shapeNoLife.begin(ShapeRenderer.ShapeType.Filled);
 		shapeLife.begin(ShapeRenderer.ShapeType.Filled);
+		shapeShield.begin(ShapeRenderer.ShapeType.Filled);
 		shapeLife.setColor(0, 255, 0,1);
 		shapeNoLife.setColor(255, 0, 0,1);
+		shapeShield.setColor(0,0,255,1);
+		shapeNoLife.rect((int)(
+						(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth()/3) -50)), 50
+				, (float)(Gdx.graphics.getWidth()/3), (int)(Gdx.graphics.getHeight()/20)
+		);
+
 		if(hero.getLife()<=0){
 			shapeLife.rect((int)(
 							(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth()/3) -50)), 50
@@ -254,13 +268,18 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 					, (int) Math.round(((float) (Gdx.graphics.getWidth() / 3) * ((float) hero.getLife() / (float) hero.getMaxlife())))
 					, (int) (Gdx.graphics.getHeight() / 20)
 			);
+
 		}
-		shapeNoLife.rect((int)(
-						(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth()/3) -50)), 50
-				, (float)(Gdx.graphics.getWidth()/3), (int)(Gdx.graphics.getHeight()/20)
+		shapeShield.rect((int) (
+						(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() / 3) - 50))
+				, 50
+				, (int) Math.round(((float) (Gdx.graphics.getWidth() / 3) * ((float) hero.shield / (float) hero.getMaxlife())))
+				, (int) (Gdx.graphics.getHeight() / 20)
 		);
+
 		shapeNoLife.end();
 		shapeLife.end();
+		shapeShield.end();
 	}
 
 
@@ -271,7 +290,6 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		usePowerUp();
 		hero.update();
 		CollisionAll();
-		//shoot();
 		delete();
 		dessine();
 		HealthBar();

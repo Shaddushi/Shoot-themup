@@ -6,7 +6,7 @@ import com.mygdx.game.MyGdxGame;
 public class BulletMediumEnnemi extends BulletEnnemi {
 
     public BulletMediumEnnemi(int x, int y){
-        super(x,y,0,10,new Texture("laserRed.png"), 70);
+        super(x,y,0,-10,new Texture("laserRed.png"), 70);
         degat = 2;
     }
 }

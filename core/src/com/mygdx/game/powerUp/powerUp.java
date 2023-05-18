@@ -11,19 +11,19 @@ public abstract class powerUp {
     public boolean existe;
 
 
-    public String type;
+
     public int timer;
 
     protected Texture t;
 
     public MyGdxGame gdx;
 
-    public powerUp(int x, int y, Texture texture, int timer,String type,MyGdxGame gdx) {
+    public powerUp(int x, int y, Texture texture, int timer,MyGdxGame gdx) {
         this.x = x;
         this.y = y;
         this.t = texture;
         this.timer = timer;
-        this.type = type;
+
         existe = true;
         this.gdx = gdx;
 
@@ -31,6 +31,7 @@ public abstract class powerUp {
 
     public abstract void use();
 
+    public abstract void undo();
     public void draw(SpriteBatch batch){
         batch.draw(this.t, this.x,this.y);
     }
