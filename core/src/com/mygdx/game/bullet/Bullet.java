@@ -1,8 +1,11 @@
 package com.mygdx.game.bullet;
 
 import java.util.LinkedHashSet;
+import java.util.Map;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.MyGdxGame;
 
 public class Bullet {
 
@@ -15,7 +18,6 @@ public class Bullet {
      private int cooldown;
 
 
-
      public boolean existe;
 
     public int getX() {
@@ -26,8 +28,8 @@ public class Bullet {
         return y;
     }
 
-    public Bullet(int degat, int xspeed, int yspeed, int x, int y, Texture texture, int cooldown){
-        this.degat = degat;
+    public Bullet(int xspeed, int yspeed, int x, int y, Texture texture, int cooldown){
+        this.degat = 1;
         this.xspeed = xspeed;
         this.yspeed = yspeed;
         this.x = x ;
@@ -41,6 +43,9 @@ public class Bullet {
 
 
     public int getDegat() {return degat;}
+
+    public void setDegat(int degatplus) {degat = degatplus;}
+
 
     public void setTexture(Texture texture) {this.texture = texture;}
 

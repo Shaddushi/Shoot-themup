@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mygdx.game.bullet.Ally.BulletHero;
 import com.mygdx.game.characters.hero.Hero;
 import com.mygdx.game.characters.monster.MediumMonster;
 import com.mygdx.game.characters.monster.Monster;
@@ -41,12 +42,14 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	public Music menuMusic;
 
 	public Music Honteux;
-	LinkedHashSet<Bullet> bullet = new LinkedHashSet<>();
+	public LinkedHashSet<BulletHero> bullet = new LinkedHashSet<>();
 
-	LinkedHashSet<Bullet> bulletEN = new LinkedHashSet<>();
+	public LinkedHashSet<Bullet> bulletEN = new LinkedHashSet<>();
 	public LinkedHashSet<Monster> m = new LinkedHashSet<>();
 
 	public LinkedHashSet<powerUp> pU = new LinkedHashSet<powerUp>();
+
+	public LinkedHashSet<powerUp> pUInUse = new LinkedHashSet<powerUp>();
 	@Override
 	public void create() {
 		bulletimg = new Texture("laserGreen.png");
@@ -122,7 +125,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
 			if(hero.getcooldown() <= 0) {
-				bullet.add(hero.tirer());
+				bullet.add((BulletHero) hero.tirer());
 				hero.setCooldownreset();
 			}
 			hero.cooldownDown();
@@ -169,7 +172,17 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		powerUp[] powUps = pU.toArray(new powerUp[0]);
 		for (powerUp pu : powUps) {
 			if (!pu.existe) {
+				pUInUse.add(pu);
 				pU.remove(pu);
+			}
+		}
+		powerUp[] powerUpsInuse = pUInUse.toArray(new powerUp[0]);
+		for (powerUp pu : powerUpsInuse) {
+			if(pu.timer <= 0){
+				pUInUse.remove(pu);
+			}
+			else{
+				pu.timer--;
 			}
 		}
 		Monster[] monstre = m.toArray(new Monster[0]);

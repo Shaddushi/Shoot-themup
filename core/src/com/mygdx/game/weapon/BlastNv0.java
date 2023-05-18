@@ -11,6 +11,6 @@ public class BlastNv0 extends Bullet {
 
     public BlastNv0(int y, int x) {
 
-        super(degat, xspeed, yspeed, y, x, new Texture("laserGreen.png"), cooldownMax);
+        super(xspeed, yspeed, y, x, new Texture("laserGreen.png"), cooldownMax);
     }
 }

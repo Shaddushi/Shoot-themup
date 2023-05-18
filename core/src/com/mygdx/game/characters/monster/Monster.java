@@ -5,6 +5,7 @@ import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.characters.Character;
 import com.mygdx.game.bullet.Bullet;
 import com.mygdx.game.powerUp.HealthPack;
+import com.mygdx.game.powerUp.damagepack;
 import com.mygdx.game.powerUp.powerUp;
 
 import static com.badlogic.gdx.math.MathUtils.random;
@@ -63,10 +64,16 @@ public abstract class Monster extends Character {
         return Dc <= this.dropChance;
     }
 
-    public void randomPowerUp(){
-        HealthPack h = new HealthPack(this.x,this.y,this.gdx);
-        this.gdx.pU.add(h);
-        System.out.println(h.gdx.hero.getLevel());
+    public void randomPowerUp() {
+        int nb = random.nextInt(0, 1);
+        if (nb == 1) {
+            HealthPack h = new HealthPack(this.x, this.y, this.gdx);
+            this.gdx.pU.add(h);
+        }
+        else{
+            damagepack d = new damagepack(this.x,this.y,this.gdx);
+            this.gdx.pU.add(d);
+        }
     }
 
 

@@ -1,12 +1,15 @@
 package com.mygdx.game.bullet.Ally;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.bullet.Bullet;
 
 public class BulletHero extends Bullet {
 
-
-    public BulletHero(int x, int y){
-        super(1,0,12,x,y,new Texture("laserGreen.png"), 10);
+    public MyGdxGame gdx;
+    public BulletHero(int x, int y, MyGdxGame gdx){
+        super(0,5,x,y,new Texture("laserGreen.png"), 70);
+        this.gdx = gdx;
+        this.degat = 2 * this.gdx.hero.bonus_damage;
     }
 }

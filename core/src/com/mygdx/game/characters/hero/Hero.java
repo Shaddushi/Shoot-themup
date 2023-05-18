@@ -17,6 +17,8 @@ public class Hero extends Character {
     int maxexp = 100;
     int experience;
 
+    public int bonus_damage;
+
 
     public Hero(int x, int y, int xspeed, int yspeed, int life, Texture texture, int cooldownMax,MyGdxGame gdx) {
         super(x, y, xspeed, yspeed, life, texture, cooldownMax,0.02,gdx);
@@ -24,6 +26,7 @@ public class Hero extends Character {
         this.tailley = texture.getHeight();
         this.experience = 0;
         this.level = 1;
+        this.bonus_damage = 1;
     }
 
 
@@ -55,7 +58,7 @@ public class Hero extends Character {
 
 
     public Bullet tirer() {
-        return new BulletHero(this.getX() +(this.getTaillex() /2),this.getY() + this.getTailley());}
+        return new BulletHero(this.getX() +(this.getTaillex() /2),this.getY() + this.getTailley(),this.gdx);}
 
 
 
