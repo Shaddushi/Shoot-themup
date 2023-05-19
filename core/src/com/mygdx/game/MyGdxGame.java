@@ -4,10 +4,14 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.bullet.Ally.BulletHero;
 import com.mygdx.game.characters.hero.Hero;
 import com.mygdx.game.characters.monster.MediumMonster;
@@ -45,6 +49,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 	public Music menuMusic;
 
+
 	public Music Honteux;
 	public LinkedHashSet<BulletHero> bullet = new LinkedHashSet<>();
 
@@ -54,31 +59,45 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	public LinkedHashSet<powerUp> pU = new LinkedHashSet<powerUp>();
 
 	public LinkedHashSet<powerUp> pUInUse = new LinkedHashSet<powerUp>();
+
+	public BitmapFont bit;
+
 	@Override
 	public void create() {
 		bulletimg = new Texture("laserGreen.png");
+		heroimg = new Texture("player.png");
+		background = new Texture(Gdx.files.internal("starry-night-sky.jpg"));
+
 		nbmonster = 5;
 		nbmonsterlast = nbmonster;
+
+
 		for (int i = 0; i < nbmonster; i++) {
 			m.add(new SmallMonster(Gdx.graphics.getWidth() - ((i + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), (int) (Gdx.graphics.getHeight() - Gdx.graphics.getHeight() * 0.3),this));
 		}
+		hero = new Hero(250, 250, 20, 20, 20, heroimg, 10,this);
 
+		bit = new BitmapFont();
+	//bit.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+		bit.getData().setScale(2.5f);
 
-		//m.add(new MediumMonster(700,850,this));
-		//m.add(new MonstreJaponais(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(), this));
 		menuMusic = Gdx.audio.newMusic(Gdx.files.internal("Shreksophone.mp3"));
 		Honteux = Gdx.audio.newMusic(Gdx.files.internal("Honteux.mp3"));
 		menuMusic.setLooping(true);
 		//menuMusic.play();
+
+
 		shapeNoLife = new ShapeRenderer();
 		shapeLife = new ShapeRenderer();
 		shapeNoExp = new ShapeRenderer();
 		shapeExp = new ShapeRenderer();
 		shapeShield = new ShapeRenderer();
+
+
 		batch = new SpriteBatch();
-		heroimg = new Texture("player.png");
-		background = new Texture(Gdx.files.internal("starry-night-sky.jpg"));
-		hero = new Hero(250, 250, 20, 20, 20, heroimg, 10,this);
+
+
+
 	}
 
 
@@ -225,6 +244,8 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	public void dessine() {
 		batch.begin();
 		batch.draw(background, 0, 0);
+
+
 		hero.draw(batch);
 
 		for (Bullet bullH : bullet) {
@@ -248,6 +269,9 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 			i++;
 		}
 
+		bit.draw(batch, "LVL : " + this.hero.getLevel(),
+				(int)((Gdx.graphics.getWidth() - (Gdx.graphics.getWidth()/3.2) -50))
+				,140);
 		batch.end();
 
 	}
@@ -338,6 +362,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	public void render() {
 
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
 		Respawn();
 		usePowerUp();
 		hero.update();
