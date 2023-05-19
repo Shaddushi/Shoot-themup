@@ -13,12 +13,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.bullet.Ally.BulletHero;
+import com.mygdx.game.bullet.boss.BulletBoss1;
 import com.mygdx.game.characters.hero.Hero;
 import com.mygdx.game.characters.monster.MediumMonster;
 import com.mygdx.game.characters.monster.Monster;
 import com.mygdx.game.characters.monster.MonstreJaponais;
 import com.mygdx.game.characters.monster.SmallMonster;
 import com.mygdx.game.bullet.Bullet;
+import com.mygdx.game.characters.monster.boss.Boss1;
 import com.mygdx.game.powerUp.powerUp;
 
 
@@ -75,7 +77,8 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		for (int i = 0; i < nbmonster; i++) {
 			m.add(new SmallMonster(Gdx.graphics.getWidth() - ((i + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), (int) (Gdx.graphics.getHeight() - Gdx.graphics.getHeight() * 0.3),this));
 		}
-		hero = new Hero(250, 250, 20, 20, 20, heroimg, 10,this);
+		
+		hero = new Hero(250, 250, 10, 10, 20, heroimg, 10,this);
 
 		bit = new BitmapFont();
 	//bit.setColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -188,6 +191,9 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 			for (int j = 0; j < nbmonster / 4; j++) {
 				m.add(new MediumMonster((Gdx.graphics.getWidth() / 10) * random.nextInt(0, 10), Gdx.graphics.getHeight()-100, this));
 			}
+			for (int j = 0; j < nbmonster / 4; j++) {
+				m.add(new MonstreJaponais((Gdx.graphics.getWidth() / 10) * random.nextInt(0, 10), Gdx.graphics.getHeight()-100, this));
+			}
 
 
 
@@ -255,6 +261,11 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		for (Bullet bullM : bulletEN) {
 			bullM.draw(batch);
 			bullM.updateBullet();
+			if( bullM instanceof BulletBoss1){
+				if(bullM.getX() < -10 + ((BulletBoss1) bullM).getXdep() || bullM.getX() > 10 + ((BulletBoss1) bullM).getXdep()){
+					bullM.setXspeed(bullM.getXspeed() * (-1));
+				}
+			}
 		}
 		for (Monster mon : m) {
 			mon.draw(batch);

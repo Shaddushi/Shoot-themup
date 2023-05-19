@@ -46,6 +46,13 @@ public class Bullet {
 
     public void setDegat(int degatplus) {degat = degatplus;}
 
+    public void setXspeed(int xspeed) {
+        this.xspeed = xspeed;
+    }
+
+    public int getXspeed() {
+        return xspeed;
+    }
 
     public void setTexture(Texture texture) {this.texture = texture;}
 
@@ -56,5 +63,6 @@ public class Bullet {
         if (this.xspeed < 0) this.x = this.x - -this.xspeed ; //bullet va a gauche
         if (this.yspeed > 0) this.y = this.y + this.yspeed ; //bullet va en haut
         if (this.yspeed < 0) this.y = this.y - -this.yspeed ; //bullet va en bas
+
     }
 }
