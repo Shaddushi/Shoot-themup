@@ -27,6 +27,9 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	public ShapeRenderer shapeLife;
 	public ShapeRenderer shapeShield;
 	public ShapeRenderer shapeNoLife;
+	public ShapeRenderer shapeExp;
+	public ShapeRenderer shapeNoExp;
+
 	public Hero hero;
 	public Texture heroimg;
 
@@ -69,6 +72,8 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		//menuMusic.play();
 		shapeNoLife = new ShapeRenderer();
 		shapeLife = new ShapeRenderer();
+		shapeNoExp = new ShapeRenderer();
+		shapeExp = new ShapeRenderer();
 		shapeShield = new ShapeRenderer();
 		batch = new SpriteBatch();
 		heroimg = new Texture("player.png");
@@ -129,14 +134,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 			mon.cooldownDown();
 
 		}
-		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-			if(hero.getcooldown() <= 0) {
-				bullet.add((BulletHero) hero.tirer());
-				hero.setCooldownreset();
-			}
-			hero.cooldownDown();
 
-		}
 	}
 
 	public void CollisionAll(){
@@ -265,6 +263,33 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		}
 	}
 
+	public void ExpBar(){
+		shapeNoExp = new ShapeRenderer();
+		shapeExp = new ShapeRenderer();
+		shapeNoExp.begin(ShapeRenderer.ShapeType.Filled);
+		shapeExp.begin(ShapeRenderer.ShapeType.Filled);
+		shapeExp.setColor(61/255f, 197/255f, 242/255f,1);
+		shapeNoExp.setColor(0/255f, 255/255f, 205/255f,1);
+
+		shapeNoExp.rect((int)(
+						(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth()/5) -50)), 70 +(int)(Gdx.graphics.getHeight()/20)
+				, (float)(Gdx.graphics.getWidth()/5), (int)(Gdx.graphics.getHeight()/50)
+		);
+
+
+
+			shapeExp.rect((int) (
+							(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() / 5) - 50))
+					, 70 +(int)(Gdx.graphics.getHeight()/20)
+					, (int) Math.round(((float) (Gdx.graphics.getWidth() / 5) * ((float) hero.getExp() / (float) hero.getMaxExp())))
+					, (int) (Gdx.graphics.getHeight() / 50)
+			);
+
+
+
+		shapeNoExp.end();
+		shapeExp.end();
+	}
 	public void HealthBar(){
 		shapeNoLife = new ShapeRenderer();
 		shapeLife = new ShapeRenderer();
@@ -293,7 +318,6 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 					, (int) Math.round(((float) (Gdx.graphics.getWidth() / 3) * ((float) hero.getLife() / (float) hero.getMaxlife())))
 					, (int) (Gdx.graphics.getHeight() / 20)
 			);
-
 		}
 		shapeShield.rect((int) (
 						(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() / 3) - 50))
@@ -309,6 +333,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 
 
+
 	@Override
 	public void render() {
 
@@ -321,6 +346,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		delete();
 		dessine();
 		HealthBar();
+		ExpBar();
 
 
 	}

@@ -50,7 +50,7 @@ public class Hero extends Character {
         this.Maxlife = newlife;
     }
     public void addExp(int exp){
-        while (this.experience + 1 < maxexp && exp > 0){
+        while (this.experience + 1 <= maxexp && exp > 0){
             this.experience ++;
             exp--;
         }
@@ -63,6 +63,10 @@ public class Hero extends Character {
 
         }
 
+    public double getMaxExp() {
+        return maxexp;
+    }
+
     public void setTaillex(int taillex) {this.taillex = taillex;}
 
     public int getTailley() {return tailley;}
@@ -73,7 +77,9 @@ public class Hero extends Character {
 
     public void setLevel(int level) {this.level = level;}
 
-
+    public double getExp() {
+        return this.experience;
+    }
     public void setShield(double shield) {this.shield = shield;}
 
     public Bullet tirer() {
@@ -123,17 +129,16 @@ public class Hero extends Character {
                 this.y = this.y - this.yspeed;
             }
         }
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+            if(this.getcooldown() <= 0) {
+                this.gdx.bullet.add((BulletHero) this.tirer());
+                this.setCooldownreset();
+            }
+            this.cooldownDown();
+
+        }
     }
 
 
 
-
-
-
-
-
-
-
-
-
-        }
+}

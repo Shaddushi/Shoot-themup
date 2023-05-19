@@ -12,7 +12,7 @@ public class shieldBuff extends powerUp{
     @Override
     public void use() {
         if(this.gdx.hero.shield + this.bonus <= this.gdx.hero.getMaxlife()){
-            this.gdx.hero.setShield(this.gdx.hero.getLife() + this.bonus);
+            this.gdx.hero.setShield(this.gdx.hero.shield + this.bonus);
         }
         else{
             this.gdx.hero.setShield(this.gdx.hero.getMaxlife());
