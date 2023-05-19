@@ -82,15 +82,17 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 			if ((bullH.getY() >= mon.getY()) && (bullH.getY() - mon.getTailley() <= mon.getY())) {
 				if ((bullH.getX() >= mon.getX()) && (bullH.getX() - mon.getTaillex() - 2 <= mon.getX())) {
 					bullH.existe = false;
+					System.out.println(mon.getLife() + "      " + mon.existe + "         " + bullH.getDegat()) ;
 					mon.toucher(bullH.getDegat());
 					mon.mort();
+					System.out.println(mon.getLife() + " aaaaa     " + mon.existe + "       " + this.hero.bonus_damage);
 				}
 			}
 		}
 	}
 
 	public void collisionAllie(Bullet bullM) {
-		if ((bullM.getY() >= hero.getY()) && (bullM.getY() - hero.getTailley() <= hero.getY())) {
+		if ((bullM.getY() >= hero.getY()) && (bullM.getY() - hero.getTailley() <= hero.getY())|| (hero.getY() >= bullM.getY() && hero.getY() <= (bullM.getY() + bullM.getTexture().getHeight()) )) {
 			if (((bullM.getX() >= hero.getX()) && (bullM.getX() - hero.getTaillex() <= hero.getX())) || (hero.getX() >= bullM.getX() && hero.getX() <= (bullM.getX() + bullM.getTexture().getWidth()) )) {
 				bullM.existe = false;
 				hero.toucher(bullM.getDegat());
@@ -100,11 +102,10 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		}
 		for(Monster mon: m) {
 
-			if ((mon.getY() >= hero.getY()) && (mon.getY() - hero.getTailley() <= hero.getY())) {
+			if ((mon.getY() >= hero.getY()) && (mon.getY() - hero.getTailley() <= hero.getY())|| ((hero.getY() >= mon.getY()) && hero.getY() <= (mon.getY() + mon.getTexture().getHeight()) )) {
 				if ((mon.getX() >= hero.getX()) && (mon.getX() - hero.getTaillex() <= hero.getX())|| ((hero.getX() >= mon.getX()) && hero.getX() <= (mon.getX() + mon.getTexture().getWidth()) )){
 					hero.toucher(mon.getDegatCAC());
 					mon.toucher(hero.getDegatCAC());
-					System.out.println(mon.getLife());
 					hero.mort();
 					mon.mort();
 				}
@@ -147,7 +148,6 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 			}
 		}
 
-		shoot();
 
 		for (Bullet me : bulletEN) {
 			if (me.getY() <= -40) {
@@ -173,7 +173,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 			}
 
 
-			System.out.println(nbmonster);
+
 		}
 	}
 
@@ -217,7 +217,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 				}
 				hero.addExp(mon.xp);
 				m.remove(mon);
-				System.out.println(this.nbmonster);
+
 				this.nbmonster = this.nbmonster - 1;
 
 			}
@@ -256,7 +256,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 	public void usePowerUp() {
 		for (powerUp p : pU) {
-			if ((p.getY() >= hero.getY()) && (p.getY() - hero.getTailley() <= hero.getY())) {
+			if ((p.getY() >= hero.getY()) && (p.getY() - hero.getTailley() <= hero.getY()) || (hero.getY() >= p.getY() && hero.getY() <= (p.getY() + p.getTexture().getHeight()))) {
 				if ((p.getX() >= hero.getX()) && (p.getX() - hero.getTaillex() <= hero.getX()) || (hero.getX() >= p.getX() && hero.getX() <= (p.getX() + p.getTexture().getWidth()))) {
 
 					p.use();
@@ -311,11 +311,12 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 	@Override
 	public void render() {
-		System.out.println(nbmonster);
+
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Respawn();
 		usePowerUp();
 		hero.update();
+		shoot();
 		CollisionAll();
 		delete();
 		dessine();

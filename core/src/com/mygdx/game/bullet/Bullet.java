@@ -11,7 +11,7 @@ public class Bullet {
 
     private int x;
     private int y;
-    protected int degat;
+    public double degat;
     protected int yspeed;
     protected int xspeed;
     private Texture texture;
@@ -28,8 +28,8 @@ public class Bullet {
         return y;
     }
 
-    public Bullet(int xspeed, int yspeed, int x, int y, Texture texture, int cooldown){
-        this.degat = 1;
+    public Bullet(double degat,int xspeed, int yspeed, int x, int y, Texture texture, int cooldown){
+        this.degat = degat;
         this.xspeed = xspeed;
         this.yspeed = yspeed;
         this.x = x ;
@@ -42,7 +42,7 @@ public class Bullet {
     public void draw(SpriteBatch batch){batch.draw(getTexture(), getX(),getY());}
 
 
-    public int getDegat() {return degat;}
+    public double getDegat() {return degat;}
 
     public void setDegat(int degatplus) {degat = degatplus;}
 

@@ -13,14 +13,14 @@ public class damagepack extends powerUp {
 
     @Override
     public void use() {
-
         this.gdx.hero.degatCAC = this.gdx.hero.degatCAC *2;
-        this.gdx.hero.bonus_damage = this.gdx.hero.bonus_damage *2;
+        this.gdx.hero.bonus_damage = this.gdx.hero.bonus_damage + this.gdx.hero.bonus_damage;
         this.existe = false;
     }
 
     @Override
     public void undo() {
-        this.gdx.hero.bonus_damage = this.gdx.hero.bonus_damage /2;
+        this.gdx.hero.setBonus_damage(this.gdx.hero.bonus_damage / 2) ;
+        this.gdx.hero.degatCAC = this.gdx.hero.degatCAC /2;
     }
 }

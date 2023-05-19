@@ -10,6 +10,6 @@ public class BlastNv2 extends Bullet {
     private static  int cooldownMax = 1000 ;
 
     public BlastNv2(int y, int x) {
-        super( xspeed, yspeed, y, x, new Texture("laserGreen.png"), cooldownMax);
+        super(1, xspeed, yspeed, y, x, new Texture("laserGreen.png"), cooldownMax);
     }
 }
