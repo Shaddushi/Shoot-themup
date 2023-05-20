@@ -106,6 +106,10 @@ public class Hero extends Character {
             else {
                 this.x = this.x - this.xspeed;
             }
+            setTexture(new Texture("playerLeft.png"));
+        }
+        else{
+            setTexture(new Texture("player.png"));
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             if(this.x + this.xspeed > Gdx.graphics.getWidth() - this.getTaillex() + getTaillex() - 10) {
@@ -114,7 +118,9 @@ public class Hero extends Character {
             else {
                 this.x = this.x + this.xspeed;
             }
+            setTexture(new Texture("playerRight.png"));
         }
+
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             if (this.y + this.yspeed > Gdx.graphics.getHeight() - this.getTailley()) {
                 this.y = Gdx.graphics.getHeight() - this.getTailley();

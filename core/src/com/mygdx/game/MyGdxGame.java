@@ -16,12 +16,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.bullet.Ally.BulletHero;
+import com.mygdx.game.bullet.boss.BulletBoss1;
 import com.mygdx.game.characters.hero.Hero;
 import com.mygdx.game.characters.monster.MediumMonster;
 import com.mygdx.game.characters.monster.Monster;
 import com.mygdx.game.characters.monster.MonstreJaponais;
 import com.mygdx.game.characters.monster.SmallMonster;
 import com.mygdx.game.bullet.Bullet;
+import com.mygdx.game.characters.monster.boss.Boss1;
 import com.mygdx.game.powerUp.powerUp;
 
 
@@ -42,24 +44,29 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	public Hero hero;
 	public Texture heroimg;
 
-	public Texture monsterimg;
 
-	public Texture bulletimg;
 
 	protected Texture background;
 	public SpriteBatch batch;
 
+
+	//controle le nombre de monstre pour les vagues
 	public int nbmonsterlast;
 	public int nbmonster;
 
+	public int nbvague;
+	//musique
 	public Music menuMusic;
-
+	public Music Honteux;
 
 	// Menu Pause
 	int state;
 	static final int GAME_RUNNING = 1;
 	static final int GAME_PAUSED = 2;
-	public Music Honteux;
+
+
+	//liste des balles , ennemi, buffs etc
+
 	public LinkedHashSet<BulletHero> bullet = new LinkedHashSet<>();
 
 	public LinkedHashSet<Bullet> bulletEN = new LinkedHashSet<>();
@@ -69,11 +76,22 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 	public LinkedHashSet<powerUp> pUInUse = new LinkedHashSet<powerUp>();
 
+	public Texture monsterimg;
+
+	public Texture bulletimg;
+
+
+	//pour dessiner
 	public BitmapFont Lvl;
+	public BitmapFont Lvl2;
+	public BitmapFont score;
+	public BitmapFont Vague;
+	public Drawinggame dg;
 
-	private Stage stage;
+	//cooldown du menu pause
 
-	private TextButton button;
+	int cooldown;
+
 	@Override
 	public void create() {
 		bulletimg = new Texture("laserGreen.png");
@@ -82,44 +100,66 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 		nbmonster = 5;
 		nbmonsterlast = nbmonster;
+		nbvague = 1;
 
+		// generation de la premiere vague
 
 		for (int i = 0; i < nbmonster; i++) {
 			m.add(new SmallMonster(Gdx.graphics.getWidth() - ((i + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), (int) (Gdx.graphics.getHeight() - Gdx.graphics.getHeight() * 0.3),this));
 		}
-		hero = new Hero(250, 250, 20, 20, 20, heroimg, 10,this);
+		
+		hero = new Hero(250, 250, 10, 10, 20, heroimg, 10,this);
 
-		Lvl = new BitmapFont();
-		Lvl.getData().setScale(2.5f);
+
+
+		//musique
 
 		menuMusic = Gdx.audio.newMusic(Gdx.files.internal("Shreksophone.mp3"));
 		Honteux = Gdx.audio.newMusic(Gdx.files.internal("Honteux.mp3"));
 		menuMusic.setLooping(true);
 		//menuMusic.play();
 
+		//pour dessiner
 
+		dg = new Drawinggame(this);
 		shapeNoLife = new ShapeRenderer();
 		shapeLife = new ShapeRenderer();
 		shapeNoExp = new ShapeRenderer();
 		shapeExp = new ShapeRenderer();
 		shapeShield = new ShapeRenderer();
-
-		state = GAME_RUNNING;
 		batch = new SpriteBatch();
 
+		//et le texte
 
-		stage = new Stage();
+		Lvl = new BitmapFont();
+		Lvl.getData().setScale(2.5f);
+		Lvl2 = new BitmapFont();
+		Lvl2.getData().setScale(2.5f);
+		score = new BitmapFont();
+		score.getData().setScale(3f);
+		Vague = new BitmapFont();
+		Vague.getData().setScale(4f);
+		Lvl2.setColor(Color.RED);
+		// Gestion des different status
+
+		cooldown = 50;
+		state = GAME_RUNNING;
+
+
 
 
 	}
 
 
 	public void Status(){
-		if(this.state == GAME_RUNNING && Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+		cooldown--;
+		if(this.state == GAME_RUNNING && cooldown <= 0 && Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
 			this.state= GAME_PAUSED;
+			cooldown = 50;
 		}
-		else if(this.state == GAME_PAUSED && Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+		else if(this.state == GAME_PAUSED && cooldown <=0&& Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
 			this.state = GAME_RUNNING;
+			cooldown = 50;
 		}
 	}
 
@@ -157,6 +197,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 					System.out.println(mon.getLife() + " aaaaa     " + mon.existe + "       " + this.hero.bonus_damage);
 				}
 			}
+
 		}
 	}
 
@@ -205,18 +246,28 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 
 	public void Respawn(){
-		if(nbmonster == 1) {
+		if(nbmonster == 0) {
 			nbmonster = (int) Math.round(nbmonsterlast * 1.2);
+			int nbmonstertemp = (int) Math.round(nbmonsterlast * 1.2);
 			nbmonsterlast = nbmonster;
-			for (int i = 0; i < (3 * nbmonster) / 4; i++) {
-				m.add(new SmallMonster(Gdx.graphics.getWidth() - ((i + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), Gdx.graphics.getHeight()-100, this));
+
+
+			while(nbmonstertemp!=0){
+				int rand = random.nextInt(0,100);
+				if(rand <=0){
+					m.add(new SmallMonster(Gdx.graphics.getWidth() - ((nbmonster-nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), Gdx.graphics.getHeight()-100, this));
+				}
+				else if (rand <=1) {
+					m.add(new MediumMonster(Gdx.graphics.getWidth() - ((nbmonster-nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), Gdx.graphics.getHeight()-100, this));
+				}
+				else if (rand <= 100) {
+					m.add(new MonstreJaponais((Gdx.graphics.getWidth() - ((nbmonster-nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1)))), Gdx.graphics.getHeight()-100, this));
+				}
+				nbmonstertemp--;
 			}
-			for (int j = 0; j < nbmonster / 4; j++) {
-				m.add(new MediumMonster((Gdx.graphics.getWidth() / 10) * random.nextInt(0, 10), Gdx.graphics.getHeight()-100, this));
-			}
 
 
-
+			nbvague++;
 		}
 	}
 
@@ -244,6 +295,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		powerUp[] powerUpsInuse = pUInUse.toArray(new powerUp[0]);
 		for (powerUp pu : powerUpsInuse) {
 			if(pu.timer <= 0){
+
 				pu.undo();
 				pUInUse.remove(pu);
 			}
@@ -268,53 +320,6 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 	}
 
-	public void PlayGame(){
-		GameUpdate();
-		GameDraw();
-	}
-
-
-	public void GameUpdate(){
-		for (Bullet bullH : bullet) {
-			bullH.updateBullet();
-		}
-		for (Bullet bullM : bulletEN) {
-			bullM.updateBullet();
-		}
-		for (Monster mon : m) {
-			mon.updateall();
-		}
-	}
-
-
-	public void GameDraw() {
-		batch.begin();
-		batch.draw(background, 0, 0);
-
-
-		hero.draw(batch);
-
-		for (Bullet bullH : bullet) {
-			bullH.draw(batch);
-		}
-		for (Bullet bullM : bulletEN) {
-			bullM.draw(batch);
-		}
-		for (Monster mon : m) {
-			mon.draw(batch);
-		}
-		for(powerUp up: pU){
-			up.draw(batch);
-		}
-		int i = 1;
-		for(powerUp up: pUInUse){
-			batch.draw(up.getTexture(),100*i,100);
-			i++;
-		}
-
-		batch.end();
-	}
-
 	public void usePowerUp() {
 		for (powerUp p : pU) {
 			if ((p.getY() >= hero.getY()) && (p.getY() - hero.getTailley() <= hero.getY()) || (hero.getY() >= p.getY() && hero.getY() <= (p.getY() + p.getTexture().getHeight()))) {
@@ -326,114 +331,42 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		}
 	}
 
-	public void ExpBar(){
-		shapeNoExp = new ShapeRenderer();
-		shapeExp = new ShapeRenderer();
-		shapeNoExp.begin(ShapeRenderer.ShapeType.Filled);
-		shapeExp.begin(ShapeRenderer.ShapeType.Filled);
-		shapeExp.setColor(61/255f, 197/255f, 242/255f,1);
-		shapeNoExp.setColor(0/255f, 255/255f, 205/255f,1);
+	public void GameUpdate(){
+		shoot();
 
-		shapeNoExp.rect((int)(
-						(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth()/5) -50)), 70 +(int)(Gdx.graphics.getHeight()/20)
-				, (float)(Gdx.graphics.getWidth()/5), (int)(Gdx.graphics.getHeight()/50)
-		);
-
-
-
-			shapeExp.rect((int) (
-							(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() / 5) - 50))
-					, 70 +(int)(Gdx.graphics.getHeight()/20)
-					, (int) Math.round(((float) (Gdx.graphics.getWidth() / 5) * ((float) hero.getExp() / (float) hero.getMaxExp())))
-					, (int) (Gdx.graphics.getHeight() / 50)
-			);
-
-
-		Lvl.draw(batch, "LVL : " + this.hero.getLevel(),
-				(int)((Gdx.graphics.getWidth() - (Gdx.graphics.getWidth()/3.2) -50)),
-				140);
-
-		shapeNoExp.end();
-		shapeExp.end();
-	}
-	public void HealthBar(){
-		shapeNoLife = new ShapeRenderer();
-		shapeLife = new ShapeRenderer();
-		shapeShield = new ShapeRenderer();
-		shapeNoLife.begin(ShapeRenderer.ShapeType.Filled);
-		shapeLife.begin(ShapeRenderer.ShapeType.Filled);
-		shapeShield.begin(ShapeRenderer.ShapeType.Filled);
-		shapeLife.setColor(0, 255, 0,1);
-		shapeNoLife.setColor(255, 0, 0,1);
-		shapeShield.setColor(0,0,255,1);
-		shapeNoLife.rect((int)(
-						(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth()/3) -50)), 50
-				, (float)(Gdx.graphics.getWidth()/3), (int)(Gdx.graphics.getHeight()/20)
-		);
-
-		if(hero.getLife()<=0){
-			shapeLife.rect((int)(
-							(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth()/3) -50)), 50
-					, 0, (int)(Gdx.graphics.getHeight()/20)
-			);
+		for (Bullet bullH : bullet) {
+			bullH.updateBullet();
 		}
-		else {
-			shapeLife.rect((int) (
-							(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() / 3) - 50))
-					, 50
-					, (int) Math.round(((float) (Gdx.graphics.getWidth() / 3) * ((float) hero.getLife() / (float) hero.getMaxlife())))
-					, (int) (Gdx.graphics.getHeight() / 20)
-			);
+		for (Bullet bullM : bulletEN) {
+			bullM.updateBullet();
 		}
-		shapeShield.rect((int) (
-						(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() / 3) - 50))
-				, 50
-				, (int) Math.round(((float) (Gdx.graphics.getWidth() / 3) * ((float) hero.shield / (float) hero.getMaxlife())))
-				, (int) (Gdx.graphics.getHeight() / 20)
-		);
+		for (Monster mon : m) {
+			mon.updateall();
+		}
 
-		shapeNoLife.end();
-		shapeLife.end();
-		shapeShield.end();
+		usePowerUp();
+		hero.update();
+
 	}
-
-
-
-
-
 
 
 	public void GameState(){
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		if(this.state == GAME_RUNNING){
-			GameUpdate();
-			usePowerUp();
 			Respawn();
-			hero.update();
-			shoot();
-			CollisionAll();
 			delete();
+			GameUpdate();
+			CollisionAll();
 
-			GameDraw();
-			HealthBar();
-			ExpBar();
+
+			dg.DrawALL();
 		}
 		else if(this.state == GAME_PAUSED){
+			dg.DrawALL();
+			dg.PausedMod();
 
 
-			GameDraw();
-			ShapeRenderer shapeBack = new ShapeRenderer();
-			shapeBack.begin(ShapeRenderer.ShapeType.Filled);
-			shapeBack.setColor(255/255f, 255/255f, 255/255f,1);
-
-			shapeBack.rect((int)(
-							(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth()/5) -50)), 70 +(int)(Gdx.graphics.getHeight()/20)
-					, (float)(Gdx.graphics.getWidth()/5), (int)(Gdx.graphics.getHeight()/50)
-			);
-
-
-		shapeBack.end();
 		}
 	}
 
@@ -444,8 +377,6 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	public void render() {
 		Status();
 		GameState();
-
-
 	}
 
 

@@ -25,9 +25,10 @@ public class MediumMonster extends Monster {
 
 
     public Bullet[] tirer() {
-        Bullet[] BE = new Bullet[2];
-        BE[0] = new BulletMediumEnnemi(this.x,this.y);
-        BE[1] = new BulletMediumEnnemi(this.x + (texture.getWidth()/2),this.y);
+        Bullet[] BE = new Bullet[3];
+        BE[0] = new BulletMediumEnnemi(this.x,this.y, -3, -10);
+        BE[1] = new BulletMediumEnnemi(this.x + (texture.getWidth()/3),this.y, 0, -10);
+        BE[2] = new BulletMediumEnnemi(this.x + (texture.getWidth()/2),this.y, 3, -10);
         return BE;
 
 
