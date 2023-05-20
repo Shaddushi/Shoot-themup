@@ -88,9 +88,12 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	public BitmapFont Vague;
 	public Drawinggame dg;
 
-	//cooldown du menu pause
+	//cooldown du menu pause et score
 
 	int cooldown;
+
+	int scorecalc;
+
 
 	@Override
 	public void create() {
@@ -101,6 +104,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		nbmonster = 5;
 		nbmonsterlast = nbmonster;
 		nbvague = 1;
+		scorecalc = 0;
 
 		// generation de la premiere vague
 
@@ -136,10 +140,12 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		Lvl2 = new BitmapFont();
 		Lvl2.getData().setScale(2.5f);
 		score = new BitmapFont();
-		score.getData().setScale(3f);
+		score.getData().setScale(2.5f);
 		Vague = new BitmapFont();
 		Vague.getData().setScale(4f);
-		Lvl2.setColor(Color.RED);
+		Lvl2.setColor(128 / 255f, 166/ 255f, 191/ 255f,1);
+		score.setColor(128 / 255f, 166/ 255f, 191/ 255f,1);
+		Vague.setColor(128 / 255f, 166/ 255f, 191/ 255f,1);
 		// Gestion des different status
 
 		cooldown = 50;
@@ -193,6 +199,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 					bullH.existe = false;
 					System.out.println(mon.getLife() + "      " + mon.existe + "         " + bullH.getDegat()) ;
 					mon.toucher(bullH.getDegat());
+					scorecalc += bullH.getDegat();
 					mon.mort();
 					System.out.println(mon.getLife() + " aaaaa     " + mon.existe + "       " + this.hero.bonus_damage);
 				}

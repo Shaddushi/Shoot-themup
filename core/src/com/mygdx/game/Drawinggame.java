@@ -128,7 +128,7 @@ public class Drawinggame {
 
         ShapeRenderer shapeBack = new ShapeRenderer();
         shapeBack.begin(ShapeRenderer.ShapeType.Filled);
-        shapeBack.setColor(180 / 255f, 183 / 255f, 174 / 255f, 1);
+        shapeBack.setColor(52 / 255f, 67 / 255f, 77 / 255f, 1);
 
         shapeBack.rect(
                 (Gdx.graphics.getWidth()/ 3), (int) (Gdx.graphics.getHeight() / 4)
@@ -137,16 +137,16 @@ public class Drawinggame {
         shapeBack.end();
 
         gdx.batch.begin();
-
+        gdx.Vague.draw(gdx.batch, "Vague : " + gdx.nbvague,
+                (int)(Gdx.graphics.getWidth() / 2.4),
+                (int)(Gdx.graphics.getHeight() /1.18));
+        gdx.score.draw(gdx.batch, "score : " + gdx.scorecalc,
+                (int)(Gdx.graphics.getWidth() / 2.5),
+                (int)(Gdx.graphics.getHeight() /1.45));
         gdx.Lvl2.draw(gdx.batch, "Level : " + gdx.hero.getLevel(),
                 (int)(Gdx.graphics.getWidth() / 2.5),
-                (int)(Gdx.graphics.getHeight() /3.5));
-        gdx.Vague.draw(gdx.batch, "Vague : " + gdx.nbvague,
-                (int)(Gdx.graphics.getWidth() / 4.5),
-                (int)(Gdx.graphics.getHeight() /1.1));
-        gdx.score.draw(gdx.batch, "Level : " + gdx.hero.getLevel(),
-                (int)(Gdx.graphics.getWidth() / 2.5),
-                (int)(Gdx.graphics.getHeight() /4.5));
+                (int)(Gdx.graphics.getHeight() /1.35));
+
         gdx.batch.end();
 
 
