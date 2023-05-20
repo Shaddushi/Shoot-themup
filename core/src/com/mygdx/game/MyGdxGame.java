@@ -11,7 +11,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.bullet.Ally.BulletHero;
 import com.mygdx.game.characters.hero.Hero;
 import com.mygdx.game.characters.monster.MediumMonster;
@@ -28,6 +31,8 @@ import static com.badlogic.gdx.math.MathUtils.random;
 
 public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
+
+	//renderer des barres de vies etc
 	public ShapeRenderer shapeLife;
 	public ShapeRenderer shapeShield;
 	public ShapeRenderer shapeNoLife;
@@ -50,6 +55,10 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	public Music menuMusic;
 
 
+	// Menu Pause
+	int state;
+	static final int GAME_RUNNING = 1;
+	static final int GAME_PAUSED = 2;
 	public Music Honteux;
 	public LinkedHashSet<BulletHero> bullet = new LinkedHashSet<>();
 
@@ -60,8 +69,11 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 	public LinkedHashSet<powerUp> pUInUse = new LinkedHashSet<powerUp>();
 
-	public BitmapFont bit;
+	public BitmapFont Lvl;
 
+	private Stage stage;
+
+	private TextButton button;
 	@Override
 	public void create() {
 		bulletimg = new Texture("laserGreen.png");
@@ -77,9 +89,8 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		}
 		hero = new Hero(250, 250, 20, 20, 20, heroimg, 10,this);
 
-		bit = new BitmapFont();
-	//bit.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-		bit.getData().setScale(2.5f);
+		Lvl = new BitmapFont();
+		Lvl.getData().setScale(2.5f);
 
 		menuMusic = Gdx.audio.newMusic(Gdx.files.internal("Shreksophone.mp3"));
 		Honteux = Gdx.audio.newMusic(Gdx.files.internal("Honteux.mp3"));
@@ -93,13 +104,47 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		shapeExp = new ShapeRenderer();
 		shapeShield = new ShapeRenderer();
 
-
+		state = GAME_RUNNING;
 		batch = new SpriteBatch();
 
+
+		stage = new Stage();
 
 
 	}
 
+
+	public void Status(){
+		if(this.state == GAME_RUNNING && Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+			this.state= GAME_PAUSED;
+		}
+		else if(this.state == GAME_PAUSED && Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+			this.state = GAME_RUNNING;
+		}
+	}
+
+
+
+	public void CollisionAll(){
+		for (Bullet bullH : bullet) {
+			if (bullH.getY() >= Gdx.graphics.getHeight()) {
+				bullH.existe = false;
+			} else {
+				collisionEnnemi(bullH);
+			}
+		}
+
+
+		for (Bullet me : bulletEN) {
+			if (me.getY() <= -40) {
+				me.existe = false;
+			} else {
+				collisionAllie(me);
+
+			}
+
+		}
+	}
 
 	public void collisionEnnemi(Bullet bullH) {
 		for (Monster mon : m) {
@@ -156,26 +201,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 	}
 
-	public void CollisionAll(){
-		for (Bullet bullH : bullet) {
-			if (bullH.getY() >= Gdx.graphics.getHeight()) {
-				bullH.existe = false;
-			} else {
-				collisionEnnemi(bullH);
-			}
-		}
 
-
-		for (Bullet me : bulletEN) {
-			if (me.getY() <= -40) {
-				me.existe = false;
-			} else {
-				collisionAllie(me);
-
-			}
-
-		}
-	}
 
 
 	public void Respawn(){
@@ -241,7 +267,27 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		}
 
 	}
-	public void dessine() {
+
+	public void PlayGame(){
+		GameUpdate();
+		GameDraw();
+	}
+
+
+	public void GameUpdate(){
+		for (Bullet bullH : bullet) {
+			bullH.updateBullet();
+		}
+		for (Bullet bullM : bulletEN) {
+			bullM.updateBullet();
+		}
+		for (Monster mon : m) {
+			mon.updateall();
+		}
+	}
+
+
+	public void GameDraw() {
 		batch.begin();
 		batch.draw(background, 0, 0);
 
@@ -250,15 +296,12 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 		for (Bullet bullH : bullet) {
 			bullH.draw(batch);
-			bullH.updateBullet();
 		}
 		for (Bullet bullM : bulletEN) {
 			bullM.draw(batch);
-			bullM.updateBullet();
 		}
 		for (Monster mon : m) {
 			mon.draw(batch);
-			mon.updateall();
 		}
 		for(powerUp up: pU){
 			up.draw(batch);
@@ -269,11 +312,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 			i++;
 		}
 
-		bit.draw(batch, "LVL : " + this.hero.getLevel(),
-				(int)((Gdx.graphics.getWidth() - (Gdx.graphics.getWidth()/3.2) -50))
-				,140);
 		batch.end();
-
 	}
 
 	public void usePowerUp() {
@@ -310,6 +349,9 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 			);
 
 
+		Lvl.draw(batch, "LVL : " + this.hero.getLevel(),
+				(int)((Gdx.graphics.getWidth() - (Gdx.graphics.getWidth()/3.2) -50)),
+				140);
 
 		shapeNoExp.end();
 		shapeExp.end();
@@ -358,20 +400,50 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 
 
-	@Override
-	public void render() {
 
+
+
+	public void GameState(){
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		Respawn();
-		usePowerUp();
-		hero.update();
-		shoot();
-		CollisionAll();
-		delete();
-		dessine();
-		HealthBar();
-		ExpBar();
+		if(this.state == GAME_RUNNING){
+			GameUpdate();
+			usePowerUp();
+			Respawn();
+			hero.update();
+			shoot();
+			CollisionAll();
+			delete();
+
+			GameDraw();
+			HealthBar();
+			ExpBar();
+		}
+		else if(this.state == GAME_PAUSED){
+
+
+			GameDraw();
+			ShapeRenderer shapeBack = new ShapeRenderer();
+			shapeBack.begin(ShapeRenderer.ShapeType.Filled);
+			shapeBack.setColor(255/255f, 255/255f, 255/255f,1);
+
+			shapeBack.rect((int)(
+							(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth()/5) -50)), 70 +(int)(Gdx.graphics.getHeight()/20)
+					, (float)(Gdx.graphics.getWidth()/5), (int)(Gdx.graphics.getHeight()/50)
+			);
+
+
+		shapeBack.end();
+		}
+	}
+
+
+
+
+	@Override
+	public void render() {
+		Status();
+		GameState();
 
 
 	}
