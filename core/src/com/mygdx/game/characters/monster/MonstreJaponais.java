@@ -24,5 +24,11 @@ public class MonstreJaponais extends Monster {
             this.x += xspeed;
         }
         this.y += yspeed;
+        if(this.getY() <= 0 ){
+            this.xp = 0;
+            this.dropChance = 0;
+            this.existe = false;
+        }
+
     }
 }
