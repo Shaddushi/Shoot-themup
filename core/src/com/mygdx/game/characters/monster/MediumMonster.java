@@ -16,7 +16,7 @@ public class MediumMonster extends Monster {
 
 
     public MediumMonster(int x, int y, MyGdxGame gdx){
-    super(x,y,5,3 , 10, new Texture("mediumMonster.png"), 2 , 100,0.02,gdx,20);
+    super(x,y,5,3 , 10, new Texture("mediumMonster.png"), 2 , 100,0.02,gdx,23);
 
     this.rand = random.nextInt(20);
 

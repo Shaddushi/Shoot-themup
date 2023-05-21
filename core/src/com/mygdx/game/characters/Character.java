@@ -18,11 +18,11 @@ public abstract class Character {
     protected Texture texture;
     protected  Bullet bullet;
 
-    private int cooldown;
+    private double cooldown;
 
     public boolean existe;
 
-    public int cooldownmax;
+    public double cooldownmax;
 
     public double degatCAC;
 
@@ -82,7 +82,7 @@ public abstract class Character {
 
     public void setBullet(Bullet bullet) {this.bullet = bullet;}
 
-    public int getcooldown() {return cooldown;}
+    public double getcooldown() {return cooldown;}
 
     public void draw(SpriteBatch batch){
         batch.draw(getTexture(), getX(),getY());
@@ -91,11 +91,11 @@ public abstract class Character {
 
     //enleve de la vie les degats recu
     public void toucher(double degat){
-        if(getLife() - degat <= 0 ){
+        if(getLife() - degat < 0 ){
             setLife(0);
         }
         else {
-            setLife(Math.round(getLife() - degat));
+            setLife(getLife() - degat);
         }
     }
 

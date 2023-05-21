@@ -6,6 +6,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 
+import static com.badlogic.gdx.math.MathUtils.random;
+
 
 public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
@@ -36,24 +38,23 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	public Playinggame pg;
 
 
-
-
-
 	@Override
 	public void create() {
 
 		//valeur de base pour les vagues, le score etc
+
 		nbvague = 1;
-
-
-
 
 		//musique
 
-		menuMusic = Gdx.audio.newMusic(Gdx.files.internal("Shreksophone.mp3"));
-		Honteux = Gdx.audio.newMusic(Gdx.files.internal("Honteux.mp3"));
+		if(random.nextInt(0,20) == 19){
+			menuMusic = Gdx.audio.newMusic(Gdx.files.internal("mystery.mp3"));
+		}
+		else {
+			menuMusic = Gdx.audio.newMusic(Gdx.files.internal("Shreksophone.mp3"));
+		}
 		menuMusic.setLooping(true);
-		//menuMusic.play();
+		menuMusic.play();
 
 		//pour dessiner
 
@@ -79,15 +80,13 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		cooldown--;
 		if(this.state == GAME_RUNNING && cooldown <= 0 && Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
 			this.state= GAME_PAUSED;
-			cooldown = 50;
+			cooldown = 25;
 		}
 		else if(this.state == GAME_PAUSED && cooldown <=0&& Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
 			this.state = GAME_RUNNING;
-			cooldown = 50;
+			cooldown = 25;
 		}
 	}
-
-
 
 	//differente choses qu'il fait selon le status du jeu
 
@@ -100,14 +99,12 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 			pg.GameUpdate();
 			pg.CollisionAll();
 
-
 			dg.DrawALL();
 		}
 		else if(this.state == GAME_PAUSED){
+
 			dg.DrawALL();
 			dg.PausedMod();
-
-
 		}
 	}
 
