@@ -24,6 +24,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	// different status
 	int state;
 
+	static int GAME_NOTRUNNING = 0;
 	static final int GAME_RUNNING = 1;
 
 	static final int GAME_PAUSED = 2;
@@ -32,7 +33,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 
 	//pour le visuel
-
+	public MainMenu mainMenu;
 	public Drawinggame dg;
 
 	public Playinggame pg;
@@ -57,7 +58,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		menuMusic.play();
 
 		//pour dessiner
-
+		mainMenu = new MainMenu(this);
 		dg = new Drawinggame(this);
 		pg = new Playinggame(this);
 
@@ -69,7 +70,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 		// Gestion des different status
 
-		state = GAME_RUNNING;
+		state = GAME_NOTRUNNING ;
 		cooldown = 20;
 	}
 
@@ -86,6 +87,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 			this.state = GAME_RUNNING;
 			cooldown = 25;
 		}
+		if(this.state == GAME_RUNNING && pg.hero.getLife() <= 0) this.state = GAME_NOTRUNNING ;
 	}
 
 	//differente choses qu'il fait selon le status du jeu
@@ -93,6 +95,10 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	public void GameState(){
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+		if(this.state == GAME_NOTRUNNING) {
+			mainMenu.menuDraw();
+			mainMenu.actionAll();
+		}
 		if(this.state == GAME_RUNNING){
 			pg.Respawn();
 			pg.delete();

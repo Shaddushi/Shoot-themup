@@ -62,6 +62,7 @@ public class MainMenu {
         buttonExit.setColor(0/255f, 200/255f, 179/255f,1);
         buttonExit.rect((float) Gdx.graphics.getWidth()/2 - 100,200,200,100);
         buttonExit.end();
+
     }
 
     public void actionStart() {
