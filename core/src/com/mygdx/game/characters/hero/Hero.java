@@ -27,6 +27,8 @@ public class Hero extends Character {
 
     public double shield;
 
+    public double regen;
+
     public Hero(int x,int y,MyGdxGame gdx) {
         super(x, y, 10, 10, 20, new Texture("player.png"),25,0.02,gdx);
         this.taillex = texture.getWidth();
@@ -36,6 +38,7 @@ public class Hero extends Character {
         this.bonus_damage = 1;
         this.shield = 0;
         this.maxexp = 20;
+        this.regen = 0.01;
     }
 
 
@@ -112,6 +115,18 @@ public class Hero extends Character {
 
     }
 
+    //Regenere le hero sur le temps
+
+    public void regenOverTime() {
+        if (getLife() + regen <= getMaxlife()){
+            setLife(getLife() + regen);
+        }
+    }
+
+
+
+
+
     //Check les collisions du heros avec la balle bullM et  les monstres
 
     public void collisionAllie(Bullet bullM) {
@@ -183,6 +198,7 @@ public class Hero extends Character {
             this.cooldownDown();
 
         }
+        regenOverTime();
     }
 
 

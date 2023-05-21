@@ -1,9 +1,10 @@
-package com.mygdx.game.bullet.boss;
+package com.mygdx.game.bullet.Enemy.boss;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.bullet.Bullet;
+import com.mygdx.game.bullet.Enemy.BulletEnnemi;
 
-public class BulletBoss1  extends Bullet {
+public class BulletBoss1  extends BulletEnnemi {
     private int xdep;
 
     public BulletBoss1(int x, int y, int xspeed, int yspeed){

@@ -5,29 +5,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
-import com.mygdx.game.bullet.Ally.BulletHero;
-import com.mygdx.game.characters.hero.Hero;
-import com.mygdx.game.characters.monster.MediumMonster;
-import com.mygdx.game.characters.monster.Monster;
-import com.mygdx.game.characters.monster.MonstreJaponais;
-import com.mygdx.game.characters.monster.SmallMonster;
-import com.mygdx.game.bullet.Bullet;
-import com.mygdx.game.powerUp.powerUp;
 
-
-import java.util.LinkedHashSet;
-
-import static com.badlogic.gdx.math.MathUtils.random;
 
 public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 
-
-
-
-
-	//controle le nombre de monstres pour les vagues
-
+	//nombre montrant la vague en cours dans le menu pause
 
 	public int nbvague;
 
@@ -86,7 +69,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		// Gestion des different status
 
 		state = GAME_RUNNING;
-		cooldown = 50;
+		cooldown = 20;
 	}
 
 
@@ -103,8 +86,6 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 			cooldown = 50;
 		}
 	}
-
-	//S'occupe de verifier les collisions balles/ennemis , balles/hero , hero/ennemis
 
 
 
@@ -138,7 +119,5 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		Status();
 		GameState();
 	}
-
-
 
 }
