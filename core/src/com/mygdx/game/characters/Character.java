@@ -82,36 +82,29 @@ public abstract class Character {
 
     public void setBullet(Bullet bullet) {this.bullet = bullet;}
 
-
+    public int getcooldown() {return cooldown;}
 
     public void draw(SpriteBatch batch){
         batch.draw(getTexture(), getX(),getY());
     }
+
+
+    //enleve de la vie les degats recu
     public void toucher(double degat){
-        setLife(Math.round(getLife() - degat));
+        if(getLife() - degat <= 0 ){
+            setLife(0);
+        }
+        else {
+            setLife(Math.round(getLife() - degat));
+        }
     }
 
-
-
-    public void gauche(){
-        this.x = this.x - this.xspeed;
-    }
-
-    public void droite(){
-        this.x = this.x + this.xspeed;
-    }
-
-    public void bas(){
-        this.y = this.y - this.yspeed;
-    }
-
-
-    public void haut(){this.y = this.y + this.yspeed;}
-
-
+    //baisse le cooldown pour tirer de 1
     public void cooldownDown() {
         this.cooldown--;
     }
+
+    //reset le cooldown quand il est a zero
 
     public void setCooldownreset() {
         if(this.cooldown <= 0 ) {
@@ -119,8 +112,8 @@ public abstract class Character {
         }
     }
 
-    public int getcooldown() {return cooldown;}
 
+    //check si le personnage est mort
 
     public void mort(){
         if(this.getLife() <= 0){

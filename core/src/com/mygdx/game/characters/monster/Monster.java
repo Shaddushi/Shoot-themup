@@ -40,12 +40,16 @@ public abstract class Monster extends Character {
     public void setXp(int xp) {this.xp = xp;}
 
 
+    //Update le monstre sur ces mouvements , cooldown etc
+
+
     public void updateM(){
         if(this.getcooldown()<=0){
             this.setCooldownreset();
         }
         this.cooldownDown();
     }
+
 
     public abstract void update();
 
@@ -55,12 +59,21 @@ public abstract class Monster extends Character {
         update();
     }
 
+
+    //fait tirer le monstre
+
     public abstract Bullet[] tirer();
+
+
+    // *pourcentage* pour savoir si le monstre drop un power up ou non
 
     public boolean drop(){
         int Dc = random.nextInt(0,100);
         return Dc <= this.dropChance;
     }
+
+
+    //randomize le power up que le monstre drop
 
     public void randomPowerUp() {
         int nb = random.nextInt(0, 4);
@@ -80,6 +93,21 @@ public abstract class Monster extends Character {
             shieldBuff s = new shieldBuff(this.x,this.y,this.gdx);
             this.gdx.pU.add(s);
         }
+    }
+
+    //Check la collision du monstre par rapport a bullH
+
+    public void collisionEnnemi(Bullet bullH) {
+        if ((bullH.getY() >= this.getY()) && (bullH.getY() - this.getTailley() <= this.getY())) {
+            if ((bullH.getX() >= this.getX()) && (bullH.getX() - this.getTaillex() - 2 <= this.getX())) {
+                bullH.existe = false;
+                this.toucher(bullH.getDegat());
+                gdx.scorecalc += bullH.getDegat();
+                this.mort();
+            }
+        }
+
+
     }
 
 

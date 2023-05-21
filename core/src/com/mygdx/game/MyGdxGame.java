@@ -34,20 +34,8 @@ import static com.badlogic.gdx.math.MathUtils.random;
 public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 
-	//renderer des barres de vies etc
-	public ShapeRenderer shapeLife;
-	public ShapeRenderer shapeShield;
-	public ShapeRenderer shapeNoLife;
-	public ShapeRenderer shapeExp;
-	public ShapeRenderer shapeNoExp;
-
-	public Hero hero;
-	public Texture heroimg;
 
 
-
-	protected Texture background;
-	public SpriteBatch batch;
 
 
 	//controle le nombre de monstre pour les vagues
@@ -55,17 +43,21 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	public int nbmonster;
 
 	public int nbvague;
+
+
 	//musique
 	public Music menuMusic;
 	public Music Honteux;
 
-	// Menu Pause
+	// different status
 	int state;
 	static final int GAME_RUNNING = 1;
 	static final int GAME_PAUSED = 2;
 
 
 	//liste des balles , ennemi, buffs etc
+
+	public Hero hero;
 
 	public LinkedHashSet<BulletHero> bullet = new LinkedHashSet<>();
 
@@ -76,45 +68,32 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 	public LinkedHashSet<powerUp> pUInUse = new LinkedHashSet<powerUp>();
 
-	public Texture monsterimg;
+	//pour le visuel
 
-	public Texture bulletimg;
-
-
-	//pour dessiner
-	public BitmapFont Lvl;
-	public BitmapFont Lvl2;
-	public BitmapFont score;
-	public BitmapFont Vague;
 	public Drawinggame dg;
 
 	//cooldown du menu pause et score
 
 	int cooldown;
 
-	int scorecalc;
+	public int scorecalc;
 
 
 	@Override
 	public void create() {
-		bulletimg = new Texture("laserGreen.png");
-		heroimg = new Texture("player.png");
-		background = new Texture(Gdx.files.internal("starry-night-sky.jpg"));
 
-		nbmonster = 5;
-		nbmonsterlast = nbmonster;
+		//valeur de base pour les vagues , le score etc
+
+		nbmonster = 0;
+		nbmonsterlast = 5;
 		nbvague = 1;
 		scorecalc = 0;
 
-		// generation de la premiere vague
+		// generation de la premiere vague avec le hero
 
-		for (int i = 0; i < nbmonster; i++) {
-			m.add(new SmallMonster(Gdx.graphics.getWidth() - ((i + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), (int) (Gdx.graphics.getHeight() - Gdx.graphics.getHeight() * 0.3),this));
-		}
+		Respawn();
 		
-		hero = new Hero(250, 250, 10, 10, 20, heroimg, 10,this);
-
-
+		hero = new Hero(250, 250, 10, 10, 20, 10,this);
 
 		//musique
 
@@ -126,36 +105,17 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		//pour dessiner
 
 		dg = new Drawinggame(this);
-		shapeNoLife = new ShapeRenderer();
-		shapeLife = new ShapeRenderer();
-		shapeNoExp = new ShapeRenderer();
-		shapeExp = new ShapeRenderer();
-		shapeShield = new ShapeRenderer();
-		batch = new SpriteBatch();
 
-		//et le texte
-
-		Lvl = new BitmapFont();
-		Lvl.getData().setScale(2.5f);
-		Lvl2 = new BitmapFont();
-		Lvl2.getData().setScale(2.5f);
-		score = new BitmapFont();
-		score.getData().setScale(2.5f);
-		Vague = new BitmapFont();
-		Vague.getData().setScale(4f);
-		Lvl2.setColor(128 / 255f, 166/ 255f, 191/ 255f,1);
-		score.setColor(128 / 255f, 166/ 255f, 191/ 255f,1);
-		Vague.setColor(128 / 255f, 166/ 255f, 191/ 255f,1);
 		// Gestion des different status
 
 		cooldown = 50;
 		state = GAME_RUNNING;
 
 
-
-
 	}
 
+
+	//s'occupe du status du jeu ( en pause , en cours de jeu , menu )
 
 	public void Status(){
 		cooldown--;
@@ -169,68 +129,32 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		}
 	}
 
+	//S'occupe de verifier les collisons balles/ennemis , balles/hero , hero/ennemis
 
-
-	public void CollisionAll(){
+	public void CollisionAll() {
 		for (Bullet bullH : bullet) {
 			if (bullH.getY() >= Gdx.graphics.getHeight()) {
 				bullH.existe = false;
 			} else {
-				collisionEnnemi(bullH);
-			}
-		}
-
-
-		for (Bullet me : bulletEN) {
-			if (me.getY() <= -40) {
-				me.existe = false;
-			} else {
-				collisionAllie(me);
-
-			}
-
-		}
-	}
-
-	public void collisionEnnemi(Bullet bullH) {
-		for (Monster mon : m) {
-			if ((bullH.getY() >= mon.getY()) && (bullH.getY() - mon.getTailley() <= mon.getY())) {
-				if ((bullH.getX() >= mon.getX()) && (bullH.getX() - mon.getTaillex() - 2 <= mon.getX())) {
-					bullH.existe = false;
-					System.out.println(mon.getLife() + "      " + mon.existe + "         " + bullH.getDegat()) ;
-					mon.toucher(bullH.getDegat());
-					scorecalc += bullH.getDegat();
-					mon.mort();
-					System.out.println(mon.getLife() + " aaaaa     " + mon.existe + "       " + this.hero.bonus_damage);
+				for (Monster mon : m) {
+					mon.collisionEnnemi(bullH);
 				}
 			}
 
-		}
-	}
-
-	public void collisionAllie(Bullet bullM) {
-		if ((bullM.getY() >= hero.getY()) && (bullM.getY() - hero.getTailley() <= hero.getY())|| (hero.getY() >= bullM.getY() && hero.getY() <= (bullM.getY() + bullM.getTexture().getHeight()) )) {
-			if (((bullM.getX() >= hero.getX()) && (bullM.getX() - hero.getTaillex() <= hero.getX())) || (hero.getX() >= bullM.getX() && hero.getX() <= (bullM.getX() + bullM.getTexture().getWidth()) )) {
-				bullM.existe = false;
-				hero.toucher(bullM.getDegat());
-				hero.mort();
-				//Honteux.play();
-			}
-		}
-		for(Monster mon: m) {
-
-			if ((mon.getY() >= hero.getY()) && (mon.getY() - hero.getTailley() <= hero.getY())|| ((hero.getY() >= mon.getY()) && hero.getY() <= (mon.getY() + mon.getTexture().getHeight()) )) {
-				if ((mon.getX() >= hero.getX()) && (mon.getX() - hero.getTaillex() <= hero.getX())|| ((hero.getX() >= mon.getX()) && hero.getX() <= (mon.getX() + mon.getTexture().getWidth()) )){
-					hero.toucher(mon.getDegatCAC());
-					mon.toucher(hero.getDegatCAC());
-					hero.mort();
-					mon.mort();
+			for (Bullet me : bulletEN) {
+				if (me.getY() <= -40) {
+					me.existe = false;
 				}
+				else {
+					hero.collisionAllie(me);
+
+				}
+
 			}
 		}
 	}
 
-
+	//fait tirer tout les monstres de la map
 
 	public void shoot(){
 		for(Monster mon : m){
@@ -250,7 +174,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	}
 
 
-
+	//Fait réapparaitre les mobs quand ils sont tous mort
 
 	public void Respawn(){
 		if(nbmonster == 0) {
@@ -277,6 +201,9 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 			nbvague++;
 		}
 	}
+
+
+	//Delete tout les elements qui n'existe plus
 
 
 	public void delete() {
@@ -327,6 +254,9 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 	}
 
+	// Utilise tout les powerUp dont le hero se tiens au dessus
+
+
 	public void usePowerUp() {
 		for (powerUp p : pU) {
 			if ((p.getY() >= hero.getY()) && (p.getY() - hero.getTailley() <= hero.getY()) || (hero.getY() >= p.getY() && hero.getY() <= (p.getY() + p.getTexture().getHeight()))) {
@@ -337,6 +267,8 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 			}
 		}
 	}
+
+	//mets a jour tout les elements
 
 	public void GameUpdate(){
 		shoot();
@@ -356,6 +288,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 	}
 
+	//differente choses qu'il fait selon le status du jeu
 
 	public void GameState(){
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -378,7 +311,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	}
 
 
-
+	//methode Render
 
 	@Override
 	public void render() {

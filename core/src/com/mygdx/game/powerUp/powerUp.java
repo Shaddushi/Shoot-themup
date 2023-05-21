@@ -29,13 +29,6 @@ public abstract class powerUp {
 
     }
 
-    public abstract void use();
-
-    public abstract void undo();
-    public void draw(SpriteBatch batch){
-        batch.draw(this.t, this.x,this.y);
-    }
-
 
     public int getX() {return x;}
 
@@ -48,4 +41,21 @@ public abstract class powerUp {
     public Texture getTexture() {
         return t;
     }
-}
+
+
+
+    //active l'effet de l'item
+
+    public abstract void use();
+
+    //retire l'effet de l'item
+
+    public abstract void undo();
+
+    //draw
+    public void draw(SpriteBatch batch){
+        batch.draw(this.t, this.x,this.y);
+    }
+
+
+    }
