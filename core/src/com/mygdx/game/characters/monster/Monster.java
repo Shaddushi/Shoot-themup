@@ -6,6 +6,8 @@ import com.mygdx.game.characters.Character;
 import com.mygdx.game.bullet.Bullet;
 import com.mygdx.game.powerUp.*;
 
+import java.util.Iterator;
+
 import static com.badlogic.gdx.math.MathUtils.random;
 
 
@@ -76,7 +78,7 @@ public abstract class Monster extends Character {
     //randomize le power up que le monstre drop
 
     public void randomPowerUp() {
-        int nb = random.nextInt(0, 4);
+        int nb = random.nextInt(0, 5);
         if (nb == 0) {
             HealthPack h = new HealthPack(this.x, this.y, this.gdx);
             this.gdx.pg.pU.add(h);
@@ -93,6 +95,10 @@ public abstract class Monster extends Character {
             shieldBuff s = new shieldBuff(this.x,this.y,this.gdx);
             this.gdx.pg.pU.add(s);
         }
+        else if(nb == 4){
+            overload o = new overload(this.x,this.y,this.gdx);
+            this.gdx.pg.pU.add(o);
+        }
     }
 
     //Check la collision du monstre par rapport a bullH
@@ -107,8 +113,7 @@ public abstract class Monster extends Character {
             }
         }
 
-
-    }
+}
 
 
 }

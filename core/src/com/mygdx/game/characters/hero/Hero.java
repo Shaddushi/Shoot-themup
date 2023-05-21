@@ -2,6 +2,7 @@ package com.mygdx.game.characters.hero;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.characters.Character;
@@ -39,6 +40,7 @@ public class Hero extends Character {
         this.shield = 0;
         this.maxexp = 20;
         this.regen = 0.01;
+        this.degatCAC = 0.02;
     }
 
 
@@ -76,7 +78,10 @@ public class Hero extends Character {
         this.setLife(Maxlife);
         this.bonus_damage = Math.round(this.bonus_damage*1.2);
         this.maxexp = Math.round(this.maxexp*1.5);
-    }
+        if(this.cooldownmax > 7) {
+            this.cooldownmax = this.cooldownmax - 0.8;
+        }
+        }
 
     //ajoute a la barre d'exp du hero exp et le fait lvl up si l'experience depasse le plafond d'exp
 
@@ -135,7 +140,8 @@ public class Hero extends Character {
                 bullM.existe = false;
                 this.toucher(bullM.getDegat());
                 this.mort();
-                //Honteux.play();
+                //Music a = Gdx.audio.newMusic(Gdx.files.internal("a.mp3"));
+                //a.play();
             }
         }
         for (Iterator it = gdx.pg.m.iterator(); it.hasNext();) {
@@ -148,6 +154,7 @@ public class Hero extends Character {
                     mon.mort();
                 }
             }
+
         }
     }
 
@@ -194,6 +201,8 @@ public class Hero extends Character {
             if(this.getcooldown() <= 0) {
                 this.gdx.pg.bullet.add((BulletHero) this.tirer());
                 this.setCooldownreset();
+                 //Music pew = Gdx.audio.newMusic(Gdx.files.internal("pew.mp3"));
+                 //pew.play();
             }
             this.cooldownDown();
 
