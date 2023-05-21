@@ -10,13 +10,13 @@ public class doubleexp extends powerUp {
 
     @Override
     public void use() {
-        this.gdx.hero.bonus_exp = this.gdx.hero.bonus_exp *2;
+        this.gdx.pg.hero.bonus_exp = this.gdx.pg.hero.bonus_exp *2;
         this.existe = false;
     }
 
     @Override
     public void undo() {
-        this.gdx.hero.bonus_exp = this.gdx.hero.bonus_exp /2;
+        this.gdx.pg.hero.bonus_exp = this.gdx.pg.hero.bonus_exp /2;
     }
 }
 

@@ -1,14 +1,11 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.bullet.Bullet;
-import com.mygdx.game.bullet.Enemy.BulletEnnemi;
-import com.mygdx.game.bullet.boss.BulletBoss1;
 import com.mygdx.game.characters.monster.Monster;
 import com.mygdx.game.powerUp.powerUp;
 
@@ -72,31 +69,31 @@ public class Drawinggame {
         batch.draw(background, 0, 0);
 
 
-        gdx.hero.draw(batch);
-        for (Iterator it = gdx.bullet.iterator(); it.hasNext();) {
+        gdx.pg.hero.draw(batch);
+        for (Iterator it = gdx.pg.bullet.iterator(); it.hasNext();) {
             Bullet bullH = (Bullet) it.next();
             bullH.draw(batch);
         }
-        for (Iterator it = gdx.bulletEN.iterator(); it.hasNext();) {
+        for (Iterator it = gdx.pg.bulletEN.iterator(); it.hasNext();) {
             Bullet bullM = (Bullet) it.next();
             bullM.draw(batch);
         }
-        for (Iterator it = gdx.m.iterator(); it.hasNext();) {
+        for (Iterator it = gdx.pg.m.iterator(); it.hasNext();) {
             Monster mon  = (Monster) it.next();
             mon.draw(batch);
         }
-        for (Iterator it = gdx.pU.iterator(); it.hasNext();) {
+        for (Iterator it = gdx.pg.pU.iterator(); it.hasNext();) {
 
             powerUp up  = (powerUp) it.next();
             up.draw(batch);
         }
         int i = 1;
-        for (Iterator it = gdx.pUInUse.iterator(); it.hasNext();) {
+        for (Iterator it = gdx.pg.pUInUse.iterator(); it.hasNext();) {
             powerUp up  = (powerUp) it.next();
             batch.draw(up.getTexture(),100*i,100);
             i++;
         }
-        Lvl.draw(batch, "LVL : " + gdx.hero.getLevel(),
+        Lvl.draw(batch, "LVL : " + gdx.pg.hero.getLevel(),
                 (int)((Gdx.graphics.getWidth() - (Gdx.graphics.getWidth()/3.2) -50)),
                 140);
         batch.end();
@@ -122,7 +119,7 @@ public class Drawinggame {
         shapeExp.rect((int) (
                         (Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() / 5) - 50))
                 , 70 +(int)(Gdx.graphics.getHeight()/20)
-                , (int) Math.round(((float) (Gdx.graphics.getWidth() / 5) * ((float) gdx.hero.getExp() / (float) gdx.hero.getMaxExp())))
+                , (int) Math.round(((float) (Gdx.graphics.getWidth() / 5) * ((float) gdx.pg.hero.getExp() / (float) gdx.pg.hero.getMaxExp())))
                 , (int) (Gdx.graphics.getHeight() / 50)
         );
 
@@ -149,7 +146,7 @@ public class Drawinggame {
                 , (float)(Gdx.graphics.getWidth()/3), (int)(Gdx.graphics.getHeight()/20)
         );
 
-        if(gdx.hero.getLife()<=0){
+        if(gdx.pg.hero.getLife()<=0){
             shapeLife.rect((int)(
                             (Gdx.graphics.getWidth() - (Gdx.graphics.getWidth()/3) -50)), 50
                     , 0, (int)(Gdx.graphics.getHeight()/20)
@@ -159,14 +156,14 @@ public class Drawinggame {
             shapeLife.rect((int) (
                             (Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() / 3) - 50))
                     , 50
-                    , (int) Math.round(((float) (Gdx.graphics.getWidth() / 3) * ((float) gdx.hero.getLife() / (float) gdx.hero.getMaxlife())))
+                    , (int) Math.round(((float) (Gdx.graphics.getWidth() / 3) * ((float) gdx.pg.hero.getLife() / (float) gdx.pg.hero.getMaxlife())))
                     , (int) (Gdx.graphics.getHeight() / 20)
             );
         }
         shapeShield.rect((int) (
                         (Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() / 3) - 50))
                 , 50
-                , (int) Math.round(((float) (Gdx.graphics.getWidth() / 3) * ((float) gdx.hero.shield / (float) gdx.hero.getMaxlife())))
+                , (int) Math.round(((float) (Gdx.graphics.getWidth() / 3) * ((float) gdx.pg.hero.shield / (float) gdx.pg.hero.getMaxlife())))
                 , (int) (Gdx.graphics.getHeight() / 20)
         );
 
@@ -194,10 +191,10 @@ public class Drawinggame {
         Vague.draw(batch, "Vague : " + gdx.nbvague,
                 (int)(Gdx.graphics.getWidth() / 2.4),
                 (int)(Gdx.graphics.getHeight() /1.18));
-        score.draw(batch, "score : " + gdx.scorecalc,
+        score.draw(batch, "score : " + gdx.pg.scorecalc,
                 (int)(Gdx.graphics.getWidth() / 2.5),
                 (int)(Gdx.graphics.getHeight() /1.45));
-        Lvl2.draw(batch, "Level : " + gdx.hero.getLevel(),
+        Lvl2.draw(batch, "Level : " + gdx.pg.hero.getLevel(),
                 (int)(Gdx.graphics.getWidth() / 2.5),
                 (int)(Gdx.graphics.getHeight() /1.35));
 

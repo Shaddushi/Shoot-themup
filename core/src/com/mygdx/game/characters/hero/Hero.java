@@ -27,8 +27,8 @@ public class Hero extends Character {
 
     public double shield;
 
-    public Hero(int x, int y, int xspeed, int yspeed, int life, int cooldownMax,MyGdxGame gdx) {
-        super(x, y, xspeed, yspeed, life, new Texture("player.png"), cooldownMax,0.02,gdx);
+    public Hero(int x,int y,MyGdxGame gdx) {
+        super(x, y, 10, 10, 20, new Texture("player.png"),25,0.02,gdx);
         this.taillex = texture.getWidth();
         this.tailley = texture.getHeight();
         this.experience = 0;
@@ -123,7 +123,7 @@ public class Hero extends Character {
                 //Honteux.play();
             }
         }
-        for (Iterator it = gdx.m.iterator(); it.hasNext();) {
+        for (Iterator it = gdx.pg.m.iterator(); it.hasNext();) {
             Monster mon  = (Monster) it.next();
             if ((mon.getY() >= this.getY()) && (mon.getY() - this.getTailley() <= this.getY())|| ((this.getY() >= mon.getY()) && this.getY() <= (mon.getY() + mon.getTexture().getHeight()) )) {
                 if ((mon.getX() >= this.getX()) && (mon.getX() - this.getTaillex() <= this.getX())|| ((this.getX() >= mon.getX()) && this.getX() <= (mon.getX() + mon.getTexture().getWidth()) )){
@@ -177,7 +177,7 @@ public class Hero extends Character {
         }
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
             if(this.getcooldown() <= 0) {
-                this.gdx.bullet.add((BulletHero) this.tirer());
+                this.gdx.pg.bullet.add((BulletHero) this.tirer());
                 this.setCooldownreset();
             }
             this.cooldownDown();

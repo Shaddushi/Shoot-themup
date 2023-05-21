@@ -17,10 +17,10 @@ public class MonstreJaponais extends Monster {
     }
 
     public void update(){
-        if(gdx.hero.getX() < this.x){
+        if(gdx.pg.hero.getX() < this.x){
             this.x -= xspeed;
         }
-        if(gdx.hero.getX() > this.x){
+        if(gdx.pg.hero.getX() > this.x){
             this.x += xspeed;
         }
         this.y += yspeed;

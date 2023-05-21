@@ -11,11 +11,11 @@ public class shieldBuff extends powerUp{
 
     @Override
     public void use() {
-        if(this.gdx.hero.shield + this.bonus <= this.gdx.hero.getMaxlife()){
-            this.gdx.hero.setShield(this.gdx.hero.shield + this.bonus);
+        if(this.gdx.pg.hero.shield + this.bonus <= this.gdx.pg.hero.getMaxlife()){
+            this.gdx.pg.hero.setShield(this.gdx.pg.hero.shield + this.bonus);
         }
         else{
-            this.gdx.hero.setShield(this.gdx.hero.getMaxlife());
+            this.gdx.pg.hero.setShield(this.gdx.pg.hero.getMaxlife());
         }
         this.existe = false;
     }

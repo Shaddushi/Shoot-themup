@@ -8,7 +8,7 @@ public class BulletHero extends Bullet {
 
     public MyGdxGame gdx;
     public BulletHero(int x, int y, MyGdxGame gdx){
-        super(Math.round(2 * gdx.hero.bonus_damage),0,5,x,y,new Texture("laserGreen.png"), 70);
+        super(Math.round(2 * gdx.pg.hero.bonus_damage),0,5,x,y,new Texture("laserGreen.png"), 70);
         this.gdx = gdx;
     }
 }

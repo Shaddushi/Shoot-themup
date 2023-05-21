@@ -79,19 +79,19 @@ public abstract class Monster extends Character {
         int nb = random.nextInt(0, 4);
         if (nb == 0) {
             HealthPack h = new HealthPack(this.x, this.y, this.gdx);
-            this.gdx.pU.add(h);
+            this.gdx.pg.pU.add(h);
         }
         else if(nb == 1){
             damagepack d = new damagepack(this.x,this.y,this.gdx);
-            this.gdx.pU.add(d);
+            this.gdx.pg.pU.add(d);
         }
         else if(nb == 2){
             doubleexp e = new doubleexp(this.x,this.y,this.gdx);
-            this.gdx.pU.add(e);
+            this.gdx.pg.pU.add(e);
         }
         else if(nb == 3){
             shieldBuff s = new shieldBuff(this.x,this.y,this.gdx);
-            this.gdx.pU.add(s);
+            this.gdx.pg.pU.add(s);
         }
     }
 
@@ -102,7 +102,7 @@ public abstract class Monster extends Character {
             if ((bullH.getX() >= this.getX()) && (bullH.getX() - this.getTaillex() - 2 <= this.getX())) {
                 bullH.existe = false;
                 this.toucher(bullH.getDegat());
-                gdx.scorecalc += bullH.getDegat();
+                gdx.pg.scorecalc += bullH.getDegat();
                 this.mort();
             }
         }
