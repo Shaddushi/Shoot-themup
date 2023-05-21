@@ -10,25 +10,28 @@ import com.mygdx.game.bullet.Bullet;
 
 public abstract class Character {
     protected int xspeed;
-    protected int yspeed;
-    protected int x;
-    protected int y;
-    protected double life;
-    protected double Maxlife;
-    protected Texture texture;
-    protected  Bullet bullet;
 
-    private double cooldown;
+    protected int yspeed;
+
+    protected int x;
+
+    protected int y;
+
+    protected double life;
+
+    protected double Maxlife;
+
+    protected Texture texture;
 
     public boolean existe;
 
-    public double cooldownmax;
+
 
     public double degatCAC;
 
     public MyGdxGame gdx;
 
-    public Character(int x, int y,int xspeed, int yspeed, int life,Texture texture,int cooldown,double degatCAC,MyGdxGame gdx){
+    public Character(int x, int y,int xspeed, int yspeed, int life,Texture texture,double degatCAC,MyGdxGame gdx){
         this.gdx=gdx;
         this.x = x;
         this.y = y;
@@ -36,11 +39,12 @@ public abstract class Character {
         this.yspeed = yspeed;
         this.life = life;
         this.texture = texture;
-        this.cooldown = cooldown;
-        this.cooldownmax = cooldown;
+
         this.Maxlife = life;
         this.degatCAC = degatCAC;
     }
+
+    // Getter / Setter
 
     public double getDegatCAC(){return this.degatCAC;}
 
@@ -78,12 +82,6 @@ public abstract class Character {
     }
 
 
-    public Bullet getBullet() {return this.bullet;}
-
-    public void setBullet(Bullet bullet) {this.bullet = bullet;}
-
-    public double getcooldown() {return cooldown;}
-
     public void draw(SpriteBatch batch){
         batch.draw(getTexture(), getX(),getY());
     }
@@ -98,20 +96,6 @@ public abstract class Character {
             setLife(getLife() - degat);
         }
     }
-
-    //baisse le cooldown pour tirer de 1
-    public void cooldownDown() {
-        this.cooldown--;
-    }
-
-    //reset le cooldown quand il est a zero
-
-    public void setCooldownreset() {
-        if(this.cooldown <= 0 ) {
-            this.cooldown = this.cooldownmax ;
-        }
-    }
-
 
     //check si le personnage est mort
 

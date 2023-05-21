@@ -16,16 +16,19 @@ public abstract class Monster extends Character {
     protected int taillex;
     protected int tailley;
     public int xp;
-
+    private double cooldown;
+    public double cooldownmax;
     public int dropChance;
 
     public Monster(int x, int y, int xspeed, int yspeed, int life, Texture texture, int xp, int cooldown, double DegatCAC, MyGdxGame gdx,int dc){
-        super(x, y, xspeed, yspeed, life,texture,cooldown,DegatCAC,gdx);
+        super(x, y, xspeed, yspeed, life,texture,DegatCAC,gdx);
         this.xp = xp;
         this.taillex = texture.getWidth();
         this.tailley = texture.getHeight();
         this.existe=true;
         this.dropChance = dc;
+        this.cooldown = cooldown;
+        this.cooldownmax = cooldown;
 
     }
 
@@ -41,9 +44,20 @@ public abstract class Monster extends Character {
 
     public void setXp(int xp) {this.xp = xp;}
 
-
+    public double getcooldown() {return cooldown;}
     //Update le monstre sur ces mouvements , cooldown etc
 
+    public void cooldownDown() {
+        this.cooldown--;
+    }
+
+    //reset le cooldown quand il est a zero
+
+    public void setCooldownreset() {
+        if(this.cooldown <= 0 ) {
+            this.cooldown = this.cooldownmax ;
+        }
+    }
 
     public void updateM(){
         if(this.getcooldown()<=0){

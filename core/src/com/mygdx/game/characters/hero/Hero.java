@@ -10,7 +10,11 @@ import com.mygdx.game.bullet.Bullet;
 import com.mygdx.game.bullet.Ally.BulletHero;
 import com.mygdx.game.characters.monster.Monster;
 import com.mygdx.game.powerUp.powerUp;
+import com.mygdx.game.weapon.Weapon;
+import com.mygdx.game.weapon.WeaponLvL0;
+import com.mygdx.game.weapon.WeaponLvL5;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 public class Hero extends Character {
@@ -30,8 +34,10 @@ public class Hero extends Character {
 
     public double regen;
 
+    public Weapon weapon;
+
     public Hero(int x,int y,MyGdxGame gdx) {
-        super(x, y, 10, 10, 20, new Texture("player.png"),25,0.02,gdx);
+        super(x, y, 10, 10, 20, new Texture("player.png"),0.02,gdx);
         this.taillex = texture.getWidth();
         this.tailley = texture.getHeight();
         this.experience = 0;
@@ -41,6 +47,7 @@ public class Hero extends Character {
         this.maxexp = 20;
         this.regen = 0.01;
         this.degatCAC = 0.02;
+        this.weapon = new WeaponLvL0(this);
     }
 
 
@@ -78,31 +85,26 @@ public class Hero extends Character {
         this.setLife(Maxlife);
         this.bonus_damage = Math.round(this.bonus_damage*1.2);
         this.maxexp = Math.round(this.maxexp*1.5);
-        if(this.cooldownmax > 7) {
-            this.cooldownmax = this.cooldownmax - 0.8;
-        }
         }
 
     //ajoute a la barre d'exp du hero exp et le fait lvl up si l'experience depasse le plafond d'exp
 
-    public void addExp(int exp){
-        while (this.experience + 1 <= maxexp && exp > 0){
-            this.experience ++;
+    public void addExp(int exp) {
+        while (this.experience + 1 <= maxexp && exp > 0) {
+            this.experience++;
             exp--;
         }
-        if(this.experience == maxexp){
-            this.level ++;
+        if (this.experience == maxexp) {
+            this.level++;
             this.lvlUp();
+            if(getLevel()==5){
+                this.weapon = new WeaponLvL5(this);
+            }
             this.experience = exp;
-            this.maxexp = (int)(this.maxexp *1.2);
+            this.maxexp = (int) (this.maxexp * 1.2);
         }
 
-        }
-
-        //tire
-    public Bullet tirer() {
-        return new BulletHero(this.getX() +(this.getTaillex() /2),this.getY() + this.getTailley(),this.gdx);}
-
+    }
 
 
     //Reduit la vie ou le shield si il en a, du hero
@@ -198,13 +200,14 @@ public class Hero extends Character {
             }
         }
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-            if(this.getcooldown() <= 0) {
-                this.gdx.pg.bullet.add((BulletHero) this.tirer());
-                this.setCooldownreset();
+            if(this.weapon.getcooldown() <= 0) {
+                BulletHero[] b = (BulletHero[]) this.weapon.tirer();
+                this.gdx.pg.bullet.addAll(Arrays.asList(b));
+                this.weapon.setCooldownreset();
                  //Music pew = Gdx.audio.newMusic(Gdx.files.internal("pew.mp3"));
                  //pew.play();
             }
-            this.cooldownDown();
+            this.weapon.cooldownDown();
 
         }
         regenOverTime();

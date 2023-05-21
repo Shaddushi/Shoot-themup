@@ -31,8 +31,9 @@ public class Drawinggame {
     public BitmapFont score;
     public BitmapFont Vague;
 
+    public BitmapFont DamageBoost;
 
-
+    public BitmapFont Stat;
     public Drawinggame(MyGdxGame gdx){
 
         //initialise les shaperenderer
@@ -60,6 +61,12 @@ public class Drawinggame {
         Lvl2.setColor(128 / 255f, 166/ 255f, 191/ 255f,1);
         score.setColor(128 / 255f, 166/ 255f, 191/ 255f,1);
         Vague.setColor(128 / 255f, 166/ 255f, 191/ 255f,1);
+        DamageBoost = new BitmapFont();
+        DamageBoost.getData().setScale(2f);
+        DamageBoost.setColor(128 / 255f, 166/ 255f, 191/ 255f,1);
+        Stat = new BitmapFont();
+        Stat.getData().setScale(2.5f);
+        Stat.setColor(128 / 255f, 166/ 255f, 191/ 255f,1);
     }
 
     //dessine le jeu
@@ -197,6 +204,12 @@ public class Drawinggame {
         Lvl2.draw(batch, "Level : " + gdx.pg.hero.getLevel(),
                 (int)(Gdx.graphics.getWidth() / 2.5),
                 (int)(Gdx.graphics.getHeight() /1.35));
+        Stat.draw(batch, "Stats du héro :",
+                (int)(Gdx.graphics.getWidth() / 2.5) + 50,
+                (int)(Gdx.graphics.getHeight() /1.60));
+        DamageBoost.draw(batch, "Damage boost x" + Math.round(gdx.pg.hero.bonus_damage),
+                (int)(Gdx.graphics.getWidth() / 2.5),
+                (int)(Gdx.graphics.getHeight() /1.75));
 
         batch.end();
 

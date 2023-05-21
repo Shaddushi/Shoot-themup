@@ -69,7 +69,6 @@ public class Playinggame {
                 }
                 else {
                     hero.collisionAllie(me);
-
                 }
 
             }
@@ -100,8 +99,8 @@ public class Playinggame {
 
     public void Respawn(){
         if(nbmonster == 0) {
-            nbmonster = (int) Math.round(nbmonsterlast * 1.2);
-            int nbmonstertemp = (int) Math.round(nbmonsterlast * 1.2);
+            nbmonster = nbmonsterlast +2;
+            int nbmonstertemp = nbmonsterlast + 2;
             nbmonsterlast = nbmonster;
 
 
@@ -181,12 +180,14 @@ public class Playinggame {
 
     public void usePowerUp() {
         for (powerUp p : pU) {
+            p.Move();
             if ((p.getY() >= hero.getY()) && (p.getY() - hero.getTailley() <= hero.getY()) || (hero.getY() >= p.getY() && hero.getY() <= (p.getY() + p.getTexture().getHeight()))) {
                 if ((p.getX() >= hero.getX()) && (p.getX() - hero.getTaillex() <= hero.getX()) || (hero.getX() >= p.getX() && hero.getX() <= (p.getX() + p.getTexture().getWidth()))) {
 
                     p.use();
                 }
             }
+
         }
     }
 

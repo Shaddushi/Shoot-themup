@@ -1,5 +1,6 @@
 package com.mygdx.game.powerUp;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.MyGdxGame;
@@ -42,7 +43,11 @@ public abstract class powerUp {
         return t;
     }
 
-
+    public void Move(){
+        if(this.y >= Gdx.graphics.getHeight()/5){
+            this.y -= 5;
+        }
+    }
 
     //active l'effet de l'item
 
