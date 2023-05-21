@@ -12,6 +12,7 @@ import com.mygdx.game.characters.monster.Monster;
 import com.mygdx.game.powerUp.powerUp;
 import com.mygdx.game.weapon.Weapon;
 import com.mygdx.game.weapon.WeaponLvL0;
+import com.mygdx.game.weapon.WeaponLvL3;
 import com.mygdx.game.weapon.WeaponLvL5;
 
 import java.util.Arrays;
@@ -97,14 +98,24 @@ public class Hero extends Character {
         if (this.experience == maxexp) {
             this.level++;
             this.lvlUp();
-            if(getLevel()==5){
-                this.weapon = new WeaponLvL5(this);
-            }
+            MAJWeapon();
             this.experience = exp;
             this.maxexp = (int) (this.maxexp * 1.2);
         }
 
     }
+
+    //Regarde le niveau et change l'arme en fonction
+
+    public void MAJWeapon(){
+        if(getLevel()==3){
+            this.weapon = new WeaponLvL3(this);
+        }
+        else if(getLevel()==5){
+            this.weapon = new WeaponLvL5(this);
+        }
+    }
+
 
 
     //Reduit la vie ou le shield si il en a, du hero

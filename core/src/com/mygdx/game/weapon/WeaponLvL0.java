@@ -12,7 +12,7 @@ public class WeaponLvL0 extends Weapon {
     @Override
     public BulletHero[] tirer() {
         BulletHero[] b = new BulletHero[1];
-        b[0] = new BulletHero(this.hero.getX() + (this.hero.getTaillex() / 2), this.hero.getY() + this.hero.getTailley(), this.hero.gdx,2);
+        b[0] = new BulletHero(this.hero.getX() + (this.hero.getTaillex() / 2), this.hero.getY() + this.hero.getTailley(), this.hero.gdx);
         return b;
     }
 }

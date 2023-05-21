@@ -31,7 +31,7 @@ public abstract class Character {
 
     public MyGdxGame gdx;
 
-    public Character(int x, int y,int xspeed, int yspeed, int life,Texture texture,double degatCAC,MyGdxGame gdx){
+    public Character(int x, int y,int xspeed, int yspeed, double life,Texture texture,double degatCAC,MyGdxGame gdx){
         this.gdx=gdx;
         this.x = x;
         this.y = y;
