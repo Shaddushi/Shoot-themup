@@ -140,8 +140,8 @@ public class Hero extends Character {
                 bullM.existe = false;
                 this.toucher(bullM.getDegat());
                 this.mort();
-                //Music Honteux = Gdx.audio.newMusic(Gdx.files.internal("pd.mp3"));
-                //Honteux.play();
+                //Music a = Gdx.audio.newMusic(Gdx.files.internal("a.mp3"));
+                //a.play();
             }
         }
         for (Iterator it = gdx.pg.m.iterator(); it.hasNext();) {
@@ -201,8 +201,8 @@ public class Hero extends Character {
             if(this.getcooldown() <= 0) {
                 this.gdx.pg.bullet.add((BulletHero) this.tirer());
                 this.setCooldownreset();
-                 Music Honteux = Gdx.audio.newMusic(Gdx.files.internal("rla-rla-rla.mp3"));
-                 Honteux.play();
+                 //Music pew = Gdx.audio.newMusic(Gdx.files.internal("pew.mp3"));
+                 //pew.play();
             }
             this.cooldownDown();
 
