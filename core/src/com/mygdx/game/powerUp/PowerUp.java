@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.MyGdxGame;
 
-public abstract class powerUp {
+public abstract class PowerUp {
     private int x;
     private int y;
 
@@ -19,7 +19,7 @@ public abstract class powerUp {
 
     public MyGdxGame gdx;
 
-    public powerUp(int x, int y, Texture texture, int timer,MyGdxGame gdx) {
+    public PowerUp(int x, int y, Texture texture, int timer,MyGdxGame gdx) {
         this.x = x;
         this.y = y;
         this.t = texture;
@@ -63,4 +63,4 @@ public abstract class powerUp {
     }
 
 
-    }
+}

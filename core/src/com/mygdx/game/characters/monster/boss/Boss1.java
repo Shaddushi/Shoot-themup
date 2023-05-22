@@ -9,6 +9,7 @@ import com.mygdx.game.characters.monster.Monster;
 
 public class Boss1 extends Monster {
 
+
     public Boss1(int x, int y, MyGdxGame gdx){
         super(x,y,2,0 , 30, new Texture("boss1.png"), 2 , 30,10 ,gdx,20);
     }
@@ -16,8 +17,8 @@ public class Boss1 extends Monster {
     @Override
     public Bullet[] tirer() {
         Bullet[] BB = new Bullet[2];
-        BB[0] = new BulletBoss1(this.x + 25 , this.y +(texture.getHeight()/2), 5, -8);
-        BB[1] = new BulletBoss1(this.x + (texture.getWidth() /2)  +50, this.y +(texture.getHeight()/2), -5, -8);
+        BB[0] = new BulletBoss1(this.x + 45 , this.y +(texture.getHeight()/3), 1, -5, 1,this.gdx );
+        BB[1] = new BulletBoss1(this.x + (texture.getWidth() /2)  +130, this.y +(texture.getHeight()/3), -1, -5,2, this.gdx);
         return BB;
     }
 

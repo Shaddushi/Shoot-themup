@@ -3,7 +3,7 @@ package com.mygdx.game.powerUp;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.MyGdxGame;
 
-public class HealthPack extends powerUp{
+public class HealthPack extends PowerUp{
 
     int bonus = 20;
     public HealthPack(int x, int y, MyGdxGame gdx) {

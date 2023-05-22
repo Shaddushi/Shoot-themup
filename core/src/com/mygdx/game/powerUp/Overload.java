@@ -4,10 +4,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.weapon.Weapon;
 
-public class overload extends powerUp {
-
+public class Overload extends PowerUp {
     String weapon;
-    public overload(int x, int y, MyGdxGame gdx) {
+    public Overload(int x, int y, MyGdxGame gdx) {
         super(x,y, new Texture("boss1.jpg"), 1000,gdx);
     }
 
