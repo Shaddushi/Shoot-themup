@@ -13,7 +13,7 @@ public class WeaponLvL5 extends Weapon {
         BulletHero[] b = new BulletHero[3];
         b[0] = new BulletHero(this.hero.getX(), this.hero.getY() + this.hero.getTailley(), this.hero.gdx);
         b[1] = new BulletHero(this.hero.getX() + this.hero.getTaillex() , this.hero.getY() + this.hero.getTailley(), this.hero.gdx);
-        b[1] = new BulletHero(this.hero.getX() + this.hero.getTaillex() + (this.hero.getTailley()/2), this.hero.getY() + this.hero.getTailley(), this.hero.gdx);
+        b[2] = new BulletHero(this.hero.getX() + this.hero.getTaillex() + (this.hero.getTailley()/2), this.hero.getY() + this.hero.getTailley(), this.hero.gdx);
         return b;
     }
 }
