@@ -124,7 +124,7 @@ public class Playinggame {
                 else if (rand <=90) {
                     m.add(new MediumMonster(Gdx.graphics.getWidth() - ((nbmonster-nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), Gdx.graphics.getHeight()-100, this.gdx));
                 }
-                else if (rand <= 100) {
+                else {
                     m.add(new MonstreJaponais((Gdx.graphics.getWidth() - ((nbmonster-nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1)))), Gdx.graphics.getHeight()-100, this.gdx));
                 }
                 boss1 = new Boss1(700, 700, this.gdx);
