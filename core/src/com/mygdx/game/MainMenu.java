@@ -35,11 +35,9 @@ public class MainMenu {
         title = new BitmapFont() ;
         title.getData().setScale(4f);
         titleStart = new BitmapFont();
-        titleStart.getData().setScale(2.5f);
+        titleStart.getData().setScale(4f);
         titleExit = new BitmapFont();
-        titleExit.getData().setScale(2.5f);
-        titleStart.setColor(128 / 255f, 166/ 255f, 191/ 255f,1);
-        titleExit.setColor(128 / 255f, 166/ 255f, 191/ 255f,1);
+        titleExit.getData().setScale(4f);
     }
 
     public void menuDraw() {
@@ -80,6 +78,12 @@ public class MainMenu {
         if(Gdx.input.isTouched() && Gdx.input.getX() > x && Gdx.input.getX() < x + 200 && Gdx.input.getY() > 400 && Gdx.input.getY() < 500) {
             gdx.state = 1 ; //GAME_RUNNING
         }
+
+        batch.begin();
+        titleStart.draw(batch, "START",
+                (int)(Gdx.graphics.getWidth() / 2.3f),
+                (int)(Gdx.graphics.getHeight() / 1.73f));
+        batch.end();
     }
 
     public void actionExit() {
@@ -100,6 +104,12 @@ public class MainMenu {
 
         //s'il y a un click dans la zone du rectangle alors on ferme le jeu
         if(Gdx.input.isTouched() && Gdx.input.getX() > x && Gdx.input.getX() < x + 200 && Gdx.input.getY() > 700 && Gdx.input.getY() < 800) Gdx.app.exit();
+
+        batch.begin();
+        titleExit.draw(batch, "EXIT",
+                (int)(Gdx.graphics.getWidth() / 2.175f),
+                (int)(Gdx.graphics.getHeight() / 3.65f));
+        batch.end();
     }
 
     public void actionAll() {
