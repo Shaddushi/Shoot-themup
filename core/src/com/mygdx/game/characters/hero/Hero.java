@@ -215,8 +215,8 @@ public class Hero extends Character {
                 BulletHero[] b = (BulletHero[]) this.weapon.tirer();
                 this.gdx.pg.bullet.addAll(Arrays.asList(b));
                 this.weapon.setCooldownreset();
-                 //Music pew = Gdx.audio.newMusic(Gdx.files.internal("pew.mp3"));
-                 //pew.play();
+                 Music pew = Gdx.audio.newMusic(Gdx.files.internal("pew.mp3"));
+                 pew.play();
             }
             this.weapon.cooldownDown();
 

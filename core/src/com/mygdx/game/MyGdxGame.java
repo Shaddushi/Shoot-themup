@@ -103,7 +103,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 			mainMenu.menuDraw();
 			mainMenu.actionAll();
 		}
-		if(this.state == GAME_RUNNING){
+		else if(this.state == GAME_RUNNING){
 			pg.Respawn();
 			pg.delete();
 			pg.GameUpdate();
