@@ -9,7 +9,7 @@ import com.mygdx.game.characters.Character;
 import com.mygdx.game.bullet.Bullet;
 import com.mygdx.game.bullet.Ally.BulletHero;
 import com.mygdx.game.characters.monster.Monster;
-import com.mygdx.game.powerUp.powerUp;
+import com.mygdx.game.powerUp.PowerUp;
 import com.mygdx.game.weapon.Weapon;
 import com.mygdx.game.weapon.WeaponLvL0;
 import com.mygdx.game.weapon.WeaponLvL3;

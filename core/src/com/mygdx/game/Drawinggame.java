@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.bullet.Bullet;
 import com.mygdx.game.characters.monster.Monster;
-import com.mygdx.game.powerUp.powerUp;
+import com.mygdx.game.powerUp.PowerUp;
 
 import java.util.Iterator;
 
@@ -90,6 +90,9 @@ public class Drawinggame {
 
 
         gdx.pg.hero.draw(batch);
+        if(gdx.pg.nbBoss >0){
+            gdx.pg.boss1.draw(batch);
+        }
         for (Iterator it = gdx.pg.bullet.iterator(); it.hasNext();) {
             Bullet bullH = (Bullet) it.next();
             bullH.draw(batch);
@@ -104,12 +107,12 @@ public class Drawinggame {
         }
         for (Iterator it = gdx.pg.pU.iterator(); it.hasNext();) {
 
-            powerUp up  = (powerUp) it.next();
+            PowerUp up  = (PowerUp) it.next();
             up.draw(batch);
         }
         int i = 1;
         for (Iterator it = gdx.pg.pUInUse.iterator(); it.hasNext();) {
-            powerUp up  = (powerUp) it.next();
+            PowerUp up  = (PowerUp) it.next();
             batch.draw(up.getTexture(),100*i,100);
             i++;
         }

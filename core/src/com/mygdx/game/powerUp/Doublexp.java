@@ -3,8 +3,8 @@ package com.mygdx.game.powerUp;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.MyGdxGame;
 
-public class doubleexp extends powerUp {
-    public doubleexp(int x, int y, MyGdxGame gdx) {
+public class Doublexp extends PowerUp {
+    public Doublexp(int x, int y, MyGdxGame gdx) {
         super(x,y, new Texture("dreadnaught.png"), 2000,gdx);
     }
 

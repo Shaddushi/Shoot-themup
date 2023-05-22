@@ -6,8 +6,8 @@ import com.mygdx.game.bullet.Ally.BulletHero;
 import com.mygdx.game.bullet.Bullet;
 import com.mygdx.game.characters.monster.Monster;
 
-public class damagepack extends powerUp {
-    public damagepack(int x, int y, MyGdxGame gdx) {
+public class Damagepack extends PowerUp {
+    public Damagepack(int x, int y, MyGdxGame gdx) {
         super(x,y, new Texture("kamikaze.png"), 1000,gdx);
     }
 
@@ -24,3 +24,4 @@ public class damagepack extends powerUp {
         this.gdx.pg.hero.degatCAC = this.gdx.pg.hero.degatCAC /2;
     }
 }
+
