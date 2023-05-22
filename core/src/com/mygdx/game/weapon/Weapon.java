@@ -10,12 +10,14 @@ public abstract class Weapon {
 
     int cooldown;
 
+    public String name;
     Hero hero;
 
-    public Weapon(int cooldown, Hero hero) {
+    public Weapon(int cooldown, Hero hero,String Name) {
         this.cooldown =cooldown;
         this.cooldownMax = cooldown;
         this.hero = hero;
+        this.name = name;
     }
 
     //fonction pour les cooldowns

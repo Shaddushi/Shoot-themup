@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.mygdx.game.bullet.Ally.BulletHero;
 import com.mygdx.game.bullet.Bullet;
 import com.mygdx.game.characters.hero.Hero;
@@ -59,7 +60,14 @@ public class Playinggame {
         for (Bullet bullH : bullet) {
             if (bullH.getY() >= Gdx.graphics.getHeight()) {
                 bullH.existe = false;
-            } else {
+
+            } else if (bullH.getX() >= Gdx.graphics.getWidth()) {
+                bullH.existe = false;
+            }else if (bullH.getX() <= 0) {
+                bullH.existe = false;
+            } else if (bullH.getY() <= 0) {
+                bullH.existe = false;
+            }else {
                 for (Monster mon : m) {
                     mon.collisionEnnemi(bullH);
                 }
@@ -131,6 +139,8 @@ public class Playinggame {
                 }
                 else {
                     m.add(new MonstreJaponais((Gdx.graphics.getWidth() - ((nbmonster-nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1)))), Gdx.graphics.getHeight()-100, this.gdx));
+                    Music BANZAI = Gdx.audio.newMusic(Gdx.files.internal("BANZAI.mp3"));
+                    BANZAI.play();
                 }
                 if(gdx.nbvague == 5){
                     boss1 = new Boss1(700, 700, this.gdx);
