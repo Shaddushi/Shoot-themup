@@ -128,8 +128,11 @@ public class Playinggame {
 
             while(nbmonstertemp!=0){
                 int rand = random.nextInt(0,100);
-                if(rand <=85){
+                if(rand <=80){
                     m.add(new SmallMonster(Gdx.graphics.getWidth() - ((nbmonster-nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), Gdx.graphics.getHeight()-100, this.gdx));
+                }
+                else if(rand <= 85){
+                    m.add(new MonstreSnipe(700,800,this.gdx));
                 }
                 else if (rand <=90) {
                     m.add(new MediumMonster(Gdx.graphics.getWidth() - ((nbmonster-nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), Gdx.graphics.getHeight()-100, this.gdx));
@@ -139,7 +142,7 @@ public class Playinggame {
                     Music BANZAI = Gdx.audio.newMusic(Gdx.files.internal("BANZAI.mp3"));
                     BANZAI.play();
                 }
-                m.add(new MonstreSnipe(700,800,this.gdx));
+
                 if(gdx.nbvague == 5){
                     boss1 = new Boss1(700, 700, this.gdx);
                     nbBoss++;
