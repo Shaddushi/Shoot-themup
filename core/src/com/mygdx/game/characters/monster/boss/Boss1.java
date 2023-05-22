@@ -7,11 +7,11 @@ import com.mygdx.game.bullet.Bullet;
 import com.mygdx.game.bullet.Enemy.boss.BulletBoss1;
 import com.mygdx.game.characters.monster.Monster;
 
-public class Boss1 extends Monster {
+public class Boss1 extends Boss {
 
 
     public Boss1(int x, int y, MyGdxGame gdx){
-        super(x,y,2,0 , 30, new Texture("boss1.png"), 2 , 30,10 ,gdx,20);
+        super(x,y,2,0 , 30, new Texture("boss1.png"), 2 , 30,10 ,gdx);
     }
 
     @Override

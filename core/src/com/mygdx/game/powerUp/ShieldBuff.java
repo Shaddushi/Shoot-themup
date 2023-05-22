@@ -6,7 +6,7 @@ import com.mygdx.game.MyGdxGame;
 public class ShieldBuff extends PowerUp{
     int bonus = 5;
     public ShieldBuff(int x, int y, MyGdxGame gdx) {
-        super(x,y, new Texture("laserRedShot.png"), 0,gdx);
+        super(x,y, new Texture("shield.png"), 0,gdx);
     }
 
     @Override

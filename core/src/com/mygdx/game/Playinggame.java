@@ -63,6 +63,9 @@ public class Playinggame {
                 for (Monster mon : m) {
                     mon.collisionEnnemi(bullH);
                 }
+                if(nbBoss > 0){
+                    boss1.collisionEnnemi(bullH);
+                }
             }
         }
 
@@ -94,15 +97,17 @@ public class Playinggame {
             mon.cooldownDown();
 
         }
-        if(boss1.getcooldown() <= 0){
-            Bullet[] bullHere = boss1.tirer();
-            for(Bullet B : bullHere)
-                if(B != null){
-                    bulletEN.add(B);
-                }
-            boss1.setCooldownreset();
+        if(this.nbBoss >0) {
+            if (boss1.getcooldown() <= 0) {
+                Bullet[] bullHere = boss1.tirer();
+                for (Bullet B : bullHere)
+                    if (B != null) {
+                        bulletEN.add(B);
+                    }
+                boss1.setCooldownreset();
+            }
+            boss1.cooldownDown();
         }
-        boss1.cooldownDown();
 
     }
 
@@ -127,8 +132,11 @@ public class Playinggame {
                 else {
                     m.add(new MonstreJaponais((Gdx.graphics.getWidth() - ((nbmonster-nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1)))), Gdx.graphics.getHeight()-100, this.gdx));
                 }
-                boss1 = new Boss1(700, 700, this.gdx);
-                nbBoss++;
+                if(gdx.nbvague == 5){
+                    boss1 = new Boss1(700, 700, this.gdx);
+                    nbBoss++;
+                }
+
                 nbmonstertemp--;
             }
 
@@ -183,6 +191,15 @@ public class Playinggame {
                 m.remove(mon);
 
                 this.nbmonster = this.nbmonster - 1;
+
+            }
+        }
+        if(nbBoss > 0){
+            if(!boss1.existe){
+                if(boss1.drop()){
+                    boss1.randomPowerUp();
+                }
+                this.nbBoss = this.nbBoss - 1;
 
             }
         }

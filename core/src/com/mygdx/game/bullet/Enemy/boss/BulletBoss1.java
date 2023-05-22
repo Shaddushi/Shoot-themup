@@ -37,12 +37,12 @@ public class BulletBoss1  extends BulletEnnemi {
         }
         if(this.sens == 1) {
 
-            if (this.x <= this.xdep || this.x >= this.xdep + this.gdx.pg.boss1.getTaillex() - 150) {
+            if (this.x <= this.xdep || this.x >= this.xdep + this.gdx.pg.boss1.getTaillex() -150) {
                 this.xspeed = -this.xspeed;
             }
         }
         else{
-            if (this.x >= this.xdep || this.x <= this.xdep - this.gdx.pg.boss1.getTaillex()  +150) {
+            if (this.x >= this.xdep || this.x <= this.xdep - this.gdx.pg.boss1.getTaillex() +150) {
                 this.xspeed = -this.xspeed;
             }
         }
