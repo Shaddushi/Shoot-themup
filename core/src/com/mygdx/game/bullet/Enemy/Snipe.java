@@ -4,11 +4,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.MyGdxGame;
 
 public class Snipe extends BulletEnnemi {
-    public snipe(int x, int y, int xspeed, int yspeed, int sens, MyGdxGame gdx){
-        super(2,x,y,xspeed,yspeed,new Texture("bulletBoss1.png"), 50);
-        this.xdep = x;
-        this.sens = sens;
+    MyGdxGame gdx;
+    public Snipe(int x, int y, MyGdxGame gdx){
+
+        super(5,x,y,-((x-gdx.pg.hero.getX())/((y-gdx.pg.hero.getY())/50)),-50,new Texture("snipe.png"), 1000);
         this.gdx = gdx;
     }
+
+
 
 }

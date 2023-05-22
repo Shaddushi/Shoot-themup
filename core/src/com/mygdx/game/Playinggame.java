@@ -5,10 +5,7 @@ import com.badlogic.gdx.audio.Music;
 import com.mygdx.game.bullet.Ally.BulletHero;
 import com.mygdx.game.bullet.Bullet;
 import com.mygdx.game.characters.hero.Hero;
-import com.mygdx.game.characters.monster.MediumMonster;
-import com.mygdx.game.characters.monster.Monster;
-import com.mygdx.game.characters.monster.MonstreJaponais;
-import com.mygdx.game.characters.monster.SmallMonster;
+import com.mygdx.game.characters.monster.*;
 import com.mygdx.game.characters.monster.boss.Boss1;
 import com.mygdx.game.powerUp.PowerUp;
 
@@ -142,6 +139,7 @@ public class Playinggame {
                     Music BANZAI = Gdx.audio.newMusic(Gdx.files.internal("BANZAI.mp3"));
                     BANZAI.play();
                 }
+                m.add(new MonstreSnipe(700,800,this.gdx));
                 if(gdx.nbvague == 5){
                     boss1 = new Boss1(700, 700, this.gdx);
                     nbBoss++;
