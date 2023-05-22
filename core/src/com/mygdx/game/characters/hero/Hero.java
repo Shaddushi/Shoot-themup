@@ -100,7 +100,7 @@ public class Hero extends Character {
         }
         if (this.experience == maxexp) {
             this.level++;
-            this.lvlUp();
+            //this.lvlUp();
             MAJWeapon();
             this.experience = exp;
             this.maxexp = (int) (this.maxexp * 1.2);
