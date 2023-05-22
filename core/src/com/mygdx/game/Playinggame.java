@@ -8,6 +8,7 @@ import com.mygdx.game.characters.monster.MediumMonster;
 import com.mygdx.game.characters.monster.Monster;
 import com.mygdx.game.characters.monster.MonstreJaponais;
 import com.mygdx.game.characters.monster.SmallMonster;
+import com.mygdx.game.characters.monster.boss.Boss1;
 import com.mygdx.game.powerUp.powerUp;
 
 import java.util.LinkedHashSet;
@@ -115,6 +116,7 @@ public class Playinggame {
                 else if (rand <= 100) {
                     m.add(new MonstreJaponais((Gdx.graphics.getWidth() - ((nbmonster-nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1)))), Gdx.graphics.getHeight()-100, this.gdx));
                 }
+                //m.add(new Boss1(700, 800, this.gdx));
                 nbmonstertemp--;
             }
 

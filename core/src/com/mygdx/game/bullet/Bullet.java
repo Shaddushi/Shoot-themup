@@ -9,8 +9,8 @@ import com.mygdx.game.MyGdxGame;
 
 public class Bullet {
 
-    private int x;
-    private int y;
+    protected int x;
+    protected int y;
     public double degat;
     protected int yspeed;
     protected int xspeed;
