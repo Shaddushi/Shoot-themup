@@ -47,12 +47,6 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		nbvague = 1;
 
 
-		for (int i = 0; i < nbmonster; i++) {
-			m.add(new SmallMonster(Gdx.graphics.getWidth() - ((i + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), (int) (Gdx.graphics.getHeight() - Gdx.graphics.getHeight() * 0.3),this));
-		}
-
-		hero = new Hero(250, 250, 10, 10, 20, heroimg, 10,this);
-
 		//musique
 
 
@@ -95,7 +89,9 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 			this.state = GAME_RUNNING;
 			cooldown = 25;
 		}
-		if(this.state == GAME_RUNNING && pg.hero.getLife() <= 0) this.state = GAME_NOTRUNNING ;
+		if(this.state == GAME_RUNNING && pg.hero.getLife() <= 0){
+			this.pg = new Playinggame(this);
+			this.state = GAME_NOTRUNNING ;}
 	}
 
 	//differente choses qu'il fait selon le status du jeu

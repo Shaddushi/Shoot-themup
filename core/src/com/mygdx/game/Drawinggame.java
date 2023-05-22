@@ -23,6 +23,9 @@ public class Drawinggame {
     public ShapeRenderer shapeNoExp;
 
     protected Texture background;
+    protected Texture background2 ;
+    float yMax, yCoordBg1, yCoordBg2;
+    final int BACKGROUND_MOVE_SPEED = 100;
     public SpriteBatch batch;
 
     //pour dessiner
@@ -39,6 +42,9 @@ public class Drawinggame {
         //initialise les shaperenderer
 
         background = new Texture(Gdx.files.internal("starry-night-sky.jpg"));
+        background2 = new Texture(Gdx.files.internal("starry-night-sky.jpg")); // identical
+        yMax = 1280;
+        yCoordBg1 = yMax*(-1); yCoordBg2 = 0;
         shapeNoLife = new ShapeRenderer();
         shapeLife = new ShapeRenderer();
         shapeNoExp = new ShapeRenderer();
@@ -72,8 +78,15 @@ public class Drawinggame {
     //dessine le jeu
 
     public void GameDraw() {
+
+        yCoordBg1 += BACKGROUND_MOVE_SPEED * Gdx.graphics.getDeltaTime();
+        yCoordBg2 = yCoordBg1 + yMax;
+        if (yCoordBg1 >= 0) {
+            yCoordBg1 = yMax*(-1); yCoordBg2 = 0;
+        }
         batch.begin();
-        batch.draw(background, 0, 0);
+        batch.draw(background, 0, yCoordBg1);
+        batch.draw(background2, 0, yCoordBg2);
 
 
         gdx.pg.hero.draw(batch);
@@ -104,6 +117,7 @@ public class Drawinggame {
                 (int)((Gdx.graphics.getWidth() - (Gdx.graphics.getWidth()/3.2) -50)),
                 140);
         batch.end();
+
     }
 
     //dessine la barre d'exp
