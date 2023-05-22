@@ -46,7 +46,6 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 		nbvague = 1;
 
-
 		//musique
 
 
@@ -89,9 +88,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 			this.state = GAME_RUNNING;
 			cooldown = 25;
 		}
-		if(this.state == GAME_RUNNING && pg.hero.getLife() <= 0){
-			this.pg = new Playinggame(this);
-			this.state = GAME_NOTRUNNING ;}
+		if(this.state == GAME_RUNNING && pg.hero.getLife() <= 0) this.state = GAME_NOTRUNNING ;
 	}
 
 	//differente choses qu'il fait selon le status du jeu
@@ -103,7 +100,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 			mainMenu.menuDraw();
 			mainMenu.actionAll();
 		}
-		else if(this.state == GAME_RUNNING){
+		if(this.state == GAME_RUNNING){
 			pg.Respawn();
 			pg.delete();
 			pg.GameUpdate();
