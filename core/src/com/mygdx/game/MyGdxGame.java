@@ -77,7 +77,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 		for (int i = 0; i < nbmonster; i++) {
 			m.add(new SmallMonster(Gdx.graphics.getWidth() - ((i + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), (int) (Gdx.graphics.getHeight() - Gdx.graphics.getHeight() * 0.3),this));
 		}
-		
+
 		hero = new Hero(250, 250, 10, 10, 20, heroimg, 10,this);
 
 		bit = new BitmapFont();
