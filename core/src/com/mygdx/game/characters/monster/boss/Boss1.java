@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.bullet.Bullet;
-import com.mygdx.game.bullet.boss.BulletBoss1;
+import com.mygdx.game.bullet.Enemy.boss.BulletBoss1;
 import com.mygdx.game.characters.monster.Monster;
 
 public class Boss1 extends Monster {

@@ -4,74 +4,47 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.utils.Align;
-import com.mygdx.game.bullet.Ally.BulletHero;
-import com.mygdx.game.bullet.boss.BulletBoss1;
-import com.mygdx.game.characters.hero.Hero;
-import com.mygdx.game.characters.monster.MediumMonster;
-import com.mygdx.game.characters.monster.Monster;
-import com.mygdx.game.characters.monster.MonstreJaponais;
-import com.mygdx.game.characters.monster.SmallMonster;
-import com.mygdx.game.bullet.Bullet;
-import com.mygdx.game.characters.monster.boss.Boss1;
-import com.mygdx.game.powerUp.powerUp;
-
-
-import java.util.LinkedHashSet;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 
+
 public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
-	public ShapeRenderer shapeLife;
-	public ShapeRenderer shapeShield;
-	public ShapeRenderer shapeNoLife;
-	public ShapeRenderer shapeExp;
-	public ShapeRenderer shapeNoExp;
 
-	public Hero hero;
-	public Texture heroimg;
+	//nombre montrant la vague en cours dans le menu pause
 
-	public Texture monsterimg;
+	public int nbvague;
 
-	public Texture bulletimg;
 
-	protected Texture background;
-	public SpriteBatch batch;
-
-	public int nbmonsterlast;
-	public int nbmonster;
-
+	//musique
 	public Music menuMusic;
-
-
 	public Music Honteux;
-	public LinkedHashSet<BulletHero> bullet = new LinkedHashSet<>();
 
-	public LinkedHashSet<Bullet> bulletEN = new LinkedHashSet<>();
-	public LinkedHashSet<Monster> m = new LinkedHashSet<>();
+	// different status
+	int state;
 
-	public LinkedHashSet<powerUp> pU = new LinkedHashSet<powerUp>();
+	static int GAME_NOTRUNNING = 0;
+	static final int GAME_RUNNING = 1;
 
-	public LinkedHashSet<powerUp> pUInUse = new LinkedHashSet<powerUp>();
+	static final int GAME_PAUSED = 2;
 
-	public BitmapFont bit;
+	int cooldown;
+
+
+	//pour le visuel
+	public MainMenu mainMenu;
+	public Drawinggame dg;
+
+	public Playinggame pg;
+
 
 	@Override
 	public void create() {
-		bulletimg = new Texture("laserGreen.png");
-		heroimg = new Texture("player.png");
-		background = new Texture(Gdx.files.internal("starry-night-sky.jpg"));
 
-		nbmonster = 5;
-		nbmonsterlast = nbmonster;
+		//valeur de base pour les vagues, le score etc
+
+		nbvague = 1;
 
 
 		for (int i = 0; i < nbmonster; i++) {
@@ -80,313 +53,82 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 		hero = new Hero(250, 250, 10, 10, 20, heroimg, 10,this);
 
-		bit = new BitmapFont();
-	//bit.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-		bit.getData().setScale(2.5f);
-
-		menuMusic = Gdx.audio.newMusic(Gdx.files.internal("Shreksophone.mp3"));
-		Honteux = Gdx.audio.newMusic(Gdx.files.internal("Honteux.mp3"));
-		menuMusic.setLooping(true);
-		//menuMusic.play();
+		//musique
 
 
-		shapeNoLife = new ShapeRenderer();
-		shapeLife = new ShapeRenderer();
-		shapeNoExp = new ShapeRenderer();
-		shapeExp = new ShapeRenderer();
-		shapeShield = new ShapeRenderer();
-
-
-		batch = new SpriteBatch();
-
-
-
-	}
-
-
-	public void collisionEnnemi(Bullet bullH) {
-		for (Monster mon : m) {
-			if ((bullH.getY() >= mon.getY()) && (bullH.getY() - mon.getTailley() <= mon.getY())) {
-				if ((bullH.getX() >= mon.getX()) && (bullH.getX() - mon.getTaillex() - 2 <= mon.getX())) {
-					bullH.existe = false;
-					System.out.println(mon.getLife() + "      " + mon.existe + "         " + bullH.getDegat()) ;
-					mon.toucher(bullH.getDegat());
-					mon.mort();
-					System.out.println(mon.getLife() + " aaaaa     " + mon.existe + "       " + this.hero.bonus_damage);
-				}
-			}
-		}
-	}
-
-	public void collisionAllie(Bullet bullM) {
-		if ((bullM.getY() >= hero.getY()) && (bullM.getY() - hero.getTailley() <= hero.getY())|| (hero.getY() >= bullM.getY() && hero.getY() <= (bullM.getY() + bullM.getTexture().getHeight()) )) {
-			if (((bullM.getX() >= hero.getX()) && (bullM.getX() - hero.getTaillex() <= hero.getX())) || (hero.getX() >= bullM.getX() && hero.getX() <= (bullM.getX() + bullM.getTexture().getWidth()) )) {
-				bullM.existe = false;
-				hero.toucher(bullM.getDegat());
-				hero.mort();
-				//Honteux.play();
-			}
-		}
-		for(Monster mon: m) {
-
-			if ((mon.getY() >= hero.getY()) && (mon.getY() - hero.getTailley() <= hero.getY())|| ((hero.getY() >= mon.getY()) && hero.getY() <= (mon.getY() + mon.getTexture().getHeight()) )) {
-				if ((mon.getX() >= hero.getX()) && (mon.getX() - hero.getTaillex() <= hero.getX())|| ((hero.getX() >= mon.getX()) && hero.getX() <= (mon.getX() + mon.getTexture().getWidth()) )){
-					hero.toucher(mon.getDegatCAC());
-					mon.toucher(hero.getDegatCAC());
-					hero.mort();
-					mon.mort();
-				}
-			}
-		}
-	}
-
-
-
-	public void shoot(){
-		for(Monster mon : m){
-			if(mon.getcooldown()<=0){
-				Bullet[] BullHere = mon.tirer();
-				for(Bullet B : BullHere)
-					if(B != null){
-						bulletEN.add(B);
-					}
-
-				mon.setCooldownreset();
-			}
-			mon.cooldownDown();
-
-		}
-
-	}
-
-	public void CollisionAll(){
-		for (Bullet bullH : bullet) {
-			if (bullH.getY() >= Gdx.graphics.getHeight()) {
-				bullH.existe = false;
-			} else {
-				collisionEnnemi(bullH);
-			}
-		}
-
-
-		for (Bullet me : bulletEN) {
-			if (me.getY() <= -40) {
-				me.existe = false;
-			} else {
-				collisionAllie(me);
-
-			}
-
-		}
-	}
-
-
-	public void Respawn(){
-		if(nbmonster == 1) {
-			nbmonster = (int) Math.round(nbmonsterlast * 1.2);
-			nbmonsterlast = nbmonster;
-			for (int i = 0; i < (3 * nbmonster) / 4; i++) {
-				m.add(new SmallMonster(Gdx.graphics.getWidth() - ((i + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), Gdx.graphics.getHeight()-100, this));
-			}
-			for (int j = 0; j < nbmonster / 4; j++) {
-				m.add(new MediumMonster((Gdx.graphics.getWidth() / 10) * random.nextInt(0, 10), Gdx.graphics.getHeight()-100, this));
-			}
-			for (int j = 0; j < nbmonster / 4; j++) {
-				m.add(new MonstreJaponais((Gdx.graphics.getWidth() / 10) * random.nextInt(0, 10), Gdx.graphics.getHeight()-100, this));
-			}
-
-
-
-		}
-	}
-
-
-	public void delete() {
-		Bullet[] bullHero = bullet.toArray(new Bullet[0]);
-		for (Bullet ma : bullHero) {
-			if (!ma.existe) {
-				bullet.remove(ma);
-			}
-		}
-		Bullet[] bullEN = bulletEN.toArray(new Bullet[0]);
-		for (Bullet me : bullEN) {
-			if (!me.existe) {
-				bulletEN.remove(me);
-			}
-		}
-		powerUp[] powUps = pU.toArray(new powerUp[0]);
-		for (powerUp pu : powUps) {
-			if (!pu.existe) {
-				pUInUse.add(pu);
-				pU.remove(pu);
-			}
-		}
-		powerUp[] powerUpsInuse = pUInUse.toArray(new powerUp[0]);
-		for (powerUp pu : powerUpsInuse) {
-			if(pu.timer <= 0){
-				pu.undo();
-				pUInUse.remove(pu);
-			}
-			else{
-				pu.timer--;
-			}
-		}
-		Monster[] monstre = m.toArray(new Monster[0]);
-		for(Monster mon : monstre) {
-			if (!mon.existe) {
-
-				if(mon.drop()){
-					mon.randomPowerUp();
-				}
-				hero.addExp(mon.xp);
-				m.remove(mon);
-
-				this.nbmonster = this.nbmonster - 1;
-
-			}
-		}
-
-	}
-	public void dessine() {
-		batch.begin();
-		batch.draw(background, 0, 0);
-
-
-		hero.draw(batch);
-
-		for (Bullet bullH : bullet) {
-			bullH.draw(batch);
-			bullH.updateBullet();
-		}
-		for (Bullet bullM : bulletEN) {
-			bullM.draw(batch);
-			bullM.updateBullet();
-			if( bullM instanceof BulletBoss1){
-				if(bullM.getX() < -10 + ((BulletBoss1) bullM).getXdep() || bullM.getX() > 10 + ((BulletBoss1) bullM).getXdep()){
-					bullM.setXspeed(bullM.getXspeed() * (-1));
-				}
-			}
-		}
-		for (Monster mon : m) {
-			mon.draw(batch);
-			mon.updateall();
-		}
-		for(powerUp up: pU){
-			up.draw(batch);
-		}
-		int i = 1;
-		for(powerUp up: pUInUse){
-			batch.draw(up.getTexture(),100*i,100);
-			i++;
-		}
-
-		bit.draw(batch, "LVL : " + this.hero.getLevel(),
-				(int)((Gdx.graphics.getWidth() - (Gdx.graphics.getWidth()/3.2) -50))
-				,140);
-		batch.end();
-
-	}
-
-	public void usePowerUp() {
-		for (powerUp p : pU) {
-			if ((p.getY() >= hero.getY()) && (p.getY() - hero.getTailley() <= hero.getY()) || (hero.getY() >= p.getY() && hero.getY() <= (p.getY() + p.getTexture().getHeight()))) {
-				if ((p.getX() >= hero.getX()) && (p.getX() - hero.getTaillex() <= hero.getX()) || (hero.getX() >= p.getX() && hero.getX() <= (p.getX() + p.getTexture().getWidth()))) {
-
-					p.use();
-				}
-			}
-		}
-	}
-
-	public void ExpBar(){
-		shapeNoExp = new ShapeRenderer();
-		shapeExp = new ShapeRenderer();
-		shapeNoExp.begin(ShapeRenderer.ShapeType.Filled);
-		shapeExp.begin(ShapeRenderer.ShapeType.Filled);
-		shapeExp.setColor(61/255f, 197/255f, 242/255f,1);
-		shapeNoExp.setColor(0/255f, 255/255f, 205/255f,1);
-
-		shapeNoExp.rect((int)(
-						(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth()/5) -50)), 70 +(int)(Gdx.graphics.getHeight()/20)
-				, (float)(Gdx.graphics.getWidth()/5), (int)(Gdx.graphics.getHeight()/50)
-		);
-
-
-
-			shapeExp.rect((int) (
-							(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() / 5) - 50))
-					, 70 +(int)(Gdx.graphics.getHeight()/20)
-					, (int) Math.round(((float) (Gdx.graphics.getWidth() / 5) * ((float) hero.getExp() / (float) hero.getMaxExp())))
-					, (int) (Gdx.graphics.getHeight() / 50)
-			);
-
-
-
-		shapeNoExp.end();
-		shapeExp.end();
-	}
-	public void HealthBar(){
-		shapeNoLife = new ShapeRenderer();
-		shapeLife = new ShapeRenderer();
-		shapeShield = new ShapeRenderer();
-		shapeNoLife.begin(ShapeRenderer.ShapeType.Filled);
-		shapeLife.begin(ShapeRenderer.ShapeType.Filled);
-		shapeShield.begin(ShapeRenderer.ShapeType.Filled);
-		shapeLife.setColor(0, 255, 0,1);
-		shapeNoLife.setColor(255, 0, 0,1);
-		shapeShield.setColor(0,0,255,1);
-		shapeNoLife.rect((int)(
-						(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth()/3) -50)), 50
-				, (float)(Gdx.graphics.getWidth()/3), (int)(Gdx.graphics.getHeight()/20)
-		);
-
-		if(hero.getLife()<=0){
-			shapeLife.rect((int)(
-							(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth()/3) -50)), 50
-					, 0, (int)(Gdx.graphics.getHeight()/20)
-			);
+		if(random.nextInt(0,20) == 19){
+			menuMusic = Gdx.audio.newMusic(Gdx.files.internal("mystery.mp3"));
 		}
 		else {
-			shapeLife.rect((int) (
-							(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() / 3) - 50))
-					, 50
-					, (int) Math.round(((float) (Gdx.graphics.getWidth() / 3) * ((float) hero.getLife() / (float) hero.getMaxlife())))
-					, (int) (Gdx.graphics.getHeight() / 20)
-			);
+			menuMusic = Gdx.audio.newMusic(Gdx.files.internal("Shreksophone.mp3"));
 		}
-		shapeShield.rect((int) (
-						(Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() / 3) - 50))
-				, 50
-				, (int) Math.round(((float) (Gdx.graphics.getWidth() / 3) * ((float) hero.shield / (float) hero.getMaxlife())))
-				, (int) (Gdx.graphics.getHeight() / 20)
-		);
+		menuMusic.setLooping(true);
+		menuMusic.play();
 
-		shapeNoLife.end();
-		shapeLife.end();
-		shapeShield.end();
+		//pour dessiner
+		mainMenu = new MainMenu(this);
+		dg = new Drawinggame(this);
+		pg = new Playinggame(this);
+
+
+
+		// generation de la premiere vague
+
+		pg.Respawn();
+
+		// Gestion des different status
+
+		state = GAME_NOTRUNNING ;
+		cooldown = 20;
 	}
 
 
+	//s'occupe du status du jeu (en pause, en cours de jeu, menu)
 
+	public void Status(){
+		cooldown--;
+		if(this.state == GAME_RUNNING && cooldown <= 0 && Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+			this.state= GAME_PAUSED;
+			cooldown = 25;
+		}
+		else if(this.state == GAME_PAUSED && cooldown <=0&& Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+			this.state = GAME_RUNNING;
+			cooldown = 25;
+		}
+		if(this.state == GAME_RUNNING && pg.hero.getLife() <= 0) this.state = GAME_NOTRUNNING ;
+	}
+
+	//differente choses qu'il fait selon le status du jeu
+
+	public void GameState(){
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		if(this.state == GAME_NOTRUNNING) {
+			mainMenu.menuDraw();
+			mainMenu.actionAll();
+		}
+		if(this.state == GAME_RUNNING){
+			pg.Respawn();
+			pg.delete();
+			pg.GameUpdate();
+			pg.CollisionAll();
+
+			dg.DrawALL();
+		}
+		else if(this.state == GAME_PAUSED){
+
+			dg.DrawALL();
+			dg.PausedMod();
+		}
+	}
+
+
+	//methode Render
 
 	@Override
 	public void render() {
-
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		Respawn();
-		usePowerUp();
-		hero.update();
-		shoot();
-		CollisionAll();
-		delete();
-		dessine();
-		HealthBar();
-		ExpBar();
-
-
+		Status();
+		GameState();
 	}
-
-
 
 }

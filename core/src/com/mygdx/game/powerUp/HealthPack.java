@@ -12,11 +12,11 @@ public class HealthPack extends powerUp{
 
     @Override
     public void use() {
-        if(this.gdx.hero.getLife() + this.bonus <= this.gdx.hero.getMaxlife()){
-            this.gdx.hero.setLife(this.gdx.hero.getLife() + this.bonus);
+        if(this.gdx.pg.hero.getLife() + this.bonus <= this.gdx.pg.hero.getMaxlife()){
+            this.gdx.pg.hero.setLife(this.gdx.pg.hero.getLife() + this.bonus);
         }
         else{
-            this.gdx.hero.setLife(this.gdx.hero.getMaxlife());
+            this.gdx.pg.hero.setLife(this.gdx.pg.hero.getMaxlife());
         }
         this.existe = false;
     }

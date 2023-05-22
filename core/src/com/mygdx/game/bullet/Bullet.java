@@ -58,6 +58,8 @@ public class Bullet {
 
     public Texture getTexture(){return this.texture;}
 
+    //mets a jour la position de la balle
+
     public void updateBullet() {
         if (this.xspeed > 0) this.x = this.x + this.xspeed ; // bullet va a droite
         if (this.xspeed < 0) this.x = this.x - -this.xspeed ; //bullet va a gauche

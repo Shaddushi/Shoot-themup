@@ -10,25 +10,28 @@ import com.mygdx.game.bullet.Bullet;
 
 public abstract class Character {
     protected int xspeed;
-    protected int yspeed;
-    protected int x;
-    protected int y;
-    protected double life;
-    protected double Maxlife;
-    protected Texture texture;
-    protected  Bullet bullet;
 
-    private int cooldown;
+    protected int yspeed;
+
+    protected int x;
+
+    protected int y;
+
+    protected double life;
+
+    protected double Maxlife;
+
+    protected Texture texture;
 
     public boolean existe;
 
-    public int cooldownmax;
+
 
     public double degatCAC;
 
     public MyGdxGame gdx;
 
-    public Character(int x, int y,int xspeed, int yspeed, int life,Texture texture,int cooldown,double degatCAC,MyGdxGame gdx){
+    public Character(int x, int y,int xspeed, int yspeed, double life,Texture texture,double degatCAC,MyGdxGame gdx){
         this.gdx=gdx;
         this.x = x;
         this.y = y;
@@ -36,11 +39,12 @@ public abstract class Character {
         this.yspeed = yspeed;
         this.life = life;
         this.texture = texture;
-        this.cooldown = cooldown;
-        this.cooldownmax = cooldown;
+
         this.Maxlife = life;
         this.degatCAC = degatCAC;
     }
+
+    // Getter / Setter
 
     public double getDegatCAC(){return this.degatCAC;}
 
@@ -78,49 +82,22 @@ public abstract class Character {
     }
 
 
-    public Bullet getBullet() {return this.bullet;}
-
-    public void setBullet(Bullet bullet) {this.bullet = bullet;}
-
-
-
     public void draw(SpriteBatch batch){
         batch.draw(getTexture(), getX(),getY());
     }
+
+
+    //enleve de la vie les degats recu
     public void toucher(double degat){
-        setLife(Math.round(getLife() - degat));
-    }
-
-
-
-    public void gauche(){
-        this.x = this.x - this.xspeed;
-    }
-
-    public void droite(){
-        this.x = this.x + this.xspeed;
-    }
-
-    public void bas(){
-        this.y = this.y - this.yspeed;
-    }
-
-
-    public void haut(){this.y = this.y + this.yspeed;}
-
-
-    public void cooldownDown() {
-        this.cooldown--;
-    }
-
-    public void setCooldownreset() {
-        if(this.cooldown <= 0 ) {
-            this.cooldown = this.cooldownmax ;
+        if(getLife() - degat < 0 ){
+            setLife(0);
+        }
+        else {
+            setLife(getLife() - degat);
         }
     }
 
-    public int getcooldown() {return cooldown;}
-
+    //check si le personnage est mort
 
     public void mort(){
         if(this.getLife() <= 0){
