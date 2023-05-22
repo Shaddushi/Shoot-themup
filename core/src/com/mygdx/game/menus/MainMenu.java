@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -6,6 +6,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.mygdx.game.MyGdxGame;
+
+import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public class MainMenu {
 
@@ -75,7 +79,7 @@ public class MainMenu {
         }
 
         //s'il y a un click dans la zone du rectangle alors on commence un jeu.
-        if(Gdx.input.isTouched() && Gdx.input.getX() > x && Gdx.input.getX() < x + 200 && Gdx.input.getY() > 400 && Gdx.input.getY() < 500) {
+        if(Gdx.input.justTouched() && Gdx.input.getX() > x && Gdx.input.getX() < x + 200 && Gdx.input.getY() > 400 && Gdx.input.getY() < 500) {
             gdx.state = 1 ; //GAME_RUNNING
         }
 
@@ -103,7 +107,8 @@ public class MainMenu {
         }
 
         //s'il y a un click dans la zone du rectangle alors on ferme le jeu
-        if(Gdx.input.isTouched() && Gdx.input.getX() > x && Gdx.input.getX() < x + 200 && Gdx.input.getY() > 700 && Gdx.input.getY() < 800) Gdx.app.exit();
+        if(Gdx.input.justTouched() && Gdx.input.getX() > x && Gdx.input.getX() < x + 200 && Gdx.input.getY() > 700 &&
+                Gdx.input.getY() < 800) Gdx.app.exit();
 
         batch.begin();
         titleExit.draw(batch, "EXIT",

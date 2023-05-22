@@ -5,6 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
+import com.mygdx.game.menus.DeathMenu;
+import com.mygdx.game.menus.MainMenu;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 
@@ -22,20 +24,20 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	public Music Honteux;
 
 	// different status
-	int state;
+	public int state;
 
 	static int GAME_NOTRUNNING = 0;
 	static final int GAME_RUNNING = 1;
-
 	static final int GAME_PAUSED = 2;
+	static final int GAME_OVER = 3 ;
 
 	int cooldown;
 
 
 	//pour le visuel
+	public DeathMenu deathMenu;
 	public MainMenu mainMenu;
 	public Drawinggame dg;
-
 	public Playinggame pg;
 
 
@@ -60,6 +62,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 		//pour dessiner
 		mainMenu = new MainMenu(this);
+		deathMenu = new DeathMenu(this);
 		dg = new Drawinggame(this);
 		pg = new Playinggame(this);
 
@@ -79,6 +82,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 	//s'occupe du status du jeu (en pause, en cours de jeu, menu)
 
 	public void Status(){
+		//manipulation de pause
 		cooldown--;
 		if(this.state == GAME_RUNNING && cooldown <= 0 && Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
 			this.state= GAME_PAUSED;
@@ -88,8 +92,9 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 			this.state = GAME_RUNNING;
 			cooldown = 25;
 		}
+		//à la mort du hero la page de mort apparait
 		if(this.state == GAME_RUNNING && pg.hero.getLife() <= 0) {
-			this.state = GAME_NOTRUNNING ;
+			this.state = GAME_OVER ;
 			pg = new Playinggame(this);
 		}
 	}
@@ -101,6 +106,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 		if(this.state == GAME_NOTRUNNING) {
 			mainMenu.menuDraw();
+
 			mainMenu.actionAll();
 		}
 		if(this.state == GAME_RUNNING){
@@ -111,11 +117,16 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 			dg.DrawALL();
 		}
+		if(this.state == GAME_OVER) {
+			deathMenu.deathMenuDraw() ;
+			deathMenu.actionAll() ;
+		}
 		else if(this.state == GAME_PAUSED){
 
 			dg.DrawALL();
 			dg.PausedMod();
 		}
+
 	}
 
 
