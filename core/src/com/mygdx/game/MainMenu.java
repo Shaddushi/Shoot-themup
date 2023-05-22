@@ -19,8 +19,8 @@ public class MainMenu {
     public SpriteBatch batch;
 
     public BitmapFont title ;
-    public BitmapFont Start ;
-    public BitmapFont Exit ;
+    public BitmapFont titleStart;
+    public BitmapFont titleExit;
 
     public MainMenu(MyGdxGame gdx) {
         //initialise les shaperenderer
@@ -33,13 +33,13 @@ public class MainMenu {
 
         //et le texte
         title = new BitmapFont() ;
-        title.getData().setScale(2.5f);
-        Start = new BitmapFont();
-        Start.getData().setScale(2.5f);
-        Exit = new BitmapFont();
-        Exit.getData().setScale(2.5f);
-        Start.setColor(128 / 255f, 166/ 255f, 191/ 255f,1);
-        Exit.setColor(128 / 255f, 166/ 255f, 191/ 255f,1);
+        title.getData().setScale(4f);
+        titleStart = new BitmapFont();
+        titleStart.getData().setScale(2.5f);
+        titleExit = new BitmapFont();
+        titleExit.getData().setScale(2.5f);
+        titleStart.setColor(128 / 255f, 166/ 255f, 191/ 255f,1);
+        titleExit.setColor(128 / 255f, 166/ 255f, 191/ 255f,1);
     }
 
     public void menuDraw() {
@@ -48,37 +48,34 @@ public class MainMenu {
         batch.end();
 
         backAll.begin(ShapeType.Filled);
-        backAll.setColor(0/255f, 89/255f, 179/255f,1);
+        backAll.setColor(104/255f, 107/255f, 112/255f,1);
         backAll.rect(Gdx.graphics.getWidth() - Gdx.graphics.getWidth() + 100, Gdx.graphics.getHeight() - Gdx.graphics.getHeight() + 100
                 , Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 200);
         backAll.end();
 
-        buttonStart.begin(ShapeType.Filled);
-        buttonStart.setColor(0/255f, 200/255f, 179/255f,1);
-        buttonStart.rect((float) Gdx.graphics.getWidth()/2 - 100,500,200,100);
-        buttonStart.end();
-
-        buttonExit.begin(ShapeType.Filled);
-        buttonExit.setColor(0/255f, 200/255f, 179/255f,1);
-        buttonExit.rect((float) Gdx.graphics.getWidth()/2 - 100,200,200,100);
-        buttonExit.end();
-
+        batch.begin();
+        title.draw(batch, "this.SetLooping(true);",
+                (int)(Gdx.graphics.getWidth() / 3),
+                (int)(Gdx.graphics.getHeight() /1.25));
+        batch.end();
     }
 
     public void actionStart() {
         float x = (float)Gdx.graphics.getWidth() / 2 - 100 ;
-        //le bouton change de couleur si la sourit est au-dessus.
+
+        //le bouton est affiche et change de couleur si la sourit est au-dessus.
         if(Gdx.input.getX() > x && Gdx.input.getX() < x + 200 && Gdx.input.getY() > 400 && Gdx.input.getY() < 500) {
             buttonStart.begin(ShapeType.Filled);
-            buttonStart.setColor(255/255f, 100/255f, 100/255f, 1);
+            buttonStart.setColor(171/255f, 171/255f, 171/255f, 1);
             buttonStart.rect(x, 500, 200, 100);
             buttonStart.end();
         } else {
             buttonStart.begin(ShapeType.Filled);
-            buttonStart.setColor(0/255f, 200/255f, 179/255f, 1);
+            buttonStart.setColor(139/255f, 143/255f, 150/255f, 1);
             buttonStart.rect(x, 500, 200, 100);
             buttonStart.end();
         }
+
         //s'il y a un click dans la zone du rectangle alors on commence un jeu.
         if(Gdx.input.isTouched() && Gdx.input.getX() > x && Gdx.input.getX() < x + 200 && Gdx.input.getY() > 400 && Gdx.input.getY() < 500) {
             gdx.state = 1 ; //GAME_RUNNING
@@ -87,18 +84,20 @@ public class MainMenu {
 
     public void actionExit() {
         float x = (float)Gdx.graphics.getWidth() / 2 - 100 ;
-        //le bouton change de couleur si la sourit est au-dessus.
+
+        //le bouton est affiche et change de couleur si la sourit est au-dessus.
         if(Gdx.input.getX() > x && Gdx.input.getX() < x + 200 && Gdx.input.getY() > 700 && Gdx.input.getY() < 800) {
             buttonExit.begin(ShapeType.Filled);
-            buttonExit.setColor(255/255f, 100/255f, 100/255f,1);
+            buttonExit.setColor(171/255f, 171/255f, 171/255f, 1);
             buttonExit.rect((float) Gdx.graphics.getWidth()/2 - 100,200,200,100);
             buttonExit.end();
         } else {
             buttonExit.begin(ShapeType.Filled);
-            buttonExit.setColor(0/255f, 200/255f, 179/255f,1);
+            buttonExit.setColor(139/255f, 143/255f, 150/255f, 1);
             buttonExit.rect((float) Gdx.graphics.getWidth()/2 - 100,200,200,100);
             buttonExit.end();
         }
+
         //s'il y a un click dans la zone du rectangle alors on ferme le jeu
         if(Gdx.input.isTouched() && Gdx.input.getX() > x && Gdx.input.getX() < x + 200 && Gdx.input.getY() > 700 && Gdx.input.getY() < 800) Gdx.app.exit();
     }
