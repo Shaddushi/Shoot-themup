@@ -5,15 +5,15 @@ import com.mygdx.game.characters.hero.Hero;
 
 public class WeaponLvL5 extends Weapon {
     public WeaponLvL5(Hero hero) {
-        super(15,hero);
+        super(15,hero,"5");
     }
 
     @Override
     public BulletHero[] tirer() {
         BulletHero[] b = new BulletHero[3];
-        b[0] = new BulletHero(this.hero.getX(), this.hero.getY() + this.hero.getTailley(), this.hero.gdx);
-        b[1] = new BulletHero(this.hero.getX() + this.hero.getTaillex() , this.hero.getY() + this.hero.getTailley(), this.hero.gdx);
-        b[2] = new BulletHero(this.hero.getX() + this.hero.getTaillex() + (this.hero.getTailley()/2), this.hero.getY() + this.hero.getTailley(), this.hero.gdx);
+        b[0] = new BulletHero(this.hero.getX(), this.hero.getY() + this.hero.getTailley(), this.hero.gdx,0,5);
+        b[1] = new BulletHero(this.hero.getX() + this.hero.getTaillex() , this.hero.getY() + this.hero.getTailley(), this.hero.gdx,0,5);
+        b[2] = new BulletHero(this.hero.getX() + (this.hero.getTailley()/2), this.hero.getY() + this.hero.getTailley(), this.hero.gdx,0,5);
         return b;
     }
 }

@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.mygdx.game.bullet.Ally.BulletHero;
 import com.mygdx.game.bullet.Bullet;
 import com.mygdx.game.characters.hero.Hero;
@@ -9,7 +10,7 @@ import com.mygdx.game.characters.monster.Monster;
 import com.mygdx.game.characters.monster.MonstreJaponais;
 import com.mygdx.game.characters.monster.SmallMonster;
 import com.mygdx.game.characters.monster.boss.Boss1;
-import com.mygdx.game.powerUp.powerUp;
+import com.mygdx.game.powerUp.PowerUp;
 
 import java.util.LinkedHashSet;
 
@@ -29,14 +30,16 @@ public class Playinggame {
     public LinkedHashSet<Bullet> bulletEN = new LinkedHashSet<>();
     public LinkedHashSet<Monster> m = new LinkedHashSet<>();
 
-    public LinkedHashSet<powerUp> pU = new LinkedHashSet<powerUp>();
+    public LinkedHashSet<PowerUp> pU = new LinkedHashSet<PowerUp>();
 
-    public LinkedHashSet<powerUp> pUInUse = new LinkedHashSet<powerUp>();
+    public LinkedHashSet<PowerUp> pUInUse = new LinkedHashSet<PowerUp>();
 
     //Controle le nb de monstres
 
     public int nbmonsterlast;
     public int nbmonster;
+    public int nbBoss;
+    public Boss1 boss1;
 
     //score
 
@@ -57,9 +60,19 @@ public class Playinggame {
         for (Bullet bullH : bullet) {
             if (bullH.getY() >= Gdx.graphics.getHeight()) {
                 bullH.existe = false;
-            } else {
+
+            } else if (bullH.getX() >= Gdx.graphics.getWidth()) {
+                bullH.existe = false;
+            }else if (bullH.getX() <= 0) {
+                bullH.existe = false;
+            } else if (bullH.getY() <= 0) {
+                bullH.existe = false;
+            }else {
                 for (Monster mon : m) {
                     mon.collisionEnnemi(bullH);
+                }
+                if(nbBoss > 0){
+                    boss1.collisionEnnemi(bullH);
                 }
             }
         }
@@ -92,6 +105,17 @@ public class Playinggame {
             mon.cooldownDown();
 
         }
+        if(this.nbBoss >0) {
+            if (boss1.getcooldown() <= 0) {
+                Bullet[] bullHere = boss1.tirer();
+                for (Bullet B : bullHere)
+                    if (B != null) {
+                        bulletEN.add(B);
+                    }
+                boss1.setCooldownreset();
+            }
+            boss1.cooldownDown();
+        }
 
     }
 
@@ -115,8 +139,14 @@ public class Playinggame {
                 }
                 else {
                     m.add(new MonstreJaponais((Gdx.graphics.getWidth() - ((nbmonster-nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1)))), Gdx.graphics.getHeight()-100, this.gdx));
+                    Music BANZAI = Gdx.audio.newMusic(Gdx.files.internal("BANZAI.mp3"));
+                    BANZAI.play();
                 }
-                //m.add(new Boss1(700, 800, this.gdx));
+                if(gdx.nbvague == 5){
+                    boss1 = new Boss1(700, 700, this.gdx);
+                    nbBoss++;
+                }
+
                 nbmonstertemp--;
             }
 
@@ -142,15 +172,15 @@ public class Playinggame {
                 bulletEN.remove(me);
             }
         }
-        powerUp[] powUps = pU.toArray(new powerUp[0]);
-        for (powerUp pu : powUps) {
+        PowerUp[] powUps = pU.toArray(new PowerUp[0]);
+        for (PowerUp pu : powUps) {
             if (!pu.existe) {
                 pUInUse.add(pu);
                 pU.remove(pu);
             }
         }
-        powerUp[] powerUpsInuse = pUInUse.toArray(new powerUp[0]);
-        for (powerUp pu : powerUpsInuse) {
+        PowerUp[] PowerUpsInuse = pUInUse.toArray(new PowerUp[0]);
+        for (PowerUp pu : PowerUpsInuse) {
             if(pu.timer <= 0){
 
                 pu.undo();
@@ -174,6 +204,15 @@ public class Playinggame {
 
             }
         }
+        if(nbBoss > 0){
+            if(!boss1.existe){
+                if(boss1.drop()){
+                    boss1.randomPowerUp();
+                }
+                this.nbBoss = this.nbBoss - 1;
+
+            }
+        }
 
     }
 
@@ -181,7 +220,7 @@ public class Playinggame {
 
 
     public void usePowerUp() {
-        for (powerUp p : pU) {
+        for (PowerUp p : pU) {
             p.Move();
             if ((p.getY() >= hero.getY()) && (p.getY() - hero.getTailley() <= hero.getY()) || (hero.getY() >= p.getY() && hero.getY() <= (p.getY() + p.getTexture().getHeight()))) {
                 if ((p.getX() >= hero.getX()) && (p.getX() - hero.getTaillex() <= hero.getX()) || (hero.getX() >= p.getX() && hero.getX() <= (p.getX() + p.getTexture().getWidth()))) {
@@ -206,6 +245,9 @@ public class Playinggame {
         }
         for (Monster mon : m) {
             mon.updateall();
+        }
+        if(nbBoss > 0){
+            boss1.update();
         }
 
         usePowerUp();

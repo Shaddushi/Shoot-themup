@@ -7,8 +7,8 @@ import com.mygdx.game.bullet.Bullet;
 public class BulletHero extends Bullet {
 
     public MyGdxGame gdx;
-    public BulletHero(int x, int y, MyGdxGame gdx){
-        super(Math.round(2 * gdx.pg.hero.bonus_damage),0,5,x,y,new Texture("laserGreen.png"), 70);
+    public BulletHero(int x, int y, MyGdxGame gdx,int xspeed,int yspeed){
+        super(Math.round(2 * gdx.pg.hero.bonus_damage),xspeed,yspeed,x,y,new Texture("laserGreen.png"), 70);
         this.gdx = gdx;
     }
 }

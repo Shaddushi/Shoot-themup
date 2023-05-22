@@ -4,10 +4,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.bullet.Bullet;
 
-public class MonstreJaponais extends Monster {
-
-    public MonstreJaponais(int x, int y, MyGdxGame gdx){
-        super(x,y,5,-10 , 0.01, new Texture("kamikaze.png"), 2 , 0,1, gdx,13);
+public class MonstreSnipe extends Monster {
+    public MonstreSnipe(int x, int y, MyGdxGame gdx){
+        super(x,y,5,-5 , 0.01, new Texture("kamikaze.png"), 2 , 0,0, gdx,13);
 
     }
 
@@ -29,6 +28,5 @@ public class MonstreJaponais extends Monster {
             this.dropChance = 0;
             this.existe = false;
         }
-
     }
 }

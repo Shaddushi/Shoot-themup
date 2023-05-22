@@ -98,19 +98,19 @@ public abstract class Monster extends Character {
             this.gdx.pg.pU.add(h);
         }
         else if(nb == 1){
-            damagepack d = new damagepack(this.x,this.y,this.gdx);
+            Damagepack d = new Damagepack(this.x,this.y,this.gdx);
             this.gdx.pg.pU.add(d);
         }
         else if(nb == 2){
-            doubleexp e = new doubleexp(this.x,this.y,this.gdx);
+            Doublexp e = new Doublexp(this.x,this.y,this.gdx);
             this.gdx.pg.pU.add(e);
         }
-        else if(nb == 3){
-            shieldBuff s = new shieldBuff(this.x,this.y,this.gdx);
+        else if(nb == 3) {
+            ShieldBuff s = new ShieldBuff(this.x, this.y, this.gdx);
             this.gdx.pg.pU.add(s);
         }
         else if(nb == 4){
-            overload o = new overload(this.x,this.y,this.gdx);
+            Overload o = new Overload(this.x,this.y,this.gdx);
             this.gdx.pg.pU.add(o);
         }
     }
