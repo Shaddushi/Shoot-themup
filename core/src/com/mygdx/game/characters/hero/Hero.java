@@ -10,10 +10,7 @@ import com.mygdx.game.bullet.Bullet;
 import com.mygdx.game.bullet.Ally.BulletHero;
 import com.mygdx.game.characters.monster.Monster;
 import com.mygdx.game.powerUp.powerUp;
-import com.mygdx.game.weapon.Weapon;
-import com.mygdx.game.weapon.WeaponLvL0;
-import com.mygdx.game.weapon.WeaponLvL3;
-import com.mygdx.game.weapon.WeaponLvL5;
+import com.mygdx.game.weapon.*;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -48,7 +45,7 @@ public class Hero extends Character {
         this.maxexp = 20;
         this.regen = 0.01;
         this.degatCAC = 0.02;
-        this.weapon = new WeaponLvL0(this);
+        this.weapon = new WeaponLvL10(this);
     }
 
 
