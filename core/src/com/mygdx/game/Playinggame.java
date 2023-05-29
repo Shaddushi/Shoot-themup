@@ -120,38 +120,38 @@ public class Playinggame {
     //Fait réapparaitre les mobs quand ils sont tous morts
 
     public void Respawn(){
-        if(nbmonster == 0) {
-            nbmonster = nbmonsterlast +2;
-            int nbmonstertemp = nbmonsterlast + 2;
-            nbmonsterlast = nbmonster;
+        if(nbmonster == 0 && nbBoss==0) {
 
 
-            while(nbmonstertemp!=0){
-                int rand = random.nextInt(0,100);
-                if(rand <=80){
-                    m.add(new SmallMonster(Gdx.graphics.getWidth() - ((nbmonster-nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), Gdx.graphics.getHeight()-100, this.gdx));
-                }
-                else if(rand <= 85){
-                    m.add(new MonstreSnipe(700,800,this.gdx));
-                }
-                else if (rand <=90) {
-                    m.add(new MediumMonster(Gdx.graphics.getWidth() - ((nbmonster-nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), Gdx.graphics.getHeight()-100, this.gdx));
-                }
-                else {
-                    m.add(new MonstreJaponais((Gdx.graphics.getWidth() - ((nbmonster-nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1)))), Gdx.graphics.getHeight()-100, this.gdx));
-                    Music BANZAI = Gdx.audio.newMusic(Gdx.files.internal("BANZAI.mp3"));
-                    BANZAI.play();
-                }
-
-                if(gdx.nbvague == 5){
-                    boss1 = new Boss1(700, 700, this.gdx);
-                    nbBoss++;
-                }
-
-                nbmonstertemp--;
+            if(gdx.nbvague % 5 == 0){
+                boss1 = new Boss1(700, 700, this.gdx);
+                nbBoss++;
             }
+            else {
+                nbmonster = nbmonsterlast +2;
+                int nbmonstertemp = nbmonsterlast + 2;
+                nbmonsterlast = nbmonster;
+                while (nbmonstertemp != 0) {
+                    int rand = random.nextInt(0, 100);
+                    if (rand <= 80) {
+                        m.add(new SmallMonster(Gdx.graphics.getWidth() - ((nbmonster - nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), Gdx.graphics.getHeight() - 100, this.gdx));
+                    } else if (rand <= 85) {
+                        m.add(new MonstreSnipe(700, 800, this.gdx));
+                    } else if (rand <= 90) {
+                        m.add(new MediumMonster(Gdx.graphics.getWidth() - ((nbmonster - nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), Gdx.graphics.getHeight() - 100, this.gdx));
+                    } else {
+                        m.add(new MonstreJaponais((Gdx.graphics.getWidth() - ((nbmonster - nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1)))), Gdx.graphics.getHeight() - 100, this.gdx));
+                        Music BANZAI = Gdx.audio.newMusic(Gdx.files.internal("BANZAI.mp3"));
+                        BANZAI.play();
+                    }
 
 
+                    nbmonstertemp--;
+                }
+
+
+
+            }
             gdx.nbvague++;
         }
     }
@@ -210,7 +210,7 @@ public class Playinggame {
                 if(boss1.drop()){
                     boss1.randomPowerUp();
                 }
-                this.nbBoss = this.nbBoss - 1;
+                this.nbBoss--;
 
             }
         }
