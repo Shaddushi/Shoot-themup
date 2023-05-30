@@ -1,5 +1,6 @@
 package com.mygdx.game.characters.monster;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.bullet.Bullet;
@@ -18,9 +19,9 @@ public class MonstreSnipe extends Monster {
     }
 
     public void update(){
-        this.x += this.xspeed;
-        if(this.x <= 0 || this.x >= this.texture.getWidth() + this.getTaillex()){
-            this.xspeed = -xspeed;
+        x += xspeed;
+        if (x < 0 || x > Gdx.graphics.getWidth() - this.getTaillex()) {
+            xspeed = -xspeed;
         }
     }
 }

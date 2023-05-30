@@ -89,19 +89,24 @@ public class Playinggame {
     //fait tirer tous les monstres de la map
 
     public void shoot(){
-        for(Monster mon : m){
-            if(mon.getcooldown()<=0){
-                Bullet[] BullHere = mon.tirer();
-                for(Bullet B : BullHere)
-                    if(B != null){
-                        bulletEN.add(B);
-                    }
+         for(Monster mon : m) {
+             if (mon.getcooldown() <= 0) {
+                 Bullet[] BullHere = mon.tirer();
+                 for (Bullet B : BullHere) {
+                     if (B != null) {
+                         bulletEN.add(B);
+                     } else {
+                         if (mon instanceof MonstreChinois) {
+                             m.add(((MonstreChinois) mon).creer());
+                         }
+                     }
 
-                mon.setCooldownreset();
-            }
-            mon.cooldownDown();
+                     mon.setCooldownreset();
+                 }
+                 mon.cooldownDown();
 
-        }
+             }
+         }
         if(this.nbBoss >0) {
             if (boss1.getcooldown() <= 0) {
                 Bullet[] bullHere = boss1.tirer();
@@ -133,12 +138,15 @@ public class Playinggame {
                 nbmonsterlast = nbmonster;
                 while (nbmonstertemp != 0) {
                     int rand = random.nextInt(0, 100);
-                    if (rand <= 80) {
+                    if (rand <= 75) {
                         m.add(new SmallMonster(Gdx.graphics.getWidth() - ((nbmonster - nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), Gdx.graphics.getHeight() - 100, this.gdx));
-                    } else if (rand <= 85) {
+                    } else if (rand <= 80) {
                         m.add(new MonstreSnipe(700, 800, this.gdx));
-                    } else if (rand <= 90) {
+                    } else if (rand <= 85) {
                         m.add(new MediumMonster(Gdx.graphics.getWidth() - ((nbmonster - nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), Gdx.graphics.getHeight() - 100, this.gdx));
+                    } else if (rand <= 90) {
+                        m.add(new MonstreChinois((Gdx.graphics.getWidth() - ((nbmonster - nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1)))), Gdx.graphics.getHeight() - 100, this.gdx));
+
                     } else {
                         m.add(new MonstreJaponais((Gdx.graphics.getWidth() - ((nbmonster - nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1)))), Gdx.graphics.getHeight() - 100, this.gdx));
                         Music BANZAI = Gdx.audio.newMusic(Gdx.files.internal("BANZAI.mp3"));
