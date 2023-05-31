@@ -51,7 +51,7 @@ public class Hero extends Character {
         this.maxexp = 20;
         this.regen = 0.01;
         this.degatCAC = 0.02;
-        this.weapon = new WeaponLvL10(this);
+        this.weapon = new WeaponLvL0(this);
     }
 
 

@@ -7,7 +7,9 @@ import com.mygdx.game.bullet.Bullet;
 import com.mygdx.game.characters.hero.Hero;
 import com.mygdx.game.characters.monster.*;
 import com.mygdx.game.characters.monster.boss.Boss1;
+import com.mygdx.game.characters.monster.boss.Boss2;
 import com.mygdx.game.powerUp.PowerUp;
+
 
 import java.util.LinkedHashSet;
 
@@ -36,7 +38,11 @@ public class Playinggame {
     public int nbmonsterlast;
     public int nbmonster;
     public int nbBoss;
+    public int nbMC;
+    public int nbBoss2;
     public Boss1 boss1;
+    public Boss2 boss2;
+    public MonstreChinois MC;
 
     //score
 
@@ -71,6 +77,12 @@ public class Playinggame {
                 if(nbBoss > 0){
                     boss1.collisionEnnemi(bullH);
                 }
+                if(nbBoss2 > 0){
+                    boss2.collisionEnnemi(bullH);
+                }
+                if(nbMC > 0){
+                    MC.collisionEnnemi(bullH);
+                }
             }
         }
 
@@ -95,12 +107,7 @@ public class Playinggame {
                  for (Bullet B : BullHere) {
                      if (B != null) {
                          bulletEN.add(B);
-                     } else {
-                         if (mon instanceof MonstreChinois) {
-                             m.add(((MonstreChinois) mon).creer());
-                         }
                      }
-
                      mon.setCooldownreset();
                  }
                  mon.cooldownDown();
@@ -118,7 +125,33 @@ public class Playinggame {
             }
             boss1.cooldownDown();
         }
-
+        if(this.nbBoss2 >0) {
+            if (boss2.getcooldown() <= 0) {
+                boss2.setXspeed(0);
+                Bullet[] bullHere = boss2.tirer();
+                for (Bullet B : bullHere)
+                    if (B != null) {
+                        bulletEN.add(B);
+                    }
+                boss2.dlaserdown();
+                if(boss2.getDlaser() <= 0){
+                    boss2.setCooldownreset();
+                    boss2.setDlaser();
+                    boss2.setXspeed(3);
+                }
+            }
+            if(boss2.getcooldown() >0) {
+                boss2.cooldownDown();
+            }
+        }
+        if(this.nbMC > 0){
+            if (MC.getcooldown() <= 0) {
+                m.add( MC.creer());
+                nbmonster++;
+                MC.setCooldownreset();
+            }
+            MC.cooldownDown();
+        }
     }
 
 
@@ -129,11 +162,21 @@ public class Playinggame {
 
 
             if(gdx.nbvague % 5 == 0){
-                boss1 = new Boss1(700, 700, this.gdx);
+                boss1 = new Boss1(0, 600, this.gdx);
                 nbBoss++;
             }
+            if (gdx.nbvague % 10 == 0) {
+                boss2 = new Boss2(700, 700, this.gdx);
+                nbBoss2++;
+
+            }
+            if (gdx.nbvague % 3 == 0) {
+                MC = new MonstreChinois(0, 900, this.gdx);
+                nbMC++;
+
+            }
             else {
-                nbmonster = nbmonsterlast +2;
+                nbmonster = nbmonsterlast + 2;
                 int nbmonstertemp = nbmonsterlast + 2;
                 nbmonsterlast = nbmonster;
                 while (nbmonstertemp != 0) {
@@ -144,10 +187,8 @@ public class Playinggame {
                         m.add(new MonstreSnipe(700, 800, this.gdx));
                     } else if (rand <= 85) {
                         m.add(new MediumMonster(Gdx.graphics.getWidth() - ((nbmonster - nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), Gdx.graphics.getHeight() - 100, this.gdx));
-                    } else if (rand <= 90) {
-                        m.add(new MonstreChinois((Gdx.graphics.getWidth() - ((nbmonster - nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1)))), Gdx.graphics.getHeight() - 100, this.gdx));
-
-                    } else {
+                    }
+                    else {
                         m.add(new MonstreJaponais((Gdx.graphics.getWidth() - ((nbmonster - nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1)))), Gdx.graphics.getHeight() - 100, this.gdx));
                         Music BANZAI = Gdx.audio.newMusic(Gdx.files.internal("BANZAI.mp3"));
                         BANZAI.play();
@@ -156,7 +197,6 @@ public class Playinggame {
 
                     nbmonstertemp--;
                 }
-
 
 
             }
@@ -222,6 +262,23 @@ public class Playinggame {
 
             }
         }
+        if(nbBoss2 > 0){
+            if(!boss2.existe){
+                if(boss2.drop()){
+                    boss2.randomPowerUp();
+                }
+                this.nbBoss2--;
+            }
+        }
+
+        if(nbMC > 0){
+            if(!MC.existe){
+                if(MC.drop()){
+                    MC.randomPowerUp();
+                }
+                this.nbMC--;
+            }
+        }
 
     }
 
@@ -257,6 +314,12 @@ public class Playinggame {
         }
         if(nbBoss > 0){
             boss1.update();
+        }
+        if(nbBoss2 > 0){
+            boss2.update();
+        }
+        if(nbMC > 0){
+            MC.update();
         }
 
         usePowerUp();

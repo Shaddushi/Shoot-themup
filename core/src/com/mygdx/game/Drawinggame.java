@@ -93,6 +93,13 @@ public class Drawinggame {
         if(gdx.pg.nbBoss >0){
             gdx.pg.boss1.draw(batch);
         }
+        if(gdx.pg.nbBoss2 >0){
+            gdx.pg.boss2.draw(batch);
+        }
+        if(gdx.pg.nbMC >0){
+            gdx.pg.MC.draw(batch);
+        }
+
         for (Iterator it = gdx.pg.bullet.iterator(); it.hasNext();) {
             Bullet bullH = (Bullet) it.next();
             bullH.draw(batch);

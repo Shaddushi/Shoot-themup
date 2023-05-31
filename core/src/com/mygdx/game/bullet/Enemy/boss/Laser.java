@@ -6,7 +6,7 @@ import com.mygdx.game.bullet.Enemy.BulletEnnemi;
 
 public class Laser extends BulletEnnemi {
     public Laser(int x, int y, int xspeed, int yspeed){
-        super(2,x,y,xspeed,yspeed,new Texture("laserRed.png"), 0);
+        super(2,x,y,xspeed,yspeed,new Texture("laser.png"), 5);
     }
 
 }

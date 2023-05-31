@@ -7,7 +7,7 @@ import com.mygdx.game.characters.hero.Hero;
 
 public class WeaponLvL7 extends Weapon{
     public WeaponLvL7(Hero hero) {
-        super(15,hero,"7");
+        super(10,hero,"7");
     }
 
     @Override

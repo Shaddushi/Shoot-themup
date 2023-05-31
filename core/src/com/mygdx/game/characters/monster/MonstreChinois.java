@@ -9,7 +9,7 @@ import com.mygdx.game.bullet.Enemy.Snipe;
 public class MonstreChinois extends Monster{
 
     public MonstreChinois(int x, int y, MyGdxGame gdx){
-        super(x,y,8,8 , 15, new Texture("monstrechinois.png"), 2 , 10,0, gdx,13);
+        super(x,y,8,8 , 10, new Texture("monstrechinois.png"), 2 , 30,0, gdx,13);
     }
     public Bullet[] tirer(){
         Bullet[] BE = new Bullet[0];

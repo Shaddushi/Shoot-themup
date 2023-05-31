@@ -46,7 +46,7 @@ public class MyGdxGame<DoubleProperty> extends ApplicationAdapter {
 
 		//valeur de base pour les vagues, le score etc
 
-		nbvague = 1;
+		nbvague = 10;
 
 		//musique
 
