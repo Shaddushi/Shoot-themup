@@ -10,7 +10,7 @@ import com.mygdx.game.bullet.Enemy.boss.Laser;
 public class Boss2 extends Boss{
     public int dlaser;
     public Boss2(int x, int y, MyGdxGame gdx){
-        super(x,y,3,0 , 40, new Texture("boss2.png"), 2 , 60,10 ,gdx);
+        super(x,y,3,0 , 40, new Texture("boss2.png"), 2 , 100,10 ,gdx);
         dlaser = 100;
     }
 

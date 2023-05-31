@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Overload extends PowerUp {
     String weapon;
     public Overload(int x, int y, MyGdxGame gdx) {
-        super(x,y, new Texture("faster.jpg"), 1000,gdx);
+        super(x,y, new Texture("faster.png"), 1000,gdx);
     }
 
     @Override
