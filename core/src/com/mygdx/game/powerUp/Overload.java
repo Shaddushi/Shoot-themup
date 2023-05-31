@@ -4,10 +4,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.weapon.Weapon;
 
+import java.util.Objects;
+
 public class Overload extends PowerUp {
     String weapon;
     public Overload(int x, int y, MyGdxGame gdx) {
-        super(x,y, new Texture("boss1.jpg"), 1000,gdx);
+        super(x,y, new Texture("faster.jpg"), 1000,gdx);
     }
 
     @Override
@@ -19,7 +21,8 @@ public class Overload extends PowerUp {
 
     @Override
     public void undo() {
-        if(this.weapon == gdx.pg.hero.weapon.name) {
+        if(Objects.equals(this.weapon, gdx.pg.hero.weapon.name)) {
+            System.out.println(this.weapon +"    " + gdx.pg.hero.weapon.name);
             this.gdx.pg.hero.weapon.cooldownMax = this.gdx.pg.hero.weapon.cooldownMax * 2;
         }
     }

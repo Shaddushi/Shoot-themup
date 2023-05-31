@@ -17,7 +17,7 @@ public abstract class Weapon {
         this.cooldown =cooldown;
         this.cooldownMax = cooldown;
         this.hero = hero;
-        this.name = name;
+        this.name = Name;
     }
 
     //fonction pour les cooldowns
