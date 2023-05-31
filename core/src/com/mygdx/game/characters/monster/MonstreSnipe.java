@@ -8,7 +8,7 @@ import com.mygdx.game.bullet.Enemy.Snipe;
 
 public class MonstreSnipe extends Monster {
     public MonstreSnipe(int x, int y, MyGdxGame gdx){
-        super(x,y,3,0 , 0.01, new Texture("sniper.png"), 2 , 100,0, gdx,13);
+        super(x,y,3,0 , 0.01, new Texture("sniper.png"), 2 , 150,0, gdx,13);
 
     }
 

@@ -37,6 +37,7 @@ public class Drawinggame {
     public BitmapFont DamageBoost;
 
     public BitmapFont Stat;
+    
     public Drawinggame(MyGdxGame gdx){
 
         //initialise les shaperenderer
@@ -73,6 +74,7 @@ public class Drawinggame {
         Stat = new BitmapFont();
         Stat.getData().setScale(2.5f);
         Stat.setColor(128 / 255f, 166/ 255f, 191/ 255f,1);
+
     }
 
     //dessine le jeu
@@ -234,7 +236,6 @@ public class Drawinggame {
         DamageBoost.draw(batch, "Damage boost x" + Math.round(gdx.pg.hero.bonus_damage),
                 (int)(Gdx.graphics.getWidth() / 2.5),
                 (int)(Gdx.graphics.getHeight() /1.75));
-
         batch.end();
 
 

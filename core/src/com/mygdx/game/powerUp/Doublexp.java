@@ -5,7 +5,7 @@ import com.mygdx.game.MyGdxGame;
 
 public class Doublexp extends PowerUp {
     public Doublexp(int x, int y, MyGdxGame gdx) {
-        super(x,y, new Texture("x2.png"), 2000,gdx);
+        super(x,y, new Texture("greenx2.png"), 2000,gdx);
     }
 
     @Override

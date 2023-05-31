@@ -8,7 +8,7 @@ import com.mygdx.game.characters.monster.Monster;
 
 public class Damagepack extends PowerUp {
     public Damagepack(int x, int y, MyGdxGame gdx) {
-        super(x,y, new Texture("kamikaze.png"), 1000,gdx);
+        super(x,y, new Texture("x2.png"), 1000,gdx);
     }
 
     @Override

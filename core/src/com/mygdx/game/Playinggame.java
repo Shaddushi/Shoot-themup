@@ -181,15 +181,17 @@ public class Playinggame {
                 nbmonsterlast = nbmonster;
                 while (nbmonstertemp != 0) {
                     int rand = random.nextInt(0, 100);
-                    if (rand <= 75) {
-                        m.add(new SmallMonster(Gdx.graphics.getWidth() - ((nbmonster - nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), Gdx.graphics.getHeight() - 100, this.gdx));
-                    } else if (rand <= 80) {
-                        m.add(new MonstreSnipe(700, 800, this.gdx));
-                    } else if (rand <= 85) {
-                        m.add(new MediumMonster(Gdx.graphics.getWidth() - ((nbmonster - nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1))), Gdx.graphics.getHeight() - 100, this.gdx));
-                    }
-                    else {
-                        m.add(new MonstreJaponais((Gdx.graphics.getWidth() - ((nbmonster - nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1)))), Gdx.graphics.getHeight() - 100, this.gdx));
+                    int coordx = Gdx.graphics.getWidth() - ((nbmonster - nbmonstertemp + 1) * (Gdx.graphics.getWidth() / (nbmonster + 1)));
+                    int coordy = Gdx.graphics.getHeight() - 100;
+                    if (rand <= 80) {
+                        m.add(new SmallMonster(coordx,coordy,this.gdx));
+                    } else if (rand <= 83) {
+                        m.add(new MonstreSnipe(coordx,coordy,this.gdx));
+                    } else if (rand <= 90) {
+                        m.add(new MediumMonster(coordx,coordy,this.gdx));
+                    } else {
+                        m.add(new MonstreJaponais(coordx,coordy,this.gdx));
+
                         Music BANZAI = Gdx.audio.newMusic(Gdx.files.internal("BANZAI.mp3"));
                         BANZAI.play();
                     }

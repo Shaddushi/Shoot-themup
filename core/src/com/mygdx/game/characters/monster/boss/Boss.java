@@ -10,10 +10,7 @@ import com.mygdx.game.characters.monster.Monster;
 public abstract class Boss extends Monster {
 
     public Boss(int x, int y, int xspeed, int yspeed, int life, Texture texture, int xp, int cooldown, int cac, MyGdxGame gdx){
-        super(x,y,xspeed,yspeed , life, texture, xp,cooldown, cac,gdx, 100);
-        this.life = life * (gdx.nbvague/5);
-        this.Maxlife = life * (gdx.nbvague/5);
-
+        super(x,y,xspeed,yspeed , life* (gdx.nbvague/5), texture, xp,cooldown / (gdx.nbvague/5 +1), cac,gdx, 100);
     }
 
     @Override

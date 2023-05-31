@@ -117,6 +117,12 @@ public class Hero extends Character {
         else if(getLevel()==5){
             this.weapon = new WeaponLvL5(this);
         }
+        else if(getLevel()==7){
+            this.weapon = new WeaponLvL7(this);
+        }
+        else if(getLevel()==10){
+            this.weapon = new WeaponLvL10(this);
+        }
     }
 
 
